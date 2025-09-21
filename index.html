@@ -1,219 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Media Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <script>
-        // Backend API URL
-        const API_URL = 'https://ds-qr.onrender.com';
-        
-        // Get event ID from URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const eventId = urlParams.get('event');
-        
-        // Show notification
-                
-        // Load event media
-        <script>
-    // Backend API URL
-    const API_URL = 'https://ds-qr.onrender.com';
-    
-    // Get event ID from URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const eventId = urlParams.get('event');
-    
-    // ADD THIS NEW FUNCTION FOR HANDLING TELEGRAM MEDIA
-    async function handleTelegramMedia(url, type) {
-      try {
-        // Test if the Telegram CDN link works
-        const testResponse = await fetch(url, { method: 'HEAD' });
-        
-        if (testResponse.ok) {
-          return url; // Link works, use it directly
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
         }
-      } catch (error) {
-        console.log('Telegram CDN link failed, using proxy');
-      }
-      
-      // If Telegram CDN fails, use a proxy through your backend
-      return `${API_URL}/proxy?url=${encodeURIComponent(url)}&type=${type}`;
-    }
-    
-    // Show notification
-    function showNotification(message, isError = false) {
-        const notification = document.getElementById('notification');
-        const notificationText = document.getElementById('notification-text');
-        
-        if (isError) {
-            notification.style.background = 'linear-gradient(135deg, #ff4b4b, #ff7b7b)';
-        } else {
-            notification.style.background = 'linear-gradient(135deg, #7e4fd3, #5a6bd8)';
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
         }
-        
-        notificationText.textContent = message;
-        notification.classList.add('show');
-        
-        setTimeout(() => {
-            notification.classList.remove('show');
-        }, 3000);
-    }
-    
-    // Open modal with media
-    function openModal(mediaUrl, type) {
-        const modal = document.getElementById('modal');
-        const modalContent = document.getElementById('modal-content');
-        
-        if (type === 'photo') {
-            modalContent.innerHTML = `<img src="${mediaUrl}" alt="Event photo">`;
-        } else {
-            modalContent.innerHTML = `
-                <video controls autoplay>
-                    <source src="${mediaUrl}" type="video/mp4">
-                    Your browser does not support videos.
-                </video>
-            `;
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    // Close modal
-    function closeModal() {
-        const modal = document.getElementById('modal');
-        const modalContent = document.getElementById('modal-content');
-        
-        modal.classList.remove('show');
-        document.body.style.overflow = 'auto';
-        
-        // Stop video playback
-        const video = modalContent.querySelector('video');
-        if (video) {
-            video.pause();
-            video.currentTime = 0;
+
+        header {
+            background: linear-gradient(135deg, #7e4fd3 0%, #5a6bd8 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        
-        setTimeout(() => {
-            modalContent.innerHTML = '';
-        }, 300);
-    }
-    
-    // Close modal on ESC key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeModal();
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
         }
-    });
-    
-    // Close modal on background click
-    document.getElementById('modal').addEventListener('click', (e) => {
-        if (e.target === document.getElementById('modal')) {
-            closeModal();
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
         }
-    });
-    
-    // Load event media - UPDATED WITH TELEGRAM MEDIA HANDLING
-    async function loadEventMedia() {
-        const gallery = document.getElementById('gallery');
-        
-        if (!eventId) {
-            gallery.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-images"></i>
-                    <h2>No Event Selected</h2>
-                    <p>Please use a valid event link to view media</p>
-                </div>
-            `;
-            return;
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+            position: relative;
         }
-        
-        try {
-            gallery.innerHTML = `
+
+        .gallery-container {
+            padding: 30px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .media-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            aspect-ratio: 1;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: mediaAppear 0.6s ease-out forwards;
+        }
+
+        @keyframes mediaAppear {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .media-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .media-item img,
+        .media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .media-item:hover img,
+        .media-item:hover video {
+            transform: scale(1.1);
+        }
+
+        .media-type {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(126, 79, 211, 0.9);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #666;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #7e4fd3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 40px;
+            color: #666;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: #7e4fd3;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #7e4fd3, #5a6bd8);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(126, 79, 211, 0.3);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .notification i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            background: black;
+            border-radius: 10px;
+            overflow: hidden;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content img,
+        .modal-content video {
+            max-width: 100%;
+            max-height: 90vh;
+            display: block;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: background 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .container {
+                border-radius: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            header {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Event Gallery</h1>
+            <p class="subtitle">Beautiful memories captured in time</p>
+        </header>
+
+        <div class="gallery-container">
+            <div class="gallery" id="gallery">
                 <div class="loading">
                     <div class="loading-spinner"></div>
                     <p>Loading beautiful memories...</p>
                 </div>
-            `;
-            
-            const response = await fetch(`${API_URL}/api/event/${eventId}`);
-            
-            if (!response.ok) {
-                throw new Error('Event not found');
-            }
-            
-            const eventData = await response.json();
-            
-            if (!eventData.media || eventData.media.length === 0) {
-                gallery.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-camera"></i>
-                        <h2>No Media Yet</h2>
-                        <p>Photos and videos will appear here once uploaded</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Clear loading state
-            gallery.innerHTML = '';
-            
-            // Add media items with staggered animation - UPDATED WITH WORKING URLS
-            for (const [index, item] of eventData.media.entries()) {
-                const mediaElement = document.createElement('div');
-                mediaElement.className = 'media-item';
-                mediaElement.style.animationDelay = `${index * 0.1}s`;
-                
-                // GET WORKING URL FOR EACH MEDIA ITEM
-                const workingUrl = await handleTelegramMedia(item.file_path, item.type);
-                
-                if (item.type === 'photo') {
-                    mediaElement.innerHTML = `
-                        <img src="${workingUrl}" alt="Event photo" loading="lazy">
-                        <div class="media-type">Photo</div>
-                    `;
-                } else {
-                    mediaElement.innerHTML = `
-                        <video poster="data:image/gif,AAAA" preload="none">
-                            <source src="${workingUrl}" type="video/mp4">
-                        </video>
-                        <div class="media-type">Video</div>
-                    `;
-                }
-                
-                mediaElement.addEventListener('click', () => {
-                    openModal(workingUrl, item.type);
-                });
-                
-                gallery.appendChild(mediaElement);
-            }
-            
-            // Lazy load images and videos
-            const lazyMedia = gallery.querySelectorAll('img[loading="lazy"], video');
-            lazyMedia.forEach(media => {
-                if (media.tagName === 'IMG') {
-                    media.addEventListener('load', () => {
-                        media.style.opacity = '1';
-                    });
-                }
-            });
-            
-        } catch (error) {
-            console.error('Error loading media:', error);
-            gallery.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <h2>Unable to Load Media</h2>
-                    <p>Please check the event link and try again</p>
-                </div>
-            `;
-            showNotification('Error loading media: ' + error.message, true);
-        }
-    }
-    
-    // Auto-refresh media every 30 seconds
-    setInterval(loadEventMedia, 30000);
-    
-    // Initialize on load
-    document.addEventListener('DOMContentLoaded', () => {
-        loadEventMedia();
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content" id="modal-content"></div>
+        <div class="modal-close" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text"></span>
+    </div>
+
+    <script>
+        // Backend API URL - UPDATE THIS TO YOUR RENDER URL!
+        const API_URL = 'https://ds-qr.onrender.com';
         
-        // Check for new media every 30 seconds
-        setInterval(loadEventMedia, 30000);
-    });
-</script>
+        // Get event ID from URL parameters
+        const urlParams 
