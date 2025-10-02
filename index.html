@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -33,32 +33,67 @@
         h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 10px; position: relative; }
         .subtitle { font-size: 1.2rem; opacity: 0.9; font-weight: 300; position: relative; }
         .gallery-container { padding: 30px; }
+        
+        /* UPDATED: Mobile-friendly gallery */
         .gallery {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px; padding: 20px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+            padding: 15px 0;
         }
+
+        /* UPDATED: Keep original aspect ratio */
         .media-item {
-            position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; aspect-ratio: 1;
-            opacity: 0; transform: scale(0.8); animation: mediaAppear 0.6s ease-out forwards;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            /* REMOVED aspect-ratio to keep original ratio */
+            opacity: 0;
+            transform: scale(0.9);
+            animation: mediaAppear 0.5s ease-out forwards;
         }
+
         @keyframes mediaAppear {
             to { opacity: 1; transform: scale(1); }
         }
+
         .media-item:hover {
-            transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
-        .media-item img, .media-item video {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;
+
+        /* UPDATED: Keep original aspect ratio */
+        .media-item img,
+        .media-item video {
+            width: 100%;
+            height: auto; /* Keep original aspect ratio */
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
         }
-        .media-item:hover img, .media-item:hover video {
+
+        .media-item:hover img,
+        .media-item:hover video {
             transform: scale(1.1);
         }
+
+        /* UPDATED: Smaller badges for mobile */
         .media-type {
-            position: absolute; top: 15px; right: 15px; background: rgba(126, 79, 211, 0.9);
-            color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 500;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(126, 79, 211, 0.95);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
             backdrop-filter: blur(10px);
         }
+
         .loading { text-align: center; padding: 60px; color: #666; }
         .loading-spinner {
             width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #7e4fd3;
@@ -96,12 +131,60 @@
             backdrop-filter: blur(10px); transition: background 0.3s ease;
         }
         .modal-close:hover { background: rgba(255, 255, 255, 0.2); }
+
+        /* UPDATED: Better mobile header */
+        @media (max-width: 768px) {
+            header {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            
+            .media-type {
+                top: 12px;
+                right: 12px;
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            .modal-content {
+                max-width: 95vw;
+                max-height: 85vh;
+            }
+
+            .modal-close {
+                width: 40px;
+                height: 40px;
+                top: 15px;
+                right: 15px;
+            }
+        }
+
+        /* UPDATED: Desktop scaling */
+        @media (min-width: 1024px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 25px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Event Gallery</h1>
+            <!-- UPDATED: Dynamic title -->
+            <h1 id="event-title">Event Gallery</h1>
             <p class="subtitle">Beautiful memories captured in time</p>
         </header>
         <div class="gallery-container">
@@ -123,6 +206,15 @@
         const API_URL = 'https://ds-qr.onrender.com';
         const urlParams = new URLSearchParams(window.location.search);
         const eventId = urlParams.get('event');
+        
+        // UPDATED: Get custom title from URL
+        const customTitle = urlParams.get('title');
+
+        // UPDATED: Update page title
+        if (customTitle) {
+            document.getElementById('event-title').textContent = decodeURIComponent(customTitle);
+            document.title = decodeURIComponent(customTitle) + ' - Event Gallery';
+        }
         
         function openModal(mediaUrl, type) {
             const modal = document.getElementById('modal');
