@@ -1,4 +1,4 @@
-﻿* {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -271,14 +271,14 @@ h1 {
     margin-right: 8px;
 }
 
+/* GALLERY STYLES - 3 COLUMNS WITH ORIGINAL RATIO */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Force 3 columns */
-    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
     padding: 15px 0;
 }
 
-/* Ensure images fit properly in 3-column layout */
 .media-item {
     position: relative;
     border-radius: 10px;
@@ -289,26 +289,7 @@ h1 {
     opacity: 0;
     transform: scale(0.9);
     animation: mediaAppear 0.5s ease-out forwards;
-}
-
-.media-item img,
-.media-item video {
-    width: 100%;
     height: auto;
-    display: block;
-}
-
-.media-item {
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    /* REMOVE aspect-ratio to keep original ratio */
-    opacity: 0;
-    transform: scale(0.9);
-    animation: mediaAppear 0.5s ease-out forwards;
 }
 
 @keyframes mediaAppear {
@@ -324,8 +305,8 @@ h1 {
 .media-item img,
 .media-item video {
     width: 100%;
-    height: auto; /* Keep original aspect ratio */
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     display: block;
     transition: transform 0.3s ease;
 }
@@ -352,6 +333,100 @@ h1 {
     color: #888;
     font-style: italic;
     padding: 40px;
+}
+
+/* LIGHTBOX WITH TOUCH SLIDING */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    touch-action: pan-y pinch-zoom;
+}
+
+.lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-content {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.lightbox-track {
+    display: flex;
+    transition: transform 0.3s ease;
+    height: 100%;
+    align-items: center;
+}
+
+.lightbox-slide {
+    flex: 0 0 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.lightbox-media {
+    max-width: 95%;
+    max-height: 95vh;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    object-fit: contain;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    z-index: 1001;
+}
+
+.lightbox-counter {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 16px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.swipe-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    text-align: center;
 }
 
 .notification {
@@ -381,6 +456,7 @@ h1 {
     font-size: 1.3rem;
 }
 
+/* MOBILE RESPONSIVENESS - KEEP 3 COLUMNS */
 @media (max-width: 768px) {
     .content {
         flex-direction: column;
@@ -395,40 +471,37 @@ h1 {
         flex-direction: column;
     }
     
-    /* MOBILE GALLERY - 3 columns */
     .gallery {
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
     }
     
-    .media-type {
-        top: 6px;
-        right: 6px;
-        padding: 3px 8px;
-        font-size: 0.6rem;
+    .media-item .type-badge {
+        top: 8px;
+        right: 8px;
+        padding: 4px 8px;
+        font-size: 0.7rem;
     }
 }
 
-/* For very small phones */
+/* For very small phones - STILL 3 COLUMNS */
 @media (max-width: 480px) {
     .gallery {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 6px;
     }
-}
-
-/* Tablet */
-@media (min-width: 768px) {
-    .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
+    
+    .media-item {
+        height: auto;
     }
 }
 
-/* Desktop */
-@media (min-width: 1024px) {
-    .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 25px;
-    }
+/* Touch feedback */
+.media-item:active {
+    transform: scale(0.95);
+}
+
+/* Loading state for lightbox */
+.lightbox-media.loading {
+    opacity: 0.5;
 }
