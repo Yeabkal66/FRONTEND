@@ -62,6 +62,7 @@ h1 {
     position: relative;
     margin-top: 10px;
     line-height: 1.5;
+    min-height: 30px;
 }
 
 .content {
@@ -276,11 +277,11 @@ h1 {
     margin-right: 8px;
 }
 
-/* GALLERY STYLES - 3 COLUMNS WITH ORIGINAL RATIO */
+/* GALLERY STYLES */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
     padding: 15px 0;
     flex: 1;
 }
@@ -475,7 +476,7 @@ h1 {
     font-size: 1.3rem;
 }
 
-/* MOBILE RESPONSIVENESS - KEEP 3 COLUMNS */
+/* MOBILE RESPONSIVENESS */
 @media (max-width: 768px) {
     .content {
         flex-direction: column;
@@ -491,8 +492,8 @@ h1 {
     }
     
     .gallery {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
     }
     
     .media-item .type-badge {
@@ -509,11 +510,11 @@ h1 {
     }
 }
 
-/* For very small phones - STILL 3 COLUMNS */
+/* For very small phones */
 @media (max-width: 480px) {
     .gallery {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 8px;
     }
     
     .media-item {
