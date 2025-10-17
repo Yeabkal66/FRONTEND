@@ -286,7 +286,9 @@
                     mediaElement.style.animationDelay = `${index * 0.1}s`;
                     mediaElement.innerHTML = item.type === 'photo' 
                         ? `<img src="${item.file_path}" alt="Event photo" loading="lazy"><div class="media-type">Photo</div>`
-                        : `<video preload="none"><source src="${item.file_path}" type="video/mp4"></video><div class="media-type">Video</div>`;
+                        : `<video preload="metadata" playsinline poster="${item.file_path.replace('/upload/', '/upload/so_0/').replace('.mp4', '.jpg')}">
+    <source src="${item.file_path}" type="video/mp4">
+   </video><div class="media-type">Video</div>`;
                     mediaElement.addEventListener('click', () => openModal(item.file_path, item.type));
                     gallery.appendChild(mediaElement);
                 });
@@ -299,3 +301,4 @@
     </script>
 </body>
 </html>
+
