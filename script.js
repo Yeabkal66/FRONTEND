@@ -10,14 +10,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const title = urlParams.get('title');
     const description = urlParams.get('description');
     
+    // Always show title and description from URL if available
+    if (title) {
+        document.getElementById('eventTitle').textContent = decodeURIComponent(title);
+    }
+    
+    if (description) {
+        document.getElementById('eventDescription').textContent = decodeURIComponent(description);
+    }
+    
+    // Load event media if event ID is provided
     if (eventId) {
         document.getElementById('eventIdInput').value = eventId;
         loadEvent();
-    } else if (title) {
-        document.getElementById('eventTitle').textContent = decodeURIComponent(title);
-        if (description) {
-            document.getElementById('eventDescription').textContent = decodeURIComponent(description);
-        }
     }
 });
 
@@ -47,22 +52,14 @@ async function loadEvent() {
         const eventData = await response.json();
         currentEventData = eventData;
         
-        // Update UI
+        // Update UI with data from API (overrides URL parameters)
         document.getElementById('eventTitle').textContent = eventData.title || 'Event Gallery';
         document.getElementById('eventDescription').textContent = eventData.description || '';
-        
-        // Show/hide footer text based on description
-        const footerText = document.getElementById('footerText');
-        if (eventData.description) {
-            footerText.style.display = 'none';
-        } else {
-            footerText.style.display = 'block';
-        }
         
         displayMedia(eventData.media);
         showNotification('Event loaded successfully!');
         
-        // Update URL without reload
+        // Update URL with current data
         const newUrl = `${window.location.pathname}?event=${eventId}&title=${encodeURIComponent(eventData.title)}&description=${encodeURIComponent(eventData.description || '')}`;
         window.history.replaceState({}, '', newUrl);
         
@@ -243,4 +240,4 @@ document.getElementById('eventIdInput').addEventListener('keypress', function(e)
     if (e.key === 'Enter') {
         loadEvent();
     }
-}); 
+});
