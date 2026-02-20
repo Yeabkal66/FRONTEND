@@ -5,8 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Gallery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Using @font-face for DaFont fonts -->
     <style>
+        @font-face {
+            font-family: 'Aqub';
+            src: url('https://dl.dropboxusercontent.com/s/abcdef123456/aqub.otf?raw=1') format('opentype');
+            /* Fallback for Aqub - using similar elegant font */
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Hastegi';
+            src: url('https://dl.dropboxusercontent.com/s/ghijkl789012/hastegi.otf?raw=1') format('opentype');
+            /* Fallback for Hastegi */
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Font fallbacks */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Inter', sans-serif;
@@ -17,22 +38,93 @@
             max-width: 1400px; margin: 0 auto; background: #f4ebe2;
             border-radius: 20px; backdrop-filter: blur(10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             overflow: hidden; animation: fadeIn 0.8s ease-out;
+            position: relative;
         }
+
+        /* Aesthetic golden patterns */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.08) 2px, transparent 2px),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.08) 2px, transparent 2px),
+                radial-gradient(circle at 40% 60%, rgba(212, 175, 55, 0.06) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 90% 20%, rgba(212, 175, 55, 0.06) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 10% 85%, rgba(212, 175, 55, 0.07) 2px, transparent 2px),
+                radial-gradient(circle at 70% 40%, rgba(212, 175, 55, 0.07) 2px, transparent 2px),
+                repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.02) 0px, rgba(212, 175, 55, 0.02) 2px, transparent 2px, transparent 8px),
+                repeating-linear-gradient(135deg, rgba(212, 175, 55, 0.02) 0px, rgba(212, 175, 55, 0.02) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 20px;
+        }
+
+        /* Decorative corner patterns */
+        .container::after {
+            content: '✦ ✦ ✦';
+            position: absolute;
+            bottom: 15px;
+            right: 25px;
+            font-size: 1rem;
+            color: rgba(212, 175, 55, 0.25);
+            font-family: 'Aqub', 'Playfair Display', serif;
+            letter-spacing: 6px;
+            pointer-events: none;
+            z-index: 1;
+            transform: rotate(-5deg);
+        }
+
+        /* Top left corner decoration */
+        .container .pattern-corner {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 1.2rem;
+            color: rgba(212, 175, 55, 0.2);
+            font-family: 'Aqub', 'Playfair Display', serif;
+            pointer-events: none;
+            z-index: 1;
+            transform: rotate(5deg);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
         header {
             background: linear-gradient(135deg, #1b842c 0%, #00563b 100%);
-            color: white; padding: 40px; text-align: center; position: relative; overflow: hidden;
+            color: white; padding: 30px 40px; text-align: center; position: relative; overflow: hidden;
         }
         header::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); transform: rotate(30deg);
         }
-        h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 10px; position: relative; }
-        .subtitle { font-size: 1.2rem; opacity: 0.9; font-weight: 300; position: relative; }
-        .gallery-container { padding: 30px; }
+        h1 { 
+            font-size: 2.8rem; 
+            font-weight: 400; 
+            margin-bottom: 8px; 
+            position: relative; 
+            font-family: 'Aqub', 'Playfair Display', serif;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            line-height: 1.2;
+        }
+        .subtitle { 
+            font-size: 1.3rem; 
+            opacity: 0.95; 
+            font-weight: 400; 
+            position: relative;
+            font-family: 'Hastegi', 'Cormorant Garamond', serif;
+            color: #f4ebe2;
+            letter-spacing: 0.5px;
+            font-style: italic;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+        }
+        .gallery-container { padding: 30px; position: relative; z-index: 2; }
         
         /* UPDATED: Mobile-friendly gallery */
         .gallery {
@@ -40,6 +132,8 @@
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 12px;
             padding: 15px 0;
+            position: relative;
+            z-index: 2;
         }
 
         /* UPDATED: Keep original aspect ratio */
@@ -54,6 +148,8 @@
             opacity: 0;
             transform: scale(0.9);
             animation: mediaAppear 0.5s ease-out forwards;
+            background: #f4ebe2;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         @keyframes mediaAppear {
@@ -62,7 +158,8 @@
 
         .media-item:hover {
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 103, 79, 0.25);
+            border-color: rgba(212, 175, 55, 0.5);
         }
 
         /* UPDATED: Keep original aspect ratio */
@@ -92,9 +189,11 @@
             font-size: 0.7rem;
             font-weight: 500;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            font-family: 'Inter', sans-serif;
         }
 
-        .loading { text-align: center; padding: 60px; color: #666; }
+        .loading { text-align: center; padding: 60px; color: #666; position: relative; z-index: 2; }
         .loading-spinner {
             width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #00674f;
             border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;
@@ -102,20 +201,27 @@
         @keyframes spin {
             0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); }
         }
-        .empty-state { text-align: center; padding: 80px 40px; color: #666; }
+        .empty-state { text-align: center; padding: 80px 40px; color: #666; position: relative; z-index: 2; }
         .empty-state i { font-size: 4rem; color: #00674f; margin-bottom: 20px; opacity: 0.5; }
         
         /* NEW: Footer for custom description */
         .footer-description {
             text-align: center;
             color: #00674f;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-style: italic;
-            margin-top: 40px;
-            padding: 25px;
-            border-top: 2px solid #f0f0f0;
+            margin-top: 30px;
+            padding: 20px;
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
             opacity: 0.8;
-            line-height: 1.6;
+            line-height: 1.5;
+            position: relative;
+            z-index: 2;
+            background: rgba(244, 235, 226, 0.7);
+            backdrop-filter: blur(2px);
+            border-radius: 0 0 20px 20px;
+            font-family: 'Hastegi', 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
         }
         
         .notification {
@@ -153,11 +259,11 @@
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .subtitle {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
 
             .gallery {
@@ -185,9 +291,15 @@
             }
             
             .footer-description {
-                font-size: 1rem;
+                font-size: 1.1rem;
                 margin-top: 30px;
                 padding: 20px;
+            }
+
+            .container::after {
+                font-size: 1rem;
+                bottom: 10px;
+                right: 15px;
             }
         }
 
@@ -202,10 +314,13 @@
 </head>
 <body>
     <div class="container">
+        <!-- Corner pattern element -->
+        <div class="pattern-corner">✧ ✧ ✧</div>
+        
         <header>
             <!-- UPDATED: Dynamic title -->
             <h1 id="event-title">Event Gallery</h1>
-            <p class="subtitle">Beautiful memories captured in time</p>
+            <p class="subtitle" id="subtitle-text">Beautiful memories captured in time</p>
         </header>
         <div class="gallery-container">
             <div class="gallery" id="gallery">
