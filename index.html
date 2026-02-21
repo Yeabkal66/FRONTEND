@@ -243,7 +243,17 @@
             transform: scale(0.8); transition: transform 0.3s ease;
         }
         .modal.show .modal-content { transform: scale(1); }
-        .modal-content img, .modal-content video { max-width: 100%; max-height: 90vh; display: block; }
+        .modal-content img, .modal-content video { 
+            max-width: 100%; 
+            max-height: 90vh; 
+            display: block; 
+        }
+        /* Add video controls to show seek bar */
+        .modal-content video {
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+        }
         .modal-close {
             position: absolute; top: 20px; right: 20px; background: rgba(255, 255, 255, 0.1);
             color: white; width: 50px; height: 50px; border-radius: 50%; display: flex;
@@ -361,26 +371,58 @@
             document.getElementById('footer-description').textContent = decodeURIComponent(customDescription);
         }
         
+        // Store current video element to pause it later
+        let currentVideo = null;
+        
         function openModal(mediaUrl, type) {
             const modal = document.getElementById('modal');
             const modalContent = document.getElementById('modal-content');
-            modalContent.innerHTML = type === 'photo' 
-                ? `<img src="${mediaUrl}" alt="Event photo">`
-                : `<video controls autoplay><source src="${mediaUrl}" type="video/mp4"></video>`;
+            
+            if (type === 'photo') {
+                modalContent.innerHTML = `<img src="${mediaUrl}" alt="Event photo">`;
+            } else {
+                // FIXED: Added proper video controls and removed autoplay
+                modalContent.innerHTML = `<video controls preload="auto"><source src="${mediaUrl}" type="video/mp4"></video>`;
+                // Store reference to video element
+                currentVideo = modalContent.querySelector('video');
+            }
+            
             modal.classList.add('show');
             document.body.style.overflow = 'hidden';
         }
         
         function closeModal() {
             const modal = document.getElementById('modal');
+            
+            // FIXED: Pause video if it's playing
+            if (currentVideo) {
+                currentVideo.pause();
+                currentVideo.currentTime = 0; // Reset to beginning
+                currentVideo = null;
+            }
+            
             modal.classList.remove('show');
             document.body.style.overflow = 'auto';
+            
+            // Clear modal content to stop any background playback
+            setTimeout(() => {
+                if (!modal.classList.contains('show')) {
+                    document.getElementById('modal-content').innerHTML = '';
+                }
+            }, 300);
         }
+        
+        // FIXED: Close modal when clicking outside the content
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
         
         async function loadEventMedia() {
             const gallery = document.getElementById('gallery');
             if (!eventId) {
-                gallery.innerHTML = `<div class="empty-state"><i class="fas fa-images"></i><h2>No Event Selected</h2></div>`;
+                gallery.innerHTML = `<div class="empty-state"><i class="fas fa-images"></i><h2>No Event Selected</h2><p style="color:#00674f;">Add ?event=YOUR_EVENT_ID to URL</p></div>`;
                 return;
             }
             
@@ -399,16 +441,20 @@
                     const mediaElement = document.createElement('div');
                     mediaElement.className = 'media-item';
                     mediaElement.style.animationDelay = `${index * 0.1}s`;
-                    mediaElement.innerHTML = item.type === 'photo' 
-                        ? `<img src="${item.file_path}" alt="Event photo" loading="lazy"><div class="media-type">Photo</div>`
-                        : `<video preload="metadata" playsinline poster="${item.file_path.replace('/upload/', '/upload/so_0/').replace('.mp4', '.jpg')}">
-    <source src="${item.file_path}" type="video/mp4">
-   </video><div class="media-type">Video</div>`;
+                    
+                    if (item.type === 'photo') {
+                        mediaElement.innerHTML = `<img src="${item.file_path}" alt="Event photo" loading="lazy"><div class="media-type">Photo</div>`;
+                    } else {
+                        // Generate poster URL for video thumbnails
+                        const posterUrl = item.file_path.replace('/upload/', '/upload/so_0/').replace('.mp4', '.jpg');
+                        mediaElement.innerHTML = `<video preload="metadata" playsinline poster="${posterUrl}"><source src="${item.file_path}" type="video/mp4"></video><div class="media-type">Video</div>`;
+                    }
+                    
                     mediaElement.addEventListener('click', () => openModal(item.file_path, item.type));
                     gallery.appendChild(mediaElement);
                 });
             } catch (error) {
-                gallery.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><h2>Error Loading Media</h2></div>`;
+                gallery.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><h2>Error Loading Media</h2><p style="color:#00674f;">${error.message}</p></div>`;
             }
         }
         
