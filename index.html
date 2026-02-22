@@ -10,7 +10,6 @@
         @font-face {
             font-family: 'Aqub';
             src: url('https://dl.dropboxusercontent.com/s/abcdef123456/aqub.otf?raw=1') format('opentype');
-            /* Fallback for Aqub - using similar elegant font */
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -19,7 +18,6 @@
         @font-face {
             font-family: 'Hastegi';
             src: url('https://dl.dropboxusercontent.com/s/ghijkl789012/hastegi.otf?raw=1') format('opentype');
-            /* Fallback for Hastegi */
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -126,11 +124,11 @@
         }
         .gallery-container { padding: 30px; position: relative; z-index: 2; }
         
-        /* UPDATED: Mobile-friendly gallery */
+        /* FIXED: ALWAYS 3 COLUMNS */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(3, 1fr); /* ALWAYS 3 columns */
+            gap: 15px;
             padding: 15px 0;
             position: relative;
             z-index: 2;
@@ -144,12 +142,12 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             cursor: pointer;
-            /* REMOVED aspect-ratio to keep original ratio */
             opacity: 0;
             transform: scale(0.9);
             animation: mediaAppear 0.5s ease-out forwards;
             background: #f4ebe2;
             border: 1px solid rgba(212, 175, 55, 0.2);
+            aspect-ratio: auto; /* Keep original dimensions */
         }
 
         @keyframes mediaAppear {
@@ -167,7 +165,6 @@
         .media-item video {
             width: 100%;
             height: auto; /* Keep original aspect ratio */
-            object-fit: cover;
             display: block;
             transition: transform 0.3s ease;
         }
@@ -232,92 +229,222 @@
         }
         .notification.show { opacity: 1; transform: translateY(0); }
         .notification i { margin-right: 12px; font-size: 1.3rem; }
+        
+        /* NEW: Swipeable Modal Gallery */
         .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9);
-            display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0;
-            visibility: hidden; transition: all 0.3s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
-        .modal.show { opacity: 1; visibility: visible; }
+        
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
         .modal-content {
-            max-width: 90vw; max-height: 90vh; background: black; border-radius: 10px; overflow: hidden;
-            transform: scale(0.8); transition: transform 0.3s ease;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .modal.show .modal-content { transform: scale(1); }
-        .modal-content img, .modal-content video { 
-            max-width: 100%; 
-            max-height: 90vh; 
-            display: block; 
+        
+        .modal-content img,
+        .modal-content video {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
         }
-        /* Add video controls to show seek bar */
+        
         .modal-content video {
             width: 100%;
             height: auto;
             max-height: 90vh;
         }
-        .modal-close {
-            position: absolute; top: 20px; right: 20px; background: rgba(255, 255, 255, 0.1);
-            color: white; width: 50px; height: 50px; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; cursor: pointer; font-size: 1.5rem;
-            backdrop-filter: blur(10px); transition: background 0.3s ease;
+        
+        /* Navigation arrows */
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 103, 79, 0.8);
+            border: 2px solid #D4AF37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #D4AF37;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2100;
         }
-        .modal-close:hover { background: rgba(255, 255, 255, 0.2); }
+        
+        .modal-nav:hover {
+            background: #D4AF37;
+            color: #00674f;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .modal-nav.prev {
+            left: 20px;
+        }
+        
+        .modal-nav.next {
+            right: 20px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 103, 79, 0.8);
+            border: 2px solid #D4AF37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #D4AF37;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2100;
+        }
+        
+        .modal-close:hover {
+            background: #D4AF37;
+            color: #00674f;
+            transform: rotate(90deg);
+        }
+        
+        /* Counter */
+        .modal-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 103, 79, 0.8);
+            color: #D4AF37;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            border: 1px solid #D4AF37;
+            backdrop-filter: blur(5px);
+            z-index: 2100;
+        }
+        
+        /* Touch swipe indicators */
+        .swipe-hint {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(212, 175, 55, 0.6);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            z-index: 2100;
+        }
+        
+        .swipe-hint i {
+            font-size: 1.2rem;
+        }
 
-        /* UPDATED: Better mobile header */
+        /* Mobile responsiveness - still 3 columns */
         @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(3, 1fr); /* STILL 3 columns */
+                gap: 8px;
+            }
+            
             header {
-                padding: 25px 20px;
+                padding: 20px 15px;
             }
             
             h1 {
-                font-size: 2.2rem;
+                font-size: 1.8rem;
             }
             
             .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .gallery {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 20px;
+                font-size: 1rem;
             }
             
             .media-type {
-                top: 12px;
-                right: 12px;
-                padding: 6px 12px;
-                font-size: 0.8rem;
+                top: 5px;
+                right: 5px;
+                padding: 3px 8px;
+                font-size: 0.6rem;
             }
-
-            .modal-content {
-                max-width: 95vw;
-                max-height: 85vh;
+            
+            .modal-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
-
+            
+            .modal-nav.prev {
+                left: 10px;
+            }
+            
+            .modal-nav.next {
+                right: 10px;
+            }
+            
             .modal-close {
                 width: 40px;
                 height: 40px;
-                top: 15px;
-                right: 15px;
+                top: 10px;
+                right: 10px;
             }
             
-            .footer-description {
-                font-size: 1.1rem;
-                margin-top: 30px;
-                padding: 20px;
-            }
-
-            .container::after {
-                font-size: 1rem;
-                bottom: 10px;
-                right: 15px;
+            .swipe-hint {
+                bottom: 60px;
+                font-size: 0.8rem;
             }
         }
 
-        /* UPDATED: Desktop scaling */
-        @media (min-width: 1024px) {
+        /* Small phones - STILL 3 columns */
+        @media (max-width: 480px) {
             .gallery {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 25px;
+                grid-template-columns: repeat(3, 1fr); /* STILL 3 columns */
+                gap: 5px;
+            }
+            
+            .gallery-container {
+                padding: 15px;
             }
         }
     </style>
@@ -328,7 +455,6 @@
         <div class="pattern-corner">✧ ✧ ✧</div>
         
         <header>
-            <!-- UPDATED: Dynamic title -->
             <h1 id="event-title">Event Gallery</h1>
             <p class="subtitle" id="subtitle-text">Beautiful memories captured in time</p>
         </header>
@@ -340,14 +466,38 @@
                 </div>
             </div>
             
-            <!-- NEW: Footer for custom description -->
             <div class="footer-description" id="footer-description"></div>
         </div>
     </div>
 
+    <!-- NEW: Swipeable Modal Gallery -->
     <div class="modal" id="modal">
-        <div class="modal-content" id="modal-content"></div>
-        <div class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></div>
+        <div class="modal-container">
+            <div class="modal-content" id="modal-content"></div>
+            
+            <!-- Navigation arrows -->
+            <div class="modal-nav prev" onclick="navigateModal(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="modal-nav next" onclick="navigateModal(1)">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            
+            <!-- Close button -->
+            <div class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </div>
+            
+            <!-- Counter -->
+            <div class="modal-counter" id="modal-counter"></div>
+            
+            <!-- Swipe hint for mobile -->
+            <div class="swipe-hint">
+                <i class="fas fa-chevron-left"></i>
+                <span>swipe to navigate</span>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -355,64 +505,125 @@
         const urlParams = new URLSearchParams(window.location.search);
         const eventId = urlParams.get('event');
         
-        // UPDATED: Get custom title from URL
         const customTitle = urlParams.get('title');
-        // NEW: Get custom description from URL
         const customDescription = urlParams.get('description');
 
-        // UPDATED: Update page title
         if (customTitle) {
             document.getElementById('event-title').textContent = decodeURIComponent(customTitle);
             document.title = decodeURIComponent(customTitle) + ' - Event Gallery';
         }
         
-        // NEW: Update footer description
         if (customDescription) {
             document.getElementById('footer-description').textContent = decodeURIComponent(customDescription);
         }
         
-        // Store current video element to pause it later
+        // Gallery data for navigation
+        let galleryItems = [];
+        let currentIndex = 0;
         let currentVideo = null;
+        let touchStartX = 0;
+        let touchEndX = 0;
         
-        function openModal(mediaUrl, type) {
+        function openModal(index) {
             const modal = document.getElementById('modal');
             const modalContent = document.getElementById('modal-content');
+            const counter = document.getElementById('modal-counter');
             
-            if (type === 'photo') {
-                modalContent.innerHTML = `<img src="${mediaUrl}" alt="Event photo">`;
-            } else {
-                // FIXED: Added proper video controls and removed autoplay
-                modalContent.innerHTML = `<video controls preload="auto"><source src="${mediaUrl}" type="video/mp4"></video>`;
-                // Store reference to video element
-                currentVideo = modalContent.querySelector('video');
-            }
+            currentIndex = index;
+            updateModalContent();
             
             modal.classList.add('show');
             document.body.style.overflow = 'hidden';
+            
+            // Update counter
+            updateCounter();
+        }
+        
+        function updateModalContent() {
+            const modalContent = document.getElementById('modal-content');
+            const item = galleryItems[currentIndex];
+            
+            // Pause any playing video
+            if (currentVideo) {
+                currentVideo.pause();
+                currentVideo = null;
+            }
+            
+            if (item.type === 'photo') {
+                modalContent.innerHTML = `<img src="${item.file_path}" alt="Event photo" class="modal-media">`;
+            } else {
+                modalContent.innerHTML = `<video controls class="modal-media" preload="auto"><source src="${item.file_path}" type="video/mp4"></video>`;
+                currentVideo = modalContent.querySelector('video');
+            }
+        }
+        
+        function updateCounter() {
+            const counter = document.getElementById('modal-counter');
+            counter.textContent = `${currentIndex + 1} / ${galleryItems.length}`;
+        }
+        
+        function navigateModal(direction) {
+            const newIndex = currentIndex + direction;
+            if (newIndex >= 0 && newIndex < galleryItems.length) {
+                currentIndex = newIndex;
+                updateModalContent();
+                updateCounter();
+            }
         }
         
         function closeModal() {
             const modal = document.getElementById('modal');
             
-            // FIXED: Pause video if it's playing
+            // Pause video if playing
             if (currentVideo) {
                 currentVideo.pause();
-                currentVideo.currentTime = 0; // Reset to beginning
+                currentVideo.currentTime = 0;
                 currentVideo = null;
             }
             
             modal.classList.remove('show');
             document.body.style.overflow = 'auto';
-            
-            // Clear modal content to stop any background playback
-            setTimeout(() => {
-                if (!modal.classList.contains('show')) {
-                    document.getElementById('modal-content').innerHTML = '';
-                }
-            }, 300);
         }
         
-        // FIXED: Close modal when clicking outside the content
+        // Touch events for swipe
+        document.getElementById('modal').addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        document.getElementById('modal').addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next
+                    navigateModal(1);
+                } else {
+                    // Swipe right - previous
+                    navigateModal(-1);
+                }
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('modal').classList.contains('show')) {
+                if (e.key === 'ArrowLeft') {
+                    navigateModal(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navigateModal(1);
+                } else if (e.key === 'Escape') {
+                    closeModal();
+                }
+            }
+        });
+        
+        // Close modal when clicking outside content
         document.getElementById('modal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
@@ -436,6 +647,9 @@
                     return;
                 }
                 
+                // Store gallery items for navigation
+                galleryItems = eventData.media;
+                
                 gallery.innerHTML = '';
                 eventData.media.forEach((item, index) => {
                     const mediaElement = document.createElement('div');
@@ -445,12 +659,11 @@
                     if (item.type === 'photo') {
                         mediaElement.innerHTML = `<img src="${item.file_path}" alt="Event photo" loading="lazy"><div class="media-type">Photo</div>`;
                     } else {
-                        // Generate poster URL for video thumbnails
                         const posterUrl = item.file_path.replace('/upload/', '/upload/so_0/').replace('.mp4', '.jpg');
                         mediaElement.innerHTML = `<video preload="metadata" playsinline poster="${posterUrl}"><source src="${item.file_path}" type="video/mp4"></video><div class="media-type">Video</div>`;
                     }
                     
-                    mediaElement.addEventListener('click', () => openModal(item.file_path, item.type));
+                    mediaElement.addEventListener('click', () => openModal(index));
                     gallery.appendChild(mediaElement);
                 });
             } catch (error) {
