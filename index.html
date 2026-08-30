@@ -1,677 +1,2350 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Gallery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Using @font-face for DaFont fonts -->
-    <style>
-        @font-face {
-            font-family: 'Aqub';
-            src: url('https://dl.dropboxusercontent.com/s/abcdef123456/aqub.otf?raw=1') format('opentype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
 
-        @font-face {
-            font-family: 'Hastegi';
-            src: url('https://dl.dropboxusercontent.com/s/ghijkl789012/hastegi.otf?raw=1') format('opentype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
+<meta charset="UTF-8">
 
-        /* Font fallbacks */
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #daf1de 0%, #00674f 100%);
-            min-height: 100vh; padding: 20px; color: #333;
-        }
-        .container {
-            max-width: 1400px; margin: 0 auto; background: #f4ebe2;
-            border-radius: 20px; backdrop-filter: blur(10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden; animation: fadeIn 0.8s ease-out;
-            position: relative;
-        }
+<title>Wedding Album</title>
 
-        /* Aesthetic golden patterns */
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.08) 2px, transparent 2px),
-                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.08) 2px, transparent 2px),
-                radial-gradient(circle at 40% 60%, rgba(212, 175, 55, 0.06) 1.5px, transparent 1.5px),
-                radial-gradient(circle at 90% 20%, rgba(212, 175, 55, 0.06) 1.5px, transparent 1.5px),
-                radial-gradient(circle at 10% 85%, rgba(212, 175, 55, 0.07) 2px, transparent 2px),
-                radial-gradient(circle at 70% 40%, rgba(212, 175, 55, 0.07) 2px, transparent 2px),
-                repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.02) 0px, rgba(212, 175, 55, 0.02) 2px, transparent 2px, transparent 8px),
-                repeating-linear-gradient(135deg, rgba(212, 175, 55, 0.02) 0px, rgba(212, 175, 55, 0.02) 2px, transparent 2px, transparent 8px);
-            pointer-events: none;
-            z-index: 1;
-            border-radius: 20px;
-        }
 
-        /* Decorative corner patterns */
-        .container::after {
-            content: '✦ ✦ ✦';
-            position: absolute;
-            bottom: 15px;
-            right: 25px;
-            font-size: 1rem;
-            color: rgba(212, 175, 55, 0.25);
-            font-family: 'Aqub', 'Playfair Display', serif;
-            letter-spacing: 6px;
-            pointer-events: none;
-            z-index: 1;
-            transform: rotate(-5deg);
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-        /* Top left corner decoration */
-        .container .pattern-corner {
-            position: absolute;
-            top: 15px;
-            left: 20px;
-            font-size: 1.2rem;
-            color: rgba(212, 175, 55, 0.2);
-            font-family: 'Aqub', 'Playfair Display', serif;
-            pointer-events: none;
-            z-index: 1;
-            transform: rotate(5deg);
-        }
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        header {
-            background: linear-gradient(135deg, #1b842c 0%, #00563b 100%);
-            color: white; padding: 30px 40px; text-align: center; position: relative; overflow: hidden;
-        }
-        header::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); transform: rotate(30deg);
-        }
-        h1 { 
-            font-size: 2.8rem; 
-            font-weight: 400; 
-            margin-bottom: 8px; 
-            position: relative; 
-            font-family: 'Aqub', 'Playfair Display', serif;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            line-height: 1.2;
-        }
-        .subtitle { 
-            font-size: 1.3rem; 
-            opacity: 0.95; 
-            font-weight: 400; 
-            position: relative;
-            font-family: 'Hastegi', 'Cormorant Garamond', serif;
-            color: #f4ebe2;
-            letter-spacing: 0.5px;
-            font-style: italic;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
-        }
-        .gallery-container { padding: 30px; position: relative; z-index: 2; }
-        
-        /* FIXED: ALWAYS 3 COLUMNS */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* ALWAYS 3 columns */
-            gap: 15px;
-            padding: 15px 0;
-            position: relative;
-            z-index: 2;
-        }
 
-        /* UPDATED: Keep original aspect ratio */
-        .media-item {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            opacity: 0;
-            transform: scale(0.9);
-            animation: mediaAppear 0.5s ease-out forwards;
-            background: #f4ebe2;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            aspect-ratio: auto; /* Keep original dimensions */
-        }
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Italiana&display=swap"
+  rel="stylesheet"
+>
 
-        @keyframes mediaAppear {
-            to { opacity: 1; transform: scale(1); }
-        }
 
-        .media-item:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 103, 79, 0.25);
-            border-color: rgba(212, 175, 55, 0.5);
-        }
+<style>
 
-        /* UPDATED: Keep original aspect ratio */
-        .media-item img,
-        .media-item video {
-            width: 100%;
-            height: auto; /* Keep original aspect ratio */
-            display: block;
-            transition: transform 0.3s ease;
-        }
+/* =====================================================
+   ROOT
+===================================================== */
 
-        .media-item:hover img,
-        .media-item:hover video {
-            transform: scale(1.1);
-        }
+:root{
 
-        /* UPDATED: Smaller badges for mobile */
-        .media-type {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(0, 103, 79, 0.95);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            font-family: 'Inter', sans-serif;
-        }
+  --cream:#f6f0e6;
+  --cream-dark:#ebe0d1;
 
-        .loading { text-align: center; padding: 60px; color: #666; position: relative; z-index: 2; }
-        .loading-spinner {
-            width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #00674f;
-            border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); }
-        }
-        .empty-state { text-align: center; padding: 80px 40px; color: #666; position: relative; z-index: 2; }
-        .empty-state i { font-size: 4rem; color: #00674f; margin-bottom: 20px; opacity: 0.5; }
-        
-        /* NEW: Footer for custom description */
-        .footer-description {
-            text-align: center;
-            color: #00674f;
-            font-size: 1rem;
-            font-style: italic;
-            margin-top: 30px;
-            padding: 20px;
-            border-top: 2px solid rgba(212, 175, 55, 0.3);
-            opacity: 0.8;
-            line-height: 1.5;
-            position: relative;
-            z-index: 2;
-            background: rgba(244, 235, 226, 0.7);
-            backdrop-filter: blur(2px);
-            border-radius: 0 0 20px 20px;
-            font-family: 'Hastegi', 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-        }
-        
-        .notification {
-            position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, #00674f, #00563b);
-            color: white; padding: 20px 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 103, 79, 0.3);
-            display: flex; align-items: center; z-index: 1000; opacity: 0; transform: translateY(100px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .notification.show { opacity: 1; transform: translateY(0); }
-        .notification i { margin-right: 12px; font-size: 1.3rem; }
-        
-        /* NEW: Swipeable Modal Gallery */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .modal-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-content {
-            max-width: 90vw;
-            max-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-content img,
-        .modal-content video {
-            max-width: 100%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
-        }
-        
-        .modal-content video {
-            width: 100%;
-            height: auto;
-            max-height: 90vh;
-        }
-        
-        /* Navigation arrows */
-        .modal-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 103, 79, 0.8);
-            border: 2px solid #D4AF37;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #D4AF37;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 2100;
-        }
-        
-        .modal-nav:hover {
-            background: #D4AF37;
-            color: #00674f;
-            transform: translateY(-50%) scale(1.1);
-        }
-        
-        .modal-nav.prev {
-            left: 20px;
-        }
-        
-        .modal-nav.next {
-            right: 20px;
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 103, 79, 0.8);
-            border: 2px solid #D4AF37;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #D4AF37;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 2100;
-        }
-        
-        .modal-close:hover {
-            background: #D4AF37;
-            color: #00674f;
-            transform: rotate(90deg);
-        }
-        
-        /* Counter */
-        .modal-counter {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 103, 79, 0.8);
-            color: #D4AF37;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 1rem;
-            border: 1px solid #D4AF37;
-            backdrop-filter: blur(5px);
-            z-index: 2100;
-        }
-        
-        /* Touch swipe indicators */
-        .swipe-hint {
-            position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(212, 175, 55, 0.6);
-            font-size: 0.9rem;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 5px 15px;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            z-index: 2100;
-        }
-        
-        .swipe-hint i {
-            font-size: 1.2rem;
-        }
+  --white:#fffdf9;
 
-        /* Mobile responsiveness - still 3 columns */
-        @media (max-width: 768px) {
-            .gallery {
-                grid-template-columns: repeat(3, 1fr); /* STILL 3 columns */
-                gap: 8px;
-            }
-            
-            header {
-                padding: 20px 15px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            .media-type {
-                top: 5px;
-                right: 5px;
-                padding: 3px 8px;
-                font-size: 0.6rem;
-            }
-            
-            .modal-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-            
-            .modal-nav.prev {
-                left: 10px;
-            }
-            
-            .modal-nav.next {
-                right: 10px;
-            }
-            
-            .modal-close {
-                width: 40px;
-                height: 40px;
-                top: 10px;
-                right: 10px;
-            }
-            
-            .swipe-hint {
-                bottom: 60px;
-                font-size: 0.8rem;
-            }
-        }
+  --gold:#b9945f;
+  --gold-light:#d8bd8a;
+  --gold-dark:#8b6b3f;
 
-        /* Small phones - STILL 3 columns */
-        @media (max-width: 480px) {
-            .gallery {
-                grid-template-columns: repeat(3, 1fr); /* STILL 3 columns */
-                gap: 5px;
-            }
-            
-            .gallery-container {
-                padding: 15px;
-            }
-        }
-    </style>
+  --black:#1b1815;
+  --soft-black:#302b26;
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  background:var(--cream);
+
+  color:var(--black);
+
+  font-family:"DM Sans",sans-serif;
+
+  overflow-x:hidden;
+
+}
+
+
+img{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  display:block;
+
+}
+
+
+::selection{
+
+  background:var(--gold);
+
+  color:white;
+
+}
+
+
+/* =====================================================
+   LOADING SCREEN
+===================================================== */
+
+.loading{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:9999;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:var(--cream);
+
+  transition:.7s ease;
+
+}
+
+.loading.hide{
+
+  opacity:0;
+
+  visibility:hidden;
+
+}
+
+.loading-initials{
+
+  font-family:"Italiana",serif;
+
+  font-size:80px;
+
+  color:var(--gold-dark);
+
+}
+
+.loading p{
+
+  margin-top:20px;
+
+  font-size:10px;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+
+  color:#81766a;
+
+}
+
+
+/* =====================================================
+   DECORATIVE BACKGROUND
+===================================================== */
+
+body::before{
+
+  content:"";
+
+  position:fixed;
+
+  width:500px;
+
+  height:500px;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(185,148,95,.12);
+
+  top:-250px;
+
+  left:-250px;
+
+  pointer-events:none;
+
+  z-index:-1;
+
+}
+
+body::after{
+
+  content:"";
+
+  position:fixed;
+
+  width:700px;
+
+  height:700px;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(185,148,95,.08);
+
+  bottom:-350px;
+
+  right:-350px;
+
+  pointer-events:none;
+
+  z-index:-1;
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+nav{
+
+  position:absolute;
+
+  top:0;
+  left:0;
+
+  width:100%;
+
+  z-index:10;
+
+  padding:32px 7%;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  color:white;
+
+}
+
+
+.nav-logo{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:27px;
+
+  letter-spacing:2px;
+
+  font-weight:500;
+
+}
+
+
+.nav-logo span{
+
+  font-style:italic;
+
+  color:#e8c98e;
+
+}
+
+
+.nav-right{
+
+  display:flex;
+
+  gap:25px;
+
+  align-items:center;
+
+  font-size:10px;
+
+  text-transform:uppercase;
+
+  letter-spacing:2px;
+
+}
+
+
+.nav-right a{
+
+  color:white;
+
+  text-decoration:none;
+
+  opacity:.8;
+
+  transition:.3s;
+
+}
+
+
+.nav-right a:hover{
+
+  color:var(--gold-light);
+
+  opacity:1;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+  min-height:100vh;
+
+  position:relative;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  color:white;
+
+  overflow:hidden;
+
+}
+
+
+.hero-bg{
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.25),
+      rgba(0,0,0,.45)
+    );
+
+}
+
+
+.hero-bg img{
+
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  z-index:-1;
+
+}
+
+
+.hero-content{
+
+  position:relative;
+
+  text-align:center;
+
+  padding:40px 20px;
+
+  margin-top:50px;
+
+}
+
+
+.hero-kicker{
+
+  text-transform:uppercase;
+
+  letter-spacing:5px;
+
+  font-size:10px;
+
+  margin-bottom:22px;
+
+  color:#e9d0a2;
+
+}
+
+
+.hero-title{
+
+  font-family:
+    "Italiana",
+    serif;
+
+  font-weight:400;
+
+  font-size:
+    clamp(70px,11vw,180px);
+
+  line-height:.8;
+
+  letter-spacing:-3px;
+
+}
+
+
+.hero-title .amp{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-style:italic;
+
+  font-size:.65em;
+
+  color:#d5ae70;
+
+}
+
+
+.hero-date{
+
+  margin-top:35px;
+
+  font-size:10px;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+
+}
+
+
+.hero-line{
+
+  width:1px;
+
+  height:85px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      #d5ae70
+    );
+
+  margin:35px auto 0;
+
+}
+
+
+.hero-corner{
+
+  position:absolute;
+
+  bottom:35px;
+
+  left:7%;
+
+  font-size:9px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  opacity:.75;
+
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.intro{
+
+  padding:160px 8%;
+
+  max-width:1500px;
+
+  margin:auto;
+
+}
+
+
+.intro-top{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1.5fr;
+
+  gap:100px;
+
+  align-items:start;
+
+}
+
+
+.section-label{
+
+  font-size:10px;
+
+  text-transform:uppercase;
+
+  letter-spacing:4px;
+
+  color:var(--gold-dark);
+
+  display:flex;
+
+  align-items:center;
+
+  gap:15px;
+
+}
+
+
+.section-label::before{
+
+  content:"";
+
+  width:35px;
+
+  height:1px;
+
+  background:var(--gold);
+
+}
+
+
+.intro-title{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(50px,6vw,100px);
+
+  font-weight:400;
+
+  line-height:.92;
+
+  margin-top:25px;
+
+}
+
+
+.intro-title em{
+
+  color:var(--gold-dark);
+
+  font-weight:300;
+
+}
+
+
+.intro-text{
+
+  max-width:570px;
+
+  font-size:15px;
+
+  line-height:2;
+
+  color:#665e55;
+
+  margin-top:60px;
+
+}
+
+
+/* =====================================================
+   EDITORIAL IMAGE
+===================================================== */
+
+.editorial-image{
+
+  position:relative;
+
+  margin-top:120px;
+
+  height:720px;
+
+}
+
+
+.editorial-main{
+
+  width:70%;
+
+  height:100%;
+
+  margin-left:auto;
+
+  overflow:hidden;
+
+}
+
+
+.editorial-main img{
+
+  transition:1s ease;
+
+}
+
+
+.editorial-main:hover img{
+
+  transform:scale(1.04);
+
+}
+
+
+.editorial-small{
+
+  position:absolute;
+
+  width:32%;
+
+  height:380px;
+
+  left:0;
+
+  bottom:-90px;
+
+  border:
+    12px solid var(--cream);
+
+  overflow:hidden;
+
+  box-shadow:
+    0 30px 80px
+    rgba(0,0,0,.12);
+
+}
+
+
+.editorial-number{
+
+  position:absolute;
+
+  left:6%;
+
+  top:80px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:180px;
+
+  font-style:italic;
+
+  color:
+    rgba(185,148,95,.17);
+
+  z-index:-1;
+
+}
+
+
+.image-caption{
+
+  position:absolute;
+
+  bottom:-135px;
+
+  right:0;
+
+  max-width:300px;
+
+}
+
+
+.image-caption h3{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:28px;
+
+  font-weight:400;
+
+}
+
+
+.image-caption p{
+
+  margin-top:10px;
+
+  font-size:11px;
+
+  line-height:1.8;
+
+  letter-spacing:1px;
+
+  color:#777066;
+
+}
+
+
+/* =====================================================
+   QUOTE
+===================================================== */
+
+.quote-section{
+
+  padding:
+    220px 8%
+    150px;
+
+  text-align:center;
+
+}
+
+
+.quote-mark{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  color:var(--gold);
+
+  font-size:100px;
+
+  line-height:.3;
+
+}
+
+
+.quote{
+
+  max-width:1000px;
+
+  margin:40px auto;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(40px,5vw,80px);
+
+  line-height:1;
+
+  font-weight:400;
+
+}
+
+
+.quote em{
+
+  color:var(--gold-dark);
+
+  font-style:italic;
+
+}
+
+
+.quote-author{
+
+  text-transform:uppercase;
+
+  letter-spacing:4px;
+
+  font-size:9px;
+
+  color:#8b8175;
+
+}
+
+
+/* =====================================================
+   MOMENTS
+===================================================== */
+
+.moments{
+
+  background:var(--black);
+
+  color:white;
+
+  padding:150px 8%;
+
+}
+
+
+.moments-header{
+
+  max-width:1500px;
+
+  margin:
+    0 auto
+    90px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:end;
+
+  gap:30px;
+
+}
+
+
+.moments-header h2{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(55px,7vw,110px);
+
+  line-height:.85;
+
+  font-weight:400;
+
+}
+
+
+.moments-header p{
+
+  max-width:350px;
+
+  font-size:12px;
+
+  line-height:1.9;
+
+  color:#c3bbb1;
+
+}
+
+
+.moments-grid{
+
+  max-width:1500px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    1.1fr .9fr .9fr;
+
+  gap:20px;
+
+  align-items:start;
+
+}
+
+
+.moment{
+
+  overflow:hidden;
+
+  position:relative;
+
+  background:#111;
+
+}
+
+
+.moment:nth-child(1){
+
+  height:720px;
+
+}
+
+
+.moment:nth-child(2){
+
+  height:400px;
+
+}
+
+
+.moment:nth-child(3){
+
+  height:580px;
+
+  margin-top:120px;
+
+}
+
+
+.moment img{
+
+  transition:
+    1s cubic-bezier(
+      .2,.7,.2,1
+    );
+
+}
+
+
+.moment:hover img{
+
+  transform:scale(1.08);
+
+  opacity:.75;
+
+}
+
+
+.moment::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.55),
+      transparent 50%
+    );
+
+  pointer-events:none;
+
+}
+
+
+.moment-info{
+
+  position:absolute;
+
+  bottom:25px;
+
+  left:25px;
+
+  z-index:2;
+
+}
+
+
+.moment-info span{
+
+  font-size:9px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  color:#d9b87e;
+
+}
+
+
+.moment-info h3{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:35px;
+
+  font-weight:400;
+
+  margin-top:8px;
+
+}
+
+
+/* =====================================================
+   STORY
+===================================================== */
+
+.story{
+
+  padding:170px 8%;
+
+  max-width:1550px;
+
+  margin:auto;
+
+}
+
+
+.story-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:100px;
+
+  align-items:center;
+
+}
+
+
+.story-image{
+
+  height:750px;
+
+  position:relative;
+
+}
+
+
+.story-image-main{
+
+  height:100%;
+
+  overflow:hidden;
+
+}
+
+
+.story-image-main img{
+
+  transition:1s ease;
+
+}
+
+
+.story-image:hover img{
+
+  transform:scale(1.04);
+
+}
+
+
+.story-badge{
+
+  position:absolute;
+
+  width:170px;
+
+  height:170px;
+
+  border-radius:50%;
+
+  background:var(--gold);
+
+  right:-50px;
+
+  top:70px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  text-align:center;
+
+  color:white;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:20px;
+
+  font-style:italic;
+
+  line-height:1.1;
+
+  box-shadow:
+    0 20px 50px
+    rgba(0,0,0,.12);
+
+}
+
+
+.story-content{
+
+  padding:40px 0;
+
+}
+
+
+.story-content h2{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(60px,7vw,110px);
+
+  line-height:.85;
+
+  font-weight:400;
+
+}
+
+
+.story-content h2 em{
+
+  color:var(--gold-dark);
+
+}
+
+
+.story-content p{
+
+  margin-top:45px;
+
+  max-width:520px;
+
+  color:#6b6359;
+
+  line-height:2;
+
+  font-size:14px;
+
+}
+
+
+.story-date{
+
+  margin-top:45px;
+
+  padding-top:25px;
+
+  border-top:
+    1px solid var(--cream-dark);
+
+  font-size:10px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  color:var(--gold-dark);
+
+}
+
+
+/* =====================================================
+   CINEMATIC
+===================================================== */
+
+.cinematic{
+
+  height:100vh;
+
+  min-height:700px;
+
+  position:relative;
+
+  display:flex;
+
+  align-items:flex-end;
+
+  padding:80px 8%;
+
+  color:white;
+
+  overflow:hidden;
+
+}
+
+
+.cinematic::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.65),
+      rgba(0,0,0,.05)
+    );
+
+  pointer-events:none;
+
+}
+
+
+.cinematic img{
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:-1;
+
+}
+
+
+.cinematic-content{
+
+  max-width:850px;
+
+  position:relative;
+
+  z-index:2;
+
+}
+
+
+.cinematic-content span{
+
+  font-size:10px;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+
+  color:#e2c487;
+
+}
+
+
+.cinematic-content h2{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(55px,8vw,130px);
+
+  font-weight:400;
+
+  line-height:.85;
+
+  margin-top:25px;
+
+}
+
+
+/* =====================================================
+   FINAL
+===================================================== */
+
+.final{
+
+  background:var(--cream-dark);
+
+  padding:160px 20px;
+
+  text-align:center;
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+
+.final::before{
+
+  content:attr(data-initials);
+
+  position:absolute;
+
+  left:50%;
+
+  top:50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  font-family:
+    "Italiana",
+    serif;
+
+  font-size:25vw;
+
+  color:
+    rgba(255,255,255,.28);
+
+  white-space:nowrap;
+
+}
+
+
+.final-content{
+
+  position:relative;
+
+  z-index:2;
+
+}
+
+
+.final span{
+
+  text-transform:uppercase;
+
+  letter-spacing:4px;
+
+  font-size:10px;
+
+  color:var(--gold-dark);
+
+}
+
+
+.final h2{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(65px,10vw,160px);
+
+  line-height:.8;
+
+  font-weight:400;
+
+  margin-top:25px;
+
+}
+
+
+.final h2 em{
+
+  font-style:italic;
+
+  color:var(--gold-dark);
+
+}
+
+
+.final p{
+
+  margin-top:35px;
+
+  font-size:11px;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+
+  color:#756b60;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+  background:var(--black);
+
+  color:white;
+
+  padding:35px 7%;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  font-size:9px;
+
+  text-transform:uppercase;
+
+  letter-spacing:2px;
+
+  color:#93887c;
+
+}
+
+
+.footer-love{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:18px;
+
+  color:#d5ae70;
+
+  text-transform:none;
+
+  letter-spacing:0;
+
+  font-style:italic;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:900px){
+
+  nav{
+    padding:25px 7%;
+  }
+
+  .nav-right{
+    display:none;
+  }
+
+  .intro{
+    padding:100px 7%;
+  }
+
+  .intro-top{
+
+    grid-template-columns:1fr;
+
+    gap:40px;
+
+  }
+
+  .editorial-image{
+
+    height:550px;
+
+    margin-top:70px;
+
+  }
+
+  .editorial-main{
+    width:88%;
+  }
+
+  .editorial-small{
+
+    width:48%;
+
+    height:250px;
+
+  }
+
+  .image-caption{
+    bottom:-120px;
+  }
+
+  .moments{
+    padding:110px 7%;
+  }
+
+  .moments-header{
+
+    flex-direction:column;
+
+    align-items:start;
+
+  }
+
+  .moments-grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+  .moment:nth-child(1),
+  .moment:nth-child(2),
+  .moment:nth-child(3){
+
+    height:550px;
+
+    margin-top:0;
+
+  }
+
+  .story{
+    padding:110px 7%;
+  }
+
+  .story-grid{
+
+    grid-template-columns:1fr;
+
+    gap:60px;
+
+  }
+
+  .story-image{
+    height:550px;
+  }
+
+  .story-badge{
+    right:-20px;
+  }
+
+  footer{
+
+    flex-direction:column;
+
+    gap:15px;
+
+    text-align:center;
+
+  }
+
+}
+
+</style>
+
 </head>
+
+
 <body>
-    <div class="container">
-        <!-- Corner pattern element -->
-        <div class="pattern-corner">✧ ✧ ✧</div>
-        
-        <header>
-            <h1 id="event-title">Event Gallery</h1>
-            <p class="subtitle" id="subtitle-text">Beautiful memories captured in time</p>
-        </header>
-        <div class="gallery-container">
-            <div class="gallery" id="gallery">
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <p>Loading beautiful memories...</p>
-                </div>
-            </div>
-            
-            <div class="footer-description" id="footer-description"></div>
-        </div>
+
+
+<!-- LOADING -->
+
+<div class="loading" id="loading">
+
+  <div
+    class="loading-initials"
+    id="loadingInitials"
+  >
+    &
+  </div>
+
+  <p>Preparing your wedding story</p>
+
+</div>
+
+
+
+<!-- NAVIGATION -->
+
+<nav>
+
+  <div
+    class="nav-logo"
+    id="navInitials"
+  >
+    &
+  </div>
+
+
+  <div class="nav-right">
+
+    <a href="#story">
+      Our Story
+    </a>
+
+    <a href="#moments">
+      The Moments
+    </a>
+
+  </div>
+
+</nav>
+
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-bg">
+
+    <img
+      id="heroImage"
+      alt="Wedding Hero"
+    >
+
+  </div>
+
+
+  <div class="hero-content">
+
+    <div class="hero-kicker">
+      The Wedding of
     </div>
 
-    <!-- NEW: Swipeable Modal Gallery -->
-    <div class="modal" id="modal">
-        <div class="modal-container">
-            <div class="modal-content" id="modal-content"></div>
-            
-            <!-- Navigation arrows -->
-            <div class="modal-nav prev" onclick="navigateModal(-1)">
-                <i class="fas fa-chevron-left"></i>
-            </div>
-            <div class="modal-nav next" onclick="navigateModal(1)">
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            
-            <!-- Close button -->
-            <div class="modal-close" onclick="closeModal()">
-                <i class="fas fa-times"></i>
-            </div>
-            
-            <!-- Counter -->
-            <div class="modal-counter" id="modal-counter"></div>
-            
-            <!-- Swipe hint for mobile -->
-            <div class="swipe-hint">
-                <i class="fas fa-chevron-left"></i>
-                <span>swipe to navigate</span>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-        </div>
+
+    <h1 class="hero-title">
+
+      <span id="heroBride">
+        Bride
+      </span>
+
+      <span class="amp">
+        &
+      </span>
+
+      <span id="heroGroom">
+        Groom
+      </span>
+
+    </h1>
+
+
+    <div
+      class="hero-date"
+      id="heroDate"
+    >
+      Wedding Date
     </div>
 
-    <script>
-        const API_URL = 'https://ds-qr.onrender.com';
-        const urlParams = new URLSearchParams(window.location.search);
-        const eventId = urlParams.get('event');
-        
-        const customTitle = urlParams.get('title');
-        const customDescription = urlParams.get('description');
 
-        if (customTitle) {
-            document.getElementById('event-title').textContent = decodeURIComponent(customTitle);
-            document.title = decodeURIComponent(customTitle) + ' - Event Gallery';
-        }
-        
-        if (customDescription) {
-            document.getElementById('footer-description').textContent = decodeURIComponent(customDescription);
-        }
-        
-        // Gallery data for navigation
-        let galleryItems = [];
-        let currentIndex = 0;
-        let currentVideo = null;
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        function openModal(index) {
-            const modal = document.getElementById('modal');
-            const modalContent = document.getElementById('modal-content');
-            const counter = document.getElementById('modal-counter');
-            
-            currentIndex = index;
-            updateModalContent();
-            
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-            
-            // Update counter
-            updateCounter();
-        }
-        
-        function updateModalContent() {
-            const modalContent = document.getElementById('modal-content');
-            const item = galleryItems[currentIndex];
-            
-            // Pause any playing video
-            if (currentVideo) {
-                currentVideo.pause();
-                currentVideo = null;
-            }
-            
-            if (item.type === 'photo') {
-                modalContent.innerHTML = `<img src="${item.file_path}" alt="Event photo" class="modal-media">`;
-            } else {
-                modalContent.innerHTML = `<video controls class="modal-media" preload="auto"><source src="${item.file_path}" type="video/mp4"></video>`;
-                currentVideo = modalContent.querySelector('video');
-            }
-        }
-        
-        function updateCounter() {
-            const counter = document.getElementById('modal-counter');
-            counter.textContent = `${currentIndex + 1} / ${galleryItems.length}`;
-        }
-        
-        function navigateModal(direction) {
-            const newIndex = currentIndex + direction;
-            if (newIndex >= 0 && newIndex < galleryItems.length) {
-                currentIndex = newIndex;
-                updateModalContent();
-                updateCounter();
-            }
-        }
-        
-        function closeModal() {
-            const modal = document.getElementById('modal');
-            
-            // Pause video if playing
-            if (currentVideo) {
-                currentVideo.pause();
-                currentVideo.currentTime = 0;
-                currentVideo = null;
-            }
-            
-            modal.classList.remove('show');
-            document.body.style.overflow = 'auto';
-        }
-        
-        // Touch events for swipe
-        document.getElementById('modal').addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, false);
-        
-        document.getElementById('modal').addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, false);
-        
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-            
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    // Swipe left - next
-                    navigateModal(1);
-                } else {
-                    // Swipe right - previous
-                    navigateModal(-1);
-                }
-            }
-        }
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (document.getElementById('modal').classList.contains('show')) {
-                if (e.key === 'ArrowLeft') {
-                    navigateModal(-1);
-                } else if (e.key === 'ArrowRight') {
-                    navigateModal(1);
-                } else if (e.key === 'Escape') {
-                    closeModal();
-                }
-            }
-        });
-        
-        // Close modal when clicking outside content
-        document.getElementById('modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-        
-        async function loadEventMedia() {
-            const gallery = document.getElementById('gallery');
-            if (!eventId) {
-                gallery.innerHTML = `<div class="empty-state"><i class="fas fa-images"></i><h2>No Event Selected</h2><p style="color:#00674f;">Add ?event=YOUR_EVENT_ID to URL</p></div>`;
-                return;
-            }
-            
-            try {
-                const response = await fetch(`${API_URL}/api/event/${eventId}`);
-                if (!response.ok) throw new Error('Event not found');
-                
-                const eventData = await response.json();
-                if (!eventData.media || eventData.media.length === 0) {
-                    gallery.innerHTML = `<div class="empty-state"><i class="fas fa-camera"></i><h2>No Media Yet</h2></div>`;
-                    return;
-                }
-                
-                // Store gallery items for navigation
-                galleryItems = eventData.media;
-                
-                gallery.innerHTML = '';
-                eventData.media.forEach((item, index) => {
-                    const mediaElement = document.createElement('div');
-                    mediaElement.className = 'media-item';
-                    mediaElement.style.animationDelay = `${index * 0.1}s`;
-                    
-                    if (item.type === 'photo') {
-                        mediaElement.innerHTML = `<img src="${item.file_path}" alt="Event photo" loading="lazy"><div class="media-type">Photo</div>`;
-                    } else {
-                        const posterUrl = item.file_path.replace('/upload/', '/upload/so_0/').replace('.mp4', '.jpg');
-                        mediaElement.innerHTML = `<video preload="metadata" playsinline poster="${posterUrl}"><source src="${item.file_path}" type="video/mp4"></video><div class="media-type">Video</div>`;
-                    }
-                    
-                    mediaElement.addEventListener('click', () => openModal(index));
-                    gallery.appendChild(mediaElement);
-                });
-            } catch (error) {
-                gallery.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><h2>Error Loading Media</h2><p style="color:#00674f;">${error.message}</p></div>`;
-            }
-        }
-        
-        document.addEventListener('DOMContentLoaded', loadEventMedia);
-    </script>
+    <div class="hero-line"></div>
+
+  </div>
+
+
+  <div class="hero-corner">
+    A celebration of a lifetime
+  </div>
+
+</section>
+
+
+
+<!-- INTRO -->
+
+<section class="intro">
+
+  <div class="intro-top">
+
+    <div>
+
+      <div class="section-label">
+        Chapter One
+      </div>
+
+    </div>
+
+
+    <div>
+
+      <h2 class="intro-title">
+
+        Two souls.<br>
+
+        One
+        <em>beautiful</em>
+
+        <br>
+
+        forever.
+
+      </h2>
+
+
+      <p class="intro-text">
+
+        Some love stories are written slowly,
+        quietly, and beautifully.
+
+        This is the beginning of ours —
+        a day filled with laughter,
+        tears, promises, and the unforgettable
+        feeling of finding home
+        in another person.
+
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="editorial-image">
+
+    <div class="editorial-number">
+      01
+    </div>
+
+
+    <div class="editorial-main">
+
+      <img
+        id="introMainImage"
+        alt="Wedding Editorial"
+      >
+
+    </div>
+
+
+    <div class="editorial-small">
+
+      <img
+        id="introSmallImage"
+        alt="Wedding Detail"
+      >
+
+    </div>
+
+
+    <div class="image-caption">
+
+      <h3>
+        Before the forever
+      </h3>
+
+      <p>
+        The quiet moments before
+        everything changed.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- QUOTE -->
+
+<section class="quote-section">
+
+  <div class="quote-mark">
+    “
+  </div>
+
+
+  <h2 class="quote">
+
+    In a world full of temporary things,
+    you are my
+    <em>forever.</em>
+
+  </h2>
+
+
+  <div
+    class="quote-author"
+    id="quoteNames"
+  >
+    Bride & Groom
+  </div>
+
+</section>
+
+
+
+<!-- MOMENTS -->
+
+<section
+  class="moments"
+  id="moments"
+>
+
+  <div class="moments-header">
+
+    <h2>
+
+      The little<br>
+
+      <em>
+        moments.
+      </em>
+
+    </h2>
+
+
+    <p>
+
+      The beauty was never only
+      in the grand celebration.
+
+      It lived in the glances,
+      the laughter, the hands
+      held tightly, and all
+      the moments nobody
+      wanted to end.
+
+    </p>
+
+  </div>
+
+
+
+  <div class="moments-grid">
+
+
+    <!-- MOMENT 1 -->
+
+    <div class="moment">
+
+      <img
+        id="moment1"
+        alt="Wedding Moment"
+      >
+
+
+      <div class="moment-info">
+
+        <span>
+          Chapter Two
+        </span>
+
+        <h3>
+          The Details
+        </h3>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- MOMENT 2 -->
+
+    <div class="moment">
+
+      <img
+        id="moment2"
+        alt="Wedding Moment"
+      >
+
+
+      <div class="moment-info">
+
+        <span>
+          Chapter Three
+        </span>
+
+        <h3>
+          The Promise
+        </h3>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- MOMENT 3 -->
+
+    <div class="moment">
+
+      <img
+        id="moment3"
+        alt="Wedding Moment"
+      >
+
+
+      <div class="moment-info">
+
+        <span>
+          Chapter Four
+        </span>
+
+        <h3>
+          The Celebration
+        </h3>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- LOVE STORY -->
+
+<section
+  class="story"
+  id="story"
+>
+
+  <div class="story-grid">
+
+
+    <div class="story-image">
+
+      <div class="story-image-main">
+
+        <img
+          id="storyImage"
+          alt="Love Story"
+        >
+
+      </div>
+
+
+      <div class="story-badge">
+
+        A lifetime<br>
+
+        in one<br>
+
+        beautiful day
+
+      </div>
+
+    </div>
+
+
+
+    <div class="story-content">
+
+      <div class="section-label">
+        Our Story
+      </div>
+
+
+      <h2>
+
+        This is<br>
+
+        <em>our</em>
+
+        beginning.
+
+      </h2>
+
+
+      <p>
+
+        And suddenly,
+        all the years before
+        this moment made sense.
+
+        Every road,
+        every lesson,
+        every unexpected turn
+        somehow led here —
+        to this day,
+        to this promise,
+        and to each other.
+
+      </p>
+
+
+      <div
+        class="story-date"
+        id="storyDate"
+      >
+        Written in the stars
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- CINEMATIC -->
+
+<section class="cinematic">
+
+  <img
+    id="cinematicImage"
+    alt="Wedding Cinematic"
+  >
+
+
+  <div class="cinematic-content">
+
+    <span>
+      The ceremony
+    </span>
+
+
+    <h2>
+
+      A promise<br>
+
+      beneath the sky.
+
+    </h2>
+
+  </div>
+
+</section>
+
+
+
+<!-- FINAL -->
+
+<section
+  class="final"
+  id="finalSection"
+  data-initials="&"
+>
+
+  <div class="final-content">
+
+    <span>
+      And they lived beautifully ever after
+    </span>
+
+
+    <h2>
+
+      Always
+
+      <em>
+        &
+      </em>
+
+      <br>
+
+      Forever.
+
+    </h2>
+
+
+    <p id="finalNames">
+
+      Bride & Groom
+
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div id="footerNames">
+
+    Bride & Groom
+
+  </div>
+
+
+  <div class="footer-love">
+
+    Made with love
+
+  </div>
+
+
+  <div id="footerDate">
+
+    The beginning of forever
+
+  </div>
+
+</footer>
+
+
+
+<script>
+
+/* =====================================================
+   BACKEND URL
+   CHANGE THIS TO YOUR RENDER BACKEND URL
+===================================================== */
+
+const API_URL =
+  "https://ds-qr.onrender.com";
+
+
+/* =====================================================
+   GET EVENT ID
+===================================================== */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const eventId =
+  params.get("event");
+
+
+/* =====================================================
+   LOAD WEDDING ALBUM
+===================================================== */
+
+async function loadWeddingAlbum() {
+
+  try {
+
+    if (!eventId) {
+
+      throw new Error(
+        "No event ID found"
+      );
+
+    }
+
+
+    const response =
+      await fetch(
+        `${API_URL}/api/event/${eventId}`
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Wedding album not found"
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    const bride =
+      data.brideName || "Bride";
+
+
+    const groom =
+      data.groomName || "Groom";
+
+
+    const initials =
+      data.initials || "&";
+
+
+    const date =
+      data.weddingDate || "";
+
+
+    const fullNames =
+      `${bride} & ${groom}`;
+
+
+    /* ===============================================
+       PAGE TITLE
+    =============================================== */
+
+    document.title =
+      `${fullNames} — Wedding Album`;
+
+
+    /* ===============================================
+       INITIALS
+    =============================================== */
+
+    document.getElementById(
+      "navInitials"
+    ).textContent = initials;
+
+
+    document.getElementById(
+      "loadingInitials"
+    ).textContent = initials;
+
+
+    document.getElementById(
+      "finalSection"
+    ).setAttribute(
+      "data-initials",
+      initials
+    );
+
+
+    /* ===============================================
+       NAMES
+    =============================================== */
+
+    document.getElementById(
+      "heroBride"
+    ).textContent = bride;
+
+
+    document.getElementById(
+      "heroGroom"
+    ).textContent = groom;
+
+
+    document.getElementById(
+      "quoteNames"
+    ).textContent = fullNames;
+
+
+    document.getElementById(
+      "finalNames"
+    ).textContent =
+      `${fullNames} · A love story without an ending`;
+
+
+    document.getElementById(
+      "footerNames"
+    ).textContent =
+      `${fullNames} © ${new Date().getFullYear()}`;
+
+
+    /* ===============================================
+       DATE
+    =============================================== */
+
+    document.getElementById(
+      "heroDate"
+    ).textContent = date;
+
+
+    document.getElementById(
+      "storyDate"
+    ).textContent =
+      `Written in the stars · ${date}`;
+
+
+    document.getElementById(
+      "footerDate"
+    ).textContent =
+      `${date} · The beginning of forever`;
+
+
+    /* ===============================================
+       IMAGES
+    =============================================== */
+
+    const images =
+      data.images || {};
+
+
+    setImage(
+      "heroImage",
+      images.heroImage
+    );
+
+
+    setImage(
+      "introMainImage",
+      images.introMainImage
+    );
+
+
+    setImage(
+      "introSmallImage",
+      images.introSmallImage
+    );
+
+
+    setImage(
+      "moment1",
+      images.moment1
+    );
+
+
+    setImage(
+      "moment2",
+      images.moment2
+    );
+
+
+    setImage(
+      "moment3",
+      images.moment3
+    );
+
+
+    setImage(
+      "storyImage",
+      images.storyImage
+    );
+
+
+    setImage(
+      "cinematicImage",
+      images.cinematicImage
+    );
+
+
+    /* ===============================================
+       HIDE LOADING
+    =============================================== */
+
+    setTimeout(
+      () => {
+
+        document
+          .getElementById("loading")
+          .classList
+          .add("hide");
+
+      },
+      700
+    );
+
+  }
+
+
+  catch (error) {
+
+    console.error(error);
+
+
+    document.getElementById(
+      "loading"
+    ).innerHTML = `
+
+      <div class="loading-initials">
+        !
+      </div>
+
+      <p>
+        Wedding album could not be loaded
+      </p>
+
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
+   SET IMAGE
+===================================================== */
+
+function setImage(
+  elementId,
+  imageUrl
+) {
+
+  const image =
+    document.getElementById(
+      elementId
+    );
+
+
+  if (imageUrl) {
+
+    image.src =
+      imageUrl;
+
+  }
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadWeddingAlbum();
+
+</script>
+
+
 </body>
-</html>
+    </html>
