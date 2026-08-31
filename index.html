@@ -21,7 +21,6 @@
   crossorigin
 >
 
-
 <link
   href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Italiana&display=swap"
   rel="stylesheet"
@@ -30,15 +29,10 @@
 
 <style>
 
-/* =====================================================
-   ROOT
-===================================================== */
-
 :root{
 
   --cream:#f6f0e6;
   --cream-dark:#ebe0d1;
-
   --white:#fffdf9;
 
   --gold:#b9945f;
@@ -49,11 +43,6 @@
   --soft-black:#302b26;
 
 }
-
-
-/* =====================================================
-   RESET
-===================================================== */
 
 *{
   margin:0;
@@ -77,7 +66,6 @@ body{
 
 }
 
-
 img{
 
   width:100%;
@@ -89,18 +77,16 @@ img{
 
 }
 
-
 ::selection{
 
   background:var(--gold);
-
   color:white;
 
 }
 
 
 /* =====================================================
-   LOADING SCREEN
+   LOADING
 ===================================================== */
 
 .loading{
@@ -128,7 +114,6 @@ img{
 .loading.hide{
 
   opacity:0;
-
   visibility:hidden;
 
 }
@@ -169,7 +154,6 @@ body::before{
   position:fixed;
 
   width:500px;
-
   height:500px;
 
   border-radius:50%;
@@ -178,7 +162,6 @@ body::before{
     1px solid rgba(185,148,95,.12);
 
   top:-250px;
-
   left:-250px;
 
   pointer-events:none;
@@ -194,7 +177,6 @@ body::after{
   position:fixed;
 
   width:700px;
-
   height:700px;
 
   border-radius:50%;
@@ -203,7 +185,6 @@ body::after{
     1px solid rgba(185,148,95,.08);
 
   bottom:-350px;
-
   right:-350px;
 
   pointer-events:none;
@@ -214,7 +195,7 @@ body::after{
 
 
 /* =====================================================
-   NAVIGATION
+   NAV
 ===================================================== */
 
 nav{
@@ -240,7 +221,6 @@ nav{
 
 }
 
-
 .nav-logo{
 
   font-family:
@@ -254,16 +234,6 @@ nav{
   font-weight:500;
 
 }
-
-
-.nav-logo span{
-
-  font-style:italic;
-
-  color:#e8c98e;
-
-}
-
 
 .nav-right{
 
@@ -281,7 +251,6 @@ nav{
 
 }
 
-
 .nav-right a{
 
   color:white;
@@ -293,7 +262,6 @@ nav{
   transition:.3s;
 
 }
-
 
 .nav-right a:hover{
 
@@ -326,7 +294,6 @@ nav{
 
 }
 
-
 .hero-bg{
 
   position:absolute;
@@ -342,20 +309,15 @@ nav{
 
 }
 
-
 .hero-bg img{
 
   position:absolute;
 
   inset:0;
 
-  width:100%;
-  height:100%;
-
   z-index:-1;
 
 }
-
 
 .hero-content{
 
@@ -368,7 +330,6 @@ nav{
   margin-top:50px;
 
 }
-
 
 .hero-kicker{
 
@@ -384,12 +345,9 @@ nav{
 
 }
 
-
 .hero-title{
 
-  font-family:
-    "Italiana",
-    serif;
+  font-family:"Italiana",serif;
 
   font-weight:400;
 
@@ -401,7 +359,6 @@ nav{
   letter-spacing:-3px;
 
 }
-
 
 .hero-title .amp{
 
@@ -417,7 +374,6 @@ nav{
 
 }
 
-
 .hero-date{
 
   margin-top:35px;
@@ -429,7 +385,6 @@ nav{
   text-transform:uppercase;
 
 }
-
 
 .hero-line{
 
@@ -447,7 +402,6 @@ nav{
   margin:35px auto 0;
 
 }
-
 
 .hero-corner{
 
@@ -482,7 +436,6 @@ nav{
 
 }
 
-
 .intro-top{
 
   display:grid;
@@ -495,7 +448,6 @@ nav{
   align-items:start;
 
 }
-
 
 .section-label{
 
@@ -515,7 +467,6 @@ nav{
 
 }
 
-
 .section-label::before{
 
   content:"";
@@ -527,7 +478,6 @@ nav{
   background:var(--gold);
 
 }
-
 
 .intro-title{
 
@@ -546,7 +496,6 @@ nav{
 
 }
 
-
 .intro-title em{
 
   color:var(--gold-dark);
@@ -554,7 +503,6 @@ nav{
   font-weight:300;
 
 }
-
 
 .intro-text{
 
@@ -572,7 +520,7 @@ nav{
 
 
 /* =====================================================
-   EDITORIAL IMAGE
+   EDITORIAL
 ===================================================== */
 
 .editorial-image{
@@ -584,7 +532,6 @@ nav{
   height:720px;
 
 }
-
 
 .editorial-main{
 
@@ -598,20 +545,17 @@ nav{
 
 }
 
-
 .editorial-main img{
 
   transition:1s ease;
 
 }
 
-
 .editorial-main:hover img{
 
   transform:scale(1.04);
 
 }
-
 
 .editorial-small{
 
@@ -636,7 +580,6 @@ nav{
 
 }
 
-
 .editorial-number{
 
   position:absolute;
@@ -660,7 +603,6 @@ nav{
 
 }
 
-
 .image-caption{
 
   position:absolute;
@@ -673,7 +615,6 @@ nav{
 
 }
 
-
 .image-caption h3{
 
   font-family:
@@ -685,7 +626,6 @@ nav{
   font-weight:400;
 
 }
-
 
 .image-caption p{
 
@@ -716,7 +656,6 @@ nav{
 
 }
 
-
 .quote-mark{
 
   font-family:
@@ -730,7 +669,6 @@ nav{
   line-height:.3;
 
 }
-
 
 .quote{
 
@@ -751,7 +689,6 @@ nav{
 
 }
 
-
 .quote em{
 
   color:var(--gold-dark);
@@ -759,7 +696,6 @@ nav{
   font-style:italic;
 
 }
-
 
 .quote-author{
 
@@ -788,7 +724,6 @@ nav{
 
 }
 
-
 .moments-header{
 
   max-width:1500px;
@@ -807,7 +742,6 @@ nav{
 
 }
 
-
 .moments-header h2{
 
   font-family:
@@ -823,6 +757,13 @@ nav{
 
 }
 
+.moments-header h2 em{
+
+  color:#d5ae70;
+
+  font-style:italic;
+
+}
 
 .moments-header p{
 
@@ -835,7 +776,6 @@ nav{
   color:#c3bbb1;
 
 }
-
 
 .moments-grid{
 
@@ -854,7 +794,6 @@ nav{
 
 }
 
-
 .moment{
 
   overflow:hidden;
@@ -865,20 +804,17 @@ nav{
 
 }
 
-
 .moment:nth-child(1){
 
   height:720px;
 
 }
 
-
 .moment:nth-child(2){
 
   height:400px;
 
 }
-
 
 .moment:nth-child(3){
 
@@ -887,7 +823,6 @@ nav{
   margin-top:120px;
 
 }
-
 
 .moment img{
 
@@ -898,7 +833,6 @@ nav{
 
 }
 
-
 .moment:hover img{
 
   transform:scale(1.08);
@@ -906,7 +840,6 @@ nav{
   opacity:.75;
 
 }
-
 
 .moment::after{
 
@@ -927,7 +860,6 @@ nav{
 
 }
 
-
 .moment-info{
 
   position:absolute;
@@ -940,7 +872,6 @@ nav{
 
 }
 
-
 .moment-info span{
 
   font-size:9px;
@@ -952,7 +883,6 @@ nav{
   color:#d9b87e;
 
 }
-
 
 .moment-info h3{
 
@@ -983,7 +913,6 @@ nav{
 
 }
 
-
 .story-grid{
 
   display:grid;
@@ -997,7 +926,6 @@ nav{
 
 }
 
-
 .story-image{
 
   height:750px;
@@ -1005,7 +933,6 @@ nav{
   position:relative;
 
 }
-
 
 .story-image-main{
 
@@ -1015,13 +942,11 @@ nav{
 
 }
 
-
 .story-image-main img{
 
   transition:1s ease;
 
 }
-
 
 .story-image:hover img{
 
@@ -1029,13 +954,11 @@ nav{
 
 }
 
-
 .story-badge{
 
   position:absolute;
 
   width:170px;
-
   height:170px;
 
   border-radius:50%;
@@ -1043,7 +966,6 @@ nav{
   background:var(--gold);
 
   right:-50px;
-
   top:70px;
 
   display:flex;
@@ -1072,13 +994,11 @@ nav{
 
 }
 
-
 .story-content{
 
   padding:40px 0;
 
 }
-
 
 .story-content h2{
 
@@ -1095,13 +1015,11 @@ nav{
 
 }
 
-
 .story-content h2 em{
 
   color:var(--gold-dark);
 
 }
-
 
 .story-content p{
 
@@ -1116,7 +1034,6 @@ nav{
   font-size:14px;
 
 }
-
 
 .story-date{
 
@@ -1162,7 +1079,6 @@ nav{
 
 }
 
-
 .cinematic::after{
 
   content:"";
@@ -1182,7 +1098,6 @@ nav{
 
 }
 
-
 .cinematic img{
 
   position:absolute;
@@ -1193,7 +1108,6 @@ nav{
 
 }
 
-
 .cinematic-content{
 
   max-width:850px;
@@ -1203,7 +1117,6 @@ nav{
   z-index:2;
 
 }
-
 
 .cinematic-content span{
 
@@ -1216,7 +1129,6 @@ nav{
   color:#e2c487;
 
 }
-
 
 .cinematic-content h2{
 
@@ -1232,6 +1144,259 @@ nav{
   line-height:.85;
 
   margin-top:25px;
+
+}
+
+
+/* =====================================================
+   FULL WEDDING GALLERY
+===================================================== */
+
+.gallery{
+
+  padding:160px 5%;
+
+  background:var(--cream);
+
+}
+
+.gallery-header{
+
+  text-align:center;
+
+  margin-bottom:90px;
+
+}
+
+.gallery-header span{
+
+  font-size:10px;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+
+  color:var(--gold-dark);
+
+}
+
+.gallery-header h2{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(60px,8vw,120px);
+
+  font-weight:400;
+
+  margin-top:18px;
+
+  line-height:.9;
+
+}
+
+.gallery-count{
+
+  margin-top:25px;
+
+  font-size:10px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  color:#81766a;
+
+}
+
+
+/*
+   Dynamic gallery.
+   Every photo uploaded after the 8 featured
+   images is inserted here automatically.
+*/
+
+.gallery-grid{
+
+  max-width:1600px;
+
+  margin:auto;
+
+  columns:4 260px;
+
+  column-gap:15px;
+
+}
+
+
+.gallery-item{
+
+  break-inside:avoid;
+
+  margin-bottom:15px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  cursor:pointer;
+
+  background:#e8dfd2;
+
+}
+
+
+.gallery-item img{
+
+  width:100%;
+
+  height:auto;
+
+  min-height:220px;
+
+  object-fit:cover;
+
+  transition:
+    transform .8s
+    cubic-bezier(.2,.7,.2,1);
+
+}
+
+
+.gallery-item:hover img{
+
+  transform:scale(1.045);
+
+}
+
+
+.gallery-item::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.2),
+      transparent 35%
+    );
+
+  opacity:0;
+
+  transition:.4s;
+
+  pointer-events:none;
+
+}
+
+
+.gallery-item:hover::after{
+
+  opacity:1;
+
+}
+
+
+/* =====================================================
+   LIGHTBOX
+===================================================== */
+
+.lightbox{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:9998;
+
+  background:
+    rgba(15,13,11,.96);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:40px;
+
+  opacity:0;
+
+  visibility:hidden;
+
+  transition:.35s ease;
+
+}
+
+
+.lightbox.open{
+
+  opacity:1;
+
+  visibility:visible;
+
+}
+
+
+.lightbox img{
+
+  max-width:94vw;
+
+  max-height:90vh;
+
+  width:auto;
+
+  height:auto;
+
+  object-fit:contain;
+
+}
+
+
+.lightbox-close{
+
+  position:absolute;
+
+  top:25px;
+
+  right:35px;
+
+  color:white;
+
+  font-size:35px;
+
+  font-weight:300;
+
+  cursor:pointer;
+
+  line-height:1;
+
+}
+
+
+.lightbox-counter{
+
+  position:absolute;
+
+  bottom:25px;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  color:#d8bd8a;
+
+  font-size:10px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
 
 }
 
@@ -1253,7 +1418,6 @@ nav{
   overflow:hidden;
 
 }
-
 
 .final::before{
 
@@ -1281,7 +1445,6 @@ nav{
 
 }
 
-
 .final-content{
 
   position:relative;
@@ -1289,7 +1452,6 @@ nav{
   z-index:2;
 
 }
-
 
 .final span{
 
@@ -1302,7 +1464,6 @@ nav{
   color:var(--gold-dark);
 
 }
-
 
 .final h2{
 
@@ -1321,7 +1482,6 @@ nav{
 
 }
 
-
 .final h2 em{
 
   font-style:italic;
@@ -1329,7 +1489,6 @@ nav{
   color:var(--gold-dark);
 
 }
-
 
 .final p{
 
@@ -1373,7 +1532,6 @@ footer{
   color:#93887c;
 
 }
-
 
 .footer-love{
 
@@ -1492,6 +1650,25 @@ footer{
     right:-20px;
   }
 
+  .gallery{
+
+    padding:
+      100px 5%;
+
+  }
+
+  .gallery-grid{
+
+    columns:2 150px;
+
+  }
+
+  .lightbox{
+
+    padding:20px;
+
+  }
+
   footer{
 
     flex-direction:column;
@@ -1504,6 +1681,36 @@ footer{
 
 }
 
+@media(max-width:500px){
+
+  .gallery-grid{
+
+    columns:2 120px;
+
+    column-gap:8px;
+
+  }
+
+  .gallery-item{
+
+    margin-bottom:8px;
+
+  }
+
+}
+
+
+/* =====================================================
+   HIDDEN EMPTY IMAGE
+===================================================== */
+
+img:not([src]),
+img[src=""]{
+
+  visibility:hidden;
+
+}
+
 </style>
 
 </head>
@@ -1512,9 +1719,14 @@ footer{
 <body>
 
 
-<!-- LOADING -->
+<!-- =====================================================
+     LOADING
+===================================================== -->
 
-<div class="loading" id="loading">
+<div
+  class="loading"
+  id="loading"
+>
 
   <div
     class="loading-initials"
@@ -1523,13 +1735,17 @@ footer{
     &
   </div>
 
-  <p>Preparing your wedding story</p>
+  <p>
+    Preparing your wedding story
+  </p>
 
 </div>
 
 
 
-<!-- NAVIGATION -->
+<!-- =====================================================
+     NAV
+===================================================== -->
 
 <nav>
 
@@ -1551,13 +1767,19 @@ footer{
       The Moments
     </a>
 
+    <a href="#gallery">
+      Gallery
+    </a>
+
   </div>
 
 </nav>
 
 
 
-<!-- HERO -->
+<!-- =====================================================
+     HERO
+===================================================== -->
 
 <section class="hero">
 
@@ -1616,7 +1838,9 @@ footer{
 
 
 
-<!-- INTRO -->
+<!-- =====================================================
+     INTRO EDITORIAL
+===================================================== -->
 
 <section class="intro">
 
@@ -1665,7 +1889,6 @@ footer{
   </div>
 
 
-
   <div class="editorial-image">
 
     <div class="editorial-number">
@@ -1712,7 +1935,9 @@ footer{
 
 
 
-<!-- QUOTE -->
+<!-- =====================================================
+     QUOTE
+===================================================== -->
 
 <section class="quote-section">
 
@@ -1741,7 +1966,9 @@ footer{
 
 
 
-<!-- MOMENTS -->
+<!-- =====================================================
+     MOMENTS
+===================================================== -->
 
 <section
   class="moments"
@@ -1777,11 +2004,8 @@ footer{
   </div>
 
 
-
   <div class="moments-grid">
 
-
-    <!-- MOMENT 1 -->
 
     <div class="moment">
 
@@ -1807,8 +2031,6 @@ footer{
 
 
 
-    <!-- MOMENT 2 -->
-
     <div class="moment">
 
       <img
@@ -1832,8 +2054,6 @@ footer{
     </div>
 
 
-
-    <!-- MOMENT 3 -->
 
     <div class="moment">
 
@@ -1863,7 +2083,9 @@ footer{
 
 
 
-<!-- LOVE STORY -->
+<!-- =====================================================
+     LOVE STORY
+===================================================== -->
 
 <section
   class="story"
@@ -1888,9 +2110,7 @@ footer{
       <div class="story-badge">
 
         A lifetime<br>
-
         in one<br>
-
         beautiful day
 
       </div>
@@ -1949,7 +2169,9 @@ footer{
 
 
 
-<!-- CINEMATIC -->
+<!-- =====================================================
+     CINEMATIC
+===================================================== -->
 
 <section class="cinematic">
 
@@ -1980,7 +2202,87 @@ footer{
 
 
 
-<!-- FINAL -->
+<!-- =====================================================
+     FULL WEDDING GALLERY
+===================================================== -->
+
+<section
+  class="gallery"
+  id="gallery"
+>
+
+  <div class="gallery-header">
+
+    <span>
+      Memories captured forever
+    </span>
+
+
+    <h2>
+      The album
+    </h2>
+
+
+    <div
+      class="gallery-count"
+      id="galleryCount"
+    >
+      Loading memories
+    </div>
+
+  </div>
+
+
+  <!--
+      JavaScript will automatically put
+      EVERY uploaded gallery photo here.
+  -->
+
+  <div
+    class="gallery-grid"
+    id="galleryGrid"
+  ></div>
+
+</section>
+
+
+
+<!-- =====================================================
+     LIGHTBOX
+===================================================== -->
+
+<div
+  class="lightbox"
+  id="lightbox"
+>
+
+  <div
+    class="lightbox-close"
+    id="lightboxClose"
+  >
+    ×
+  </div>
+
+
+  <img
+    id="lightboxImage"
+    alt="Wedding Memory"
+  >
+
+
+  <div
+    class="lightbox-counter"
+    id="lightboxCounter"
+  >
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FINAL
+===================================================== -->
 
 <section
   class="final"
@@ -2011,9 +2313,7 @@ footer{
 
 
     <p id="finalNames">
-
       Bride & Groom
-
     </p>
 
   </div>
@@ -2022,28 +2322,24 @@ footer{
 
 
 
-<!-- FOOTER -->
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
   <div id="footerNames">
-
     Bride & Groom
-
   </div>
 
 
   <div class="footer-love">
-
     Made with love
-
   </div>
 
 
   <div id="footerDate">
-
     The beginning of forever
-
   </div>
 
 </footer>
@@ -2052,9 +2348,9 @@ footer{
 
 <script>
 
+
 /* =====================================================
-   BACKEND URL
-   CHANGE THIS TO YOUR RENDER BACKEND URL
+   YOUR RENDER BACKEND
 ===================================================== */
 
 const API_URL =
@@ -2062,7 +2358,7 @@ const API_URL =
 
 
 /* =====================================================
-   GET EVENT ID
+   EVENT ID
 ===================================================== */
 
 const params =
@@ -2076,7 +2372,16 @@ const eventId =
 
 
 /* =====================================================
-   LOAD WEDDING ALBUM
+   LIGHTBOX STATE
+===================================================== */
+
+let galleryPhotos = [];
+
+let currentGalleryIndex = 0;
+
+
+/* =====================================================
+   LOAD ALBUM
 ===================================================== */
 
 async function loadWeddingAlbum() {
@@ -2145,12 +2450,14 @@ async function loadWeddingAlbum() {
 
     document.getElementById(
       "navInitials"
-    ).textContent = initials;
+    ).textContent =
+      initials;
 
 
     document.getElementById(
       "loadingInitials"
-    ).textContent = initials;
+    ).textContent =
+      initials;
 
 
     document.getElementById(
@@ -2167,17 +2474,20 @@ async function loadWeddingAlbum() {
 
     document.getElementById(
       "heroBride"
-    ).textContent = bride;
+    ).textContent =
+      bride;
 
 
     document.getElementById(
       "heroGroom"
-    ).textContent = groom;
+    ).textContent =
+      groom;
 
 
     document.getElementById(
       "quoteNames"
-    ).textContent = fullNames;
+    ).textContent =
+      fullNames;
 
 
     document.getElementById(
@@ -2198,7 +2508,8 @@ async function loadWeddingAlbum() {
 
     document.getElementById(
       "heroDate"
-    ).textContent = date;
+    ).textContent =
+      date;
 
 
     document.getElementById(
@@ -2214,7 +2525,7 @@ async function loadWeddingAlbum() {
 
 
     /* ===============================================
-       IMAGES
+       FEATURED IMAGES
     =============================================== */
 
     const images =
@@ -2266,6 +2577,15 @@ async function loadWeddingAlbum() {
     setImage(
       "cinematicImage",
       images.cinematicImage
+    );
+
+
+    /* ===============================================
+       FULL GALLERY
+    =============================================== */
+
+    buildGallery(
+      data.media || []
     );
 
 
@@ -2327,12 +2647,381 @@ function setImage(
     );
 
 
-  if (imageUrl) {
+  if (
+    image &&
+    imageUrl
+  ) {
 
     image.src =
       imageUrl;
 
   }
+
+}
+
+
+/* =====================================================
+   BUILD FULL GALLERY
+===================================================== */
+
+function buildGallery(
+  media
+) {
+
+  const galleryGrid =
+    document.getElementById(
+      "galleryGrid"
+    );
+
+
+  const galleryCount =
+    document.getElementById(
+      "galleryCount"
+    );
+
+
+  /*
+    Only photos belong in the
+    wedding photo gallery.
+
+    Videos/files uploaded through
+    edit mode won't break the gallery.
+  */
+
+  galleryPhotos =
+    media.filter(
+      item =>
+        item &&
+        item.type === "photo" &&
+        item.file_path
+    );
+
+
+  /* ===============================================
+     COUNT
+  =============================================== */
+
+  galleryCount.textContent =
+    `${galleryPhotos.length} ${
+      galleryPhotos.length === 1
+        ? "memory"
+        : "memories"
+    }`;
+
+
+  /* ===============================================
+     EMPTY GALLERY
+  =============================================== */
+
+  if (
+    galleryPhotos.length === 0
+  ) {
+
+    galleryGrid.innerHTML = `
+
+      <div style="
+        column-span:all;
+        text-align:center;
+        padding:80px 20px;
+        color:#81766a;
+        font-family:'Cormorant Garamond',serif;
+        font-size:28px;
+      ">
+        Your memories are waiting to be captured.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  /* ===============================================
+     CREATE EVERY IMAGE
+  =============================================== */
+
+  galleryGrid.innerHTML =
+    galleryPhotos
+      .map(
+        (photo, index) => `
+
+          <div
+            class="gallery-item"
+            onclick="openLightbox(${index})"
+          >
+
+            <img
+              src="${escapeHtml(
+                photo.file_path
+              )}"
+              alt="Wedding memory ${
+                index + 1
+              }"
+              loading="lazy"
+            >
+
+          </div>
+
+        `
+      )
+      .join("");
+
+}
+
+
+/* =====================================================
+   LIGHTBOX OPEN
+===================================================== */
+
+function openLightbox(index) {
+
+  currentGalleryIndex =
+    index;
+
+
+  const photo =
+    galleryPhotos[index];
+
+
+  if (!photo) {
+    return;
+  }
+
+
+  document.getElementById(
+    "lightboxImage"
+  ).src =
+    photo.file_path;
+
+
+  document.getElementById(
+    "lightboxCounter"
+  ).textContent =
+    `${index + 1} / ${galleryPhotos.length}`;
+
+
+  document.getElementById(
+    "lightbox"
+  ).classList.add("open");
+
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+/* =====================================================
+   LIGHTBOX CLOSE
+===================================================== */
+
+function closeLightbox() {
+
+  document.getElementById(
+    "lightbox"
+  ).classList.remove("open");
+
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+document.getElementById(
+  "lightboxClose"
+).addEventListener(
+  "click",
+  closeLightbox
+);
+
+
+document.getElementById(
+  "lightbox"
+).addEventListener(
+  "click",
+  event => {
+
+    if (
+      event.target.id ===
+      "lightbox"
+    ) {
+
+      closeLightbox();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   KEYBOARD CONTROLS
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    const lightbox =
+      document.getElementById(
+        "lightbox"
+      );
+
+
+    if (
+      !lightbox.classList.contains(
+        "open"
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      closeLightbox();
+
+    }
+
+    else if (
+      event.key === "ArrowRight"
+    ) {
+
+      showNextPhoto();
+
+    }
+
+    else if (
+      event.key === "ArrowLeft"
+    ) {
+
+      showPreviousPhoto();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   NEXT PHOTO
+===================================================== */
+
+function showNextPhoto() {
+
+  if (
+    galleryPhotos.length === 0
+  ) {
+
+    return;
+
+  }
+
+
+  currentGalleryIndex =
+    (
+      currentGalleryIndex + 1
+    ) %
+    galleryPhotos.length;
+
+
+  updateLightbox();
+
+}
+
+
+/* =====================================================
+   PREVIOUS PHOTO
+===================================================== */
+
+function showPreviousPhoto() {
+
+  if (
+    galleryPhotos.length === 0
+  ) {
+
+    return;
+
+  }
+
+
+  currentGalleryIndex =
+    (
+      currentGalleryIndex - 1 +
+      galleryPhotos.length
+    ) %
+    galleryPhotos.length;
+
+
+  updateLightbox();
+
+}
+
+
+/* =====================================================
+   UPDATE LIGHTBOX
+===================================================== */
+
+function updateLightbox() {
+
+  const photo =
+    galleryPhotos[
+      currentGalleryIndex
+    ];
+
+
+  document.getElementById(
+    "lightboxImage"
+  ).src =
+    photo.file_path;
+
+
+  document.getElementById(
+    "lightboxCounter"
+  ).textContent =
+    `${currentGalleryIndex + 1} / ${galleryPhotos.length}`;
+
+}
+
+
+/* =====================================================
+   BASIC HTML ESCAPE
+===================================================== */
+
+function escapeHtml(value) {
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
@@ -2347,4 +3036,5 @@ loadWeddingAlbum();
 
 
 </body>
-    </html>
+
+</html>
