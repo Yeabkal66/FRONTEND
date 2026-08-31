@@ -1302,21 +1302,51 @@ nav{
 
 }
 
+.gallery-item video{
 
-/* =====================================================
-   LIGHTBOX
-===================================================== */
+  width:100%;
 
-.lightbox{
+  height:auto;
 
-  position:fixed;
+  min-height:220px;
 
-  inset:0;
+  display:block;
 
-  z-index:9998;
+  object-fit:cover;
 
-  background:
-    rgba(15,13,11,.96);
+  transition:
+    transform .8s
+    cubic-bezier(.2,.7,.2,1);
+
+}
+
+.gallery-item:hover video{
+
+  transform:scale(1.045);
+
+}
+
+.gallery-video::before{
+
+  content:"▶";
+
+  position:absolute;
+
+  left:18px;
+
+  bottom:18px;
+
+  z-index:3;
+
+  width:42px;
+
+  height:42px;
+
+  border-radius:50%;
+
+  background:rgba(0,0,0,.55);
+
+  backdrop-filter:blur(8px);
 
   display:flex;
 
@@ -1324,82 +1354,133 @@ nav{
 
   justify-content:center;
 
-  padding:40px;
-
-  opacity:0;
-
-  visibility:hidden;
-
-  transition:.35s ease;
-
-}
-
-
-.lightbox.open{
-
-  opacity:1;
-
-  visibility:visible;
-
-}
-
-
-.lightbox img{
-
-  max-width:94vw;
-
-  max-height:90vh;
-
-  width:auto;
-
-  height:auto;
-
-  object-fit:contain;
-
-}
-
-
-.lightbox-close{
-
-  position:absolute;
-
-  top:25px;
-
-  right:35px;
-
   color:white;
 
-  font-size:35px;
+  font-size:13px;
 
-  font-weight:300;
-
-  cursor:pointer;
-
-  line-height:1;
+  pointer-events:none;
 
 }
 
+
+/* =====================================================
+   LIGHTBOX
+===================================================== */
+
+.lightbox{
+  position:fixed;
+  inset:0;
+  z-index:9998;
+  background:rgba(15,13,11,.97);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px;
+  opacity:0;
+  visibility:hidden;
+  transition:.35s ease;
+}
+
+.lightbox.open{
+  opacity:1;
+  visibility:visible;
+}
+
+.lightbox-media{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.lightbox-media img,
+.lightbox-media video{
+  max-width:88vw;
+  max-height:88vh;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  user-select:none;
+}
+
+.lightbox-media video{
+  background:#000;
+  box-shadow:0 30px 100px rgba(0,0,0,.45);
+}
+
+.lightbox-close{
+  position:absolute;
+  top:24px;
+  right:32px;
+  z-index:5;
+  width:46px;
+  height:46px;
+  border:0;
+  background:transparent;
+  color:white;
+  font-size:40px;
+  font-weight:200;
+  cursor:pointer;
+  line-height:1;
+}
+
+.lightbox-prev,
+.lightbox-next{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:5;
+  width:55px;
+  height:75px;
+  border:0;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(10px);
+  color:white;
+  font-family:"Cormorant Garamond",serif;
+  font-size:55px;
+  font-weight:300;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover{
+  background:rgba(255,255,255,.18);
+}
+
+.lightbox-prev{left:25px;}
+.lightbox-next{right:25px;}
 
 .lightbox-counter{
-
   position:absolute;
-
   bottom:25px;
-
   left:50%;
-
   transform:translateX(-50%);
-
   color:#d8bd8a;
-
   font-size:10px;
-
   letter-spacing:3px;
-
   text-transform:uppercase;
-
 }
 
+@media(max-width:700px){
+  .lightbox{padding:15px;}
+  .lightbox-media img,
+  .lightbox-media video{
+    max-width:94vw;
+    max-height:82vh;
+  }
+  .lightbox-prev,
+  .lightbox-next{
+    width:40px;
+    height:55px;
+    font-size:42px;
+    background:rgba(0,0,0,.25);
+  }
+  .lightbox-prev{left:8px;}
+  .lightbox-next{right:8px;}
+  .lightbox-close{top:12px;right:15px;}
+}
 
 /* =====================================================
    FINAL
@@ -2256,25 +2337,39 @@ img[src=""]{
   id="lightbox"
 >
 
-  <div
+  <button
     class="lightbox-close"
     id="lightboxClose"
+    aria-label="Close viewer"
   >
     ×
-  </div>
+  </button>
 
-
-  <img
-    id="lightboxImage"
-    alt="Wedding Memory"
+  <button
+    class="lightbox-prev"
+    id="lightboxPrev"
+    aria-label="Previous media"
   >
+    ‹
+  </button>
 
+  <div
+    class="lightbox-media"
+    id="lightboxMedia"
+  ></div>
+
+  <button
+    class="lightbox-next"
+    id="lightboxNext"
+    aria-label="Next media"
+  >
+    ›
+  </button>
 
   <div
     class="lightbox-counter"
     id="lightboxCounter"
-  >
-  </div>
+  ></div>
 
 </div>
 
@@ -2664,61 +2759,29 @@ function setImage(
    BUILD FULL GALLERY
 ===================================================== */
 
-function buildGallery(
-  media
-) {
+function buildGallery(media) {
 
   const galleryGrid =
-    document.getElementById(
-      "galleryGrid"
-    );
-
+    document.getElementById("galleryGrid");
 
   const galleryCount =
-    document.getElementById(
-      "galleryCount"
-    );
+    document.getElementById("galleryCount");
 
-
-  /*
-    Only photos belong in the
-    wedding photo gallery.
-
-    Videos/files uploaded through
-    edit mode won't break the gallery.
-  */
-
-  galleryPhotos =
-    media.filter(
-      item =>
-        item &&
-        item.type === "photo" &&
-        item.file_path
-    );
-
-
-  /* ===============================================
-     COUNT
-  =============================================== */
+  galleryPhotos = media.filter(
+    item =>
+      item &&
+      (item.type === "photo" || item.type === "video") &&
+      item.file_path
+  );
 
   galleryCount.textContent =
     `${galleryPhotos.length} ${
-      galleryPhotos.length === 1
-        ? "memory"
-        : "memories"
+      galleryPhotos.length === 1 ? "memory" : "memories"
     }`;
 
-
-  /* ===============================================
-     EMPTY GALLERY
-  =============================================== */
-
-  if (
-    galleryPhotos.length === 0
-  ) {
+  if (galleryPhotos.length === 0) {
 
     galleryGrid.innerHTML = `
-
       <div style="
         column-span:all;
         text-align:center;
@@ -2729,265 +2792,213 @@ function buildGallery(
       ">
         Your memories are waiting to be captured.
       </div>
-
     `;
 
     return;
-
   }
 
-
-  /* ===============================================
-     CREATE EVERY IMAGE
-  =============================================== */
-
   galleryGrid.innerHTML =
-    galleryPhotos
-      .map(
-        (photo, index) => `
+    galleryPhotos.map((item, index) => {
 
+      if (item.type === "video") {
+
+        return `
           <div
-            class="gallery-item"
+            class="gallery-item gallery-video"
             onclick="openLightbox(${index})"
           >
-
-            <img
-              src="${escapeHtml(
-                photo.file_path
-              )}"
-              alt="Wedding memory ${
-                index + 1
-              }"
-              loading="lazy"
-            >
-
+            <video
+              src="${escapeHtml(item.file_path)}"
+              muted
+              preload="metadata"
+              playsinline
+            ></video>
           </div>
+        `;
+      }
 
-        `
-      )
-      .join("");
+      return `
+        <div
+          class="gallery-item"
+          onclick="openLightbox(${index})"
+        >
+          <img
+            src="${escapeHtml(item.file_path)}"
+            alt="Wedding memory ${index + 1}"
+            loading="lazy"
+          >
+        </div>
+      `;
 
+    }).join("");
 }
 
 
 /* =====================================================
-   LIGHTBOX OPEN
+   LIGHTBOX
 ===================================================== */
 
 function openLightbox(index) {
 
-  currentGalleryIndex =
-    index;
+  currentGalleryIndex = index;
+
+  renderLightbox();
+
+  document
+    .getElementById("lightbox")
+    .classList.add("open");
+
+  document.body.style.overflow = "hidden";
+}
 
 
-  const photo =
-    galleryPhotos[index];
+function renderLightbox() {
 
+  const item =
+    galleryPhotos[currentGalleryIndex];
 
-  if (!photo) {
-    return;
+  if (!item) return;
+
+  const container =
+    document.getElementById("lightboxMedia");
+
+  if (item.type === "video") {
+
+    container.innerHTML = `
+      <video
+        src="${escapeHtml(item.file_path)}"
+        controls
+        autoplay
+        playsinline
+      ></video>
+    `;
+
+  } else {
+
+    container.innerHTML = `
+      <img
+        src="${escapeHtml(item.file_path)}"
+        alt="Wedding memory ${currentGalleryIndex + 1}"
+      >
+    `;
   }
 
-
-  document.getElementById(
-    "lightboxImage"
-  ).src =
-    photo.file_path;
+  document.getElementById("lightboxCounter").textContent =
+    `${currentGalleryIndex + 1} / ${galleryPhotos.length}`;
+}
 
 
-  document.getElementById(
-    "lightboxCounter"
-  ).textContent =
-    `${index + 1} / ${galleryPhotos.length}`;
+function closeLightbox() {
+
+  document.getElementById("lightboxMedia").innerHTML = "";
+
+  document
+    .getElementById("lightbox")
+    .classList.remove("open");
+
+  document.body.style.overflow = "";
+}
 
 
-  document.getElementById(
-    "lightbox"
-  ).classList.add("open");
+function showNextPhoto() {
+
+  if (!galleryPhotos.length) return;
+
+  currentGalleryIndex =
+    (currentGalleryIndex + 1) % galleryPhotos.length;
+
+  renderLightbox();
+}
 
 
-  document.body.style.overflow =
-    "hidden";
+function showPreviousPhoto() {
 
+  if (!galleryPhotos.length) return;
+
+  currentGalleryIndex =
+    (currentGalleryIndex - 1 + galleryPhotos.length) %
+    galleryPhotos.length;
+
+  renderLightbox();
 }
 
 
 /* =====================================================
-   LIGHTBOX CLOSE
+   LIGHTBOX BUTTONS
 ===================================================== */
 
-function closeLightbox() {
+document
+  .getElementById("lightboxClose")
+  .addEventListener("click", closeLightbox);
 
-  document.getElementById(
-    "lightbox"
-  ).classList.remove("open");
+document
+  .getElementById("lightboxPrev")
+  .addEventListener("click", showPreviousPhoto);
 
-
-  document.body.style.overflow =
-    "";
-
-}
-
-
-document.getElementById(
-  "lightboxClose"
-).addEventListener(
-  "click",
-  closeLightbox
-);
+document
+  .getElementById("lightboxNext")
+  .addEventListener("click", showNextPhoto);
 
 
-document.getElementById(
-  "lightbox"
-).addEventListener(
-  "click",
-  event => {
+document
+  .getElementById("lightbox")
+  .addEventListener("click", event => {
 
-    if (
-      event.target.id ===
-      "lightbox"
-    ) {
-
+    if (event.target.id === "lightbox") {
       closeLightbox();
-
     }
 
-  }
-);
+  });
 
 
 /* =====================================================
    KEYBOARD CONTROLS
 ===================================================== */
 
-document.addEventListener(
-  "keydown",
-  event => {
+document.addEventListener("keydown", event => {
 
-    const lightbox =
-      document.getElementById(
-        "lightbox"
-      );
+  const lightbox =
+    document.getElementById("lightbox");
 
+  if (!lightbox.classList.contains("open")) return;
 
-    if (
-      !lightbox.classList.contains(
-        "open"
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      event.key === "Escape"
-    ) {
-
-      closeLightbox();
-
-    }
-
-    else if (
-      event.key === "ArrowRight"
-    ) {
-
-      showNextPhoto();
-
-    }
-
-    else if (
-      event.key === "ArrowLeft"
-    ) {
-
-      showPreviousPhoto();
-
-    }
-
+  if (event.key === "Escape") {
+    closeLightbox();
+  } else if (event.key === "ArrowRight") {
+    showNextPhoto();
+  } else if (event.key === "ArrowLeft") {
+    showPreviousPhoto();
   }
-);
+});
 
 
 /* =====================================================
-   NEXT PHOTO
+   MOBILE SWIPE
 ===================================================== */
 
-function showNextPhoto() {
+let touchStartX = 0;
+let touchEndX = 0;
 
-  if (
-    galleryPhotos.length === 0
-  ) {
+const lightboxElement =
+  document.getElementById("lightbox");
 
-    return;
+lightboxElement.addEventListener("touchstart", event => {
+  touchStartX = event.changedTouches[0].screenX;
+}, { passive:true });
 
+lightboxElement.addEventListener("touchend", event => {
+  touchEndX = event.changedTouches[0].screenX;
+
+  const difference = touchEndX - touchStartX;
+
+  if (Math.abs(difference) < 50) return;
+
+  if (difference < 0) {
+    showNextPhoto();
+  } else {
+    showPreviousPhoto();
   }
-
-
-  currentGalleryIndex =
-    (
-      currentGalleryIndex + 1
-    ) %
-    galleryPhotos.length;
-
-
-  updateLightbox();
-
-}
-
-
-/* =====================================================
-   PREVIOUS PHOTO
-===================================================== */
-
-function showPreviousPhoto() {
-
-  if (
-    galleryPhotos.length === 0
-  ) {
-
-    return;
-
-  }
-
-
-  currentGalleryIndex =
-    (
-      currentGalleryIndex - 1 +
-      galleryPhotos.length
-    ) %
-    galleryPhotos.length;
-
-
-  updateLightbox();
-
-}
-
-
-/* =====================================================
-   UPDATE LIGHTBOX
-===================================================== */
-
-function updateLightbox() {
-
-  const photo =
-    galleryPhotos[
-      currentGalleryIndex
-    ];
-
-
-  document.getElementById(
-    "lightboxImage"
-  ).src =
-    photo.file_path;
-
-
-  document.getElementById(
-    "lightboxCounter"
-  ).textContent =
-    `${currentGalleryIndex + 1} / ${galleryPhotos.length}`;
-
-}
+}, { passive:true });
 
 
 /* =====================================================
@@ -3038,3 +3049,4 @@ loadWeddingAlbum();
 </body>
 
 </html>
+
