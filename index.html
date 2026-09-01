@@ -250,6 +250,47 @@ nav{
   z-index:-1;
 }
 
+/* =====================================================
+   CINEMATIC HERO MARQUEE
+===================================================== */
+
+.hero-marquee{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  display:flex;
+  width:max-content;
+  height:100%;
+  animation:heroMarquee 70s linear infinite;
+  will-change:transform;
+}
+
+
+.hero-marquee-slide{
+  position:relative;
+  width:100vw;
+  height:100%;
+  flex:0 0 100vw;
+}
+
+.hero-marquee-slide img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+@keyframes heroMarquee{
+  from{
+    transform:translateX(0);
+  }
+  to{
+    transform:translateX(-500vw);
+  }
+}
+
 .hero-content{
   position:relative;
 
@@ -2318,10 +2359,10 @@ footer{
 
   <div class="hero-bg">
 
-    <img
-      id="heroImage"
-      alt="Wedding Hero"
-    >
+    <div
+      class="hero-marquee"
+      id="heroMarquee"
+    ></div>
 
   </div>
 
@@ -3164,9 +3205,10 @@ async function loadWeddingAlbum(){
       data.images || {};
 
 
-    setImage(
-      "heroImage",
-      images.heroImage
+    buildHeroMarquee(
+      images.heroImages && images.heroImages.length
+        ? images.heroImages
+        : (images.heroImage ? [images.heroImage] : [])
     );
 
 
@@ -3258,6 +3300,56 @@ async function loadWeddingAlbum(){
     `;
 
   }
+
+}
+
+
+/* =====================================================
+   BUILD CINEMATIC HERO MARQUEE
+===================================================== */
+
+function buildHeroMarquee(
+  heroImages
+){
+
+  const marquee =
+    document.getElementById(
+      "heroMarquee"
+    );
+
+  if(!marquee || !heroImages.length){
+    return;
+  }
+
+  /*
+    Five images are duplicated once so the
+    500vw animation can loop seamlessly.
+  */
+  const firstFive = [];
+
+  for(let i = 0; i < 5; i++){
+    firstFive.push(
+      heroImages[i % heroImages.length]
+    );
+  }
+
+  const loopImages = [
+    ...firstFive,
+    ...firstFive
+  ];
+
+  marquee.innerHTML =
+    loopImages.map(
+      (url,index) => `
+        <div class="hero-marquee-slide">
+          <img
+            src="${escapeHtml(url)}"
+            alt="Wedding hero image ${(index % Math.min(heroImages.length,5)) + 1}"
+            draggable="false"
+          >
+        </div>
+      `
+    ).join("");
 
 }
 
@@ -4297,4 +4389,5 @@ loadWeddingAlbum();
 </body>
 
 </html>
+
 
