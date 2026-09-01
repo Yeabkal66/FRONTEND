@@ -1,0 +1,4404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Wedding Album</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Italiana&display=swap"
+  rel="stylesheet"
+>
+
+<style>
+
+:root{
+  --cream:#f6f0e6;
+  --cream-dark:#ebe0d1;
+  --white:#fffdf9;
+
+  --gold:#b9945f;
+  --gold-light:#d8bd8a;
+  --gold-dark:#8b6b3f;
+
+  --black:#1b1815;
+  --soft-black:#302b26;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--cream);
+  color:var(--black);
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+}
+
+img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+button{
+  font:inherit;
+}
+
+::selection{
+  background:var(--gold);
+  color:white;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--cream);
+
+  transition:
+    opacity .7s ease,
+    visibility .7s ease;
+}
+
+.loading.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.loading-initials{
+  font-family:"Italiana",serif;
+  font-size:80px;
+  color:var(--gold-dark);
+}
+
+.loading p{
+  margin-top:20px;
+  font-size:10px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:#81766a;
+}
+
+
+/* =====================================================
+   DECORATIVE BACKGROUND
+===================================================== */
+
+body::before{
+  content:"";
+
+  position:fixed;
+
+  width:500px;
+  height:500px;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(185,148,95,.12);
+
+  top:-250px;
+  left:-250px;
+
+  pointer-events:none;
+  z-index:-1;
+}
+
+body::after{
+  content:"";
+
+  position:fixed;
+
+  width:700px;
+  height:700px;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(185,148,95,.08);
+
+  bottom:-350px;
+  right:-350px;
+
+  pointer-events:none;
+  z-index:-1;
+}
+
+
+/* =====================================================
+   NAV
+===================================================== */
+
+nav{
+  position:absolute;
+
+  top:0;
+  left:0;
+
+  width:100%;
+
+  z-index:10;
+
+  padding:32px 7%;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  color:white;
+}
+
+.nav-logo{
+  font-family:"Cormorant Garamond",serif;
+  font-size:27px;
+  letter-spacing:2px;
+  font-weight:500;
+}
+
+.nav-right{
+  display:flex;
+  gap:25px;
+  align-items:center;
+
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+
+.nav-right a{
+  color:white;
+  text-decoration:none;
+
+  opacity:.8;
+
+  transition:.3s;
+}
+
+.nav-right a:hover{
+  color:var(--gold-light);
+  opacity:1;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+  min-height:100vh;
+
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:white;
+
+  overflow:hidden;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.25),
+      rgba(0,0,0,.45)
+    );
+}
+
+.hero-bg img{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+}
+
+/* =====================================================
+   CINEMATIC HERO MARQUEE
+===================================================== */
+
+.hero-marquee{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  display:flex;
+  width:max-content;
+  height:100%;
+  animation:heroMarquee 70s linear infinite;
+  will-change:transform;
+}
+
+
+.hero-marquee-slide{
+  position:relative;
+  width:100vw;
+  height:100%;
+  flex:0 0 100vw;
+}
+
+.hero-marquee-slide img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+@keyframes heroMarquee{
+  from{
+    transform:translateX(0);
+  }
+  to{
+    transform:translateX(-500vw);
+  }
+}
+
+.hero-content{
+  position:relative;
+
+  text-align:center;
+
+  padding:40px 20px;
+
+  margin-top:50px;
+}
+
+.hero-kicker{
+  text-transform:uppercase;
+
+  letter-spacing:5px;
+
+  font-size:10px;
+
+  margin-bottom:22px;
+
+  color:#e9d0a2;
+}
+
+.hero-title{
+  font-family:"Italiana",serif;
+
+  font-weight:400;
+
+  font-size:
+    clamp(70px,11vw,180px);
+
+  line-height:.8;
+
+  letter-spacing:-3px;
+}
+
+.hero-title .amp{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-style:italic;
+
+  font-size:.65em;
+
+  color:#d5ae70;
+}
+
+.hero-date{
+  margin-top:35px;
+
+  font-size:10px;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+}
+
+.hero-line{
+  width:1px;
+
+  height:85px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      #d5ae70
+    );
+
+  margin:35px auto 0;
+}
+
+.hero-corner{
+  position:absolute;
+
+  bottom:35px;
+  left:7%;
+
+  font-size:9px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  opacity:.75;
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.intro{
+  padding:160px 8%;
+
+  max-width:1500px;
+
+  margin:auto;
+}
+
+.intro-top{
+  display:grid;
+
+  grid-template-columns:
+    1fr 1.5fr;
+
+  gap:100px;
+
+  align-items:start;
+}
+
+.section-label{
+  font-size:10px;
+
+  text-transform:uppercase;
+
+  letter-spacing:4px;
+
+  color:var(--gold-dark);
+
+  display:flex;
+
+  align-items:center;
+
+  gap:15px;
+}
+
+.section-label::before{
+  content:"";
+
+  width:35px;
+  height:1px;
+
+  background:var(--gold);
+}
+
+.intro-title{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(50px,6vw,100px);
+
+  font-weight:400;
+
+  line-height:.92;
+
+  margin-top:25px;
+}
+
+.intro-title em{
+  color:var(--gold-dark);
+  font-weight:300;
+}
+
+.intro-text{
+  max-width:570px;
+
+  font-size:15px;
+
+  line-height:2;
+
+  color:#665e55;
+
+  margin-top:60px;
+}
+
+
+/* =====================================================
+   EDITORIAL
+===================================================== */
+
+.editorial-image{
+  position:relative;
+
+  margin-top:120px;
+
+  height:720px;
+}
+
+.editorial-main{
+  width:70%;
+  height:100%;
+
+  margin-left:auto;
+
+  overflow:hidden;
+}
+
+.editorial-main img{
+  transition:1s ease;
+}
+
+.editorial-main:hover img{
+  transform:scale(1.04);
+}
+
+.editorial-small{
+  position:absolute;
+
+  width:32%;
+  height:380px;
+
+  left:0;
+  bottom:-90px;
+
+  border:
+    12px solid var(--cream);
+
+  overflow:hidden;
+
+  box-shadow:
+    0 30px 80px
+    rgba(0,0,0,.12);
+}
+
+.editorial-number{
+  position:absolute;
+
+  left:6%;
+  top:80px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:180px;
+
+  font-style:italic;
+
+  color:
+    rgba(185,148,95,.17);
+
+  z-index:-1;
+}
+
+.image-caption{
+  position:absolute;
+
+  bottom:-135px;
+  right:0;
+
+  max-width:300px;
+}
+
+.image-caption h3{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:28px;
+
+  font-weight:400;
+}
+
+.image-caption p{
+  margin-top:10px;
+
+  font-size:11px;
+
+  line-height:1.8;
+
+  letter-spacing:1px;
+
+  color:#777066;
+}
+
+
+/* =====================================================
+   QUOTE
+===================================================== */
+
+.quote-section{
+  padding:
+    220px 8%
+    150px;
+
+  text-align:center;
+}
+
+.quote-mark{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  color:var(--gold);
+
+  font-size:100px;
+
+  line-height:.3;
+}
+
+.quote{
+  max-width:1000px;
+
+  margin:40px auto;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(40px,5vw,80px);
+
+  line-height:1;
+
+  font-weight:400;
+}
+
+.quote em{
+  color:var(--gold-dark);
+  font-style:italic;
+}
+
+.quote-author{
+  text-transform:uppercase;
+
+  letter-spacing:4px;
+
+  font-size:9px;
+
+  color:#8b8175;
+}
+
+
+/* =====================================================
+   MOMENTS
+===================================================== */
+
+.moments{
+  background:var(--black);
+
+  color:white;
+
+  padding:150px 8%;
+}
+
+.moments-header{
+  max-width:1500px;
+
+  margin:
+    0 auto
+    90px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:end;
+
+  gap:30px;
+}
+
+.moments-header h2{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(55px,7vw,110px);
+
+  line-height:.85;
+
+  font-weight:400;
+}
+
+.moments-header h2 em{
+  color:#d5ae70;
+  font-style:italic;
+}
+
+.moments-header p{
+  max-width:350px;
+
+  font-size:12px;
+
+  line-height:1.9;
+
+  color:#c3bbb1;
+}
+
+.moments-grid{
+  max-width:1500px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    1.1fr .9fr .9fr;
+
+  gap:20px;
+
+  align-items:start;
+}
+
+.moment{
+  overflow:hidden;
+
+  position:relative;
+
+  background:#111;
+}
+
+.moment:nth-child(1){
+  height:720px;
+}
+
+.moment:nth-child(2){
+  height:400px;
+}
+
+.moment:nth-child(3){
+  height:580px;
+
+  margin-top:120px;
+}
+
+.moment img{
+  transition:
+    1s cubic-bezier(
+      .2,.7,.2,1
+    );
+}
+
+.moment:hover img{
+  transform:scale(1.08);
+
+  opacity:.75;
+}
+
+.moment::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.55),
+      transparent 50%
+    );
+
+  pointer-events:none;
+}
+
+.moment-info{
+  position:absolute;
+
+  bottom:25px;
+  left:25px;
+
+  z-index:2;
+}
+
+.moment-info span{
+  font-size:9px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  color:#d9b87e;
+}
+
+.moment-info h3{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:35px;
+
+  font-weight:400;
+
+  margin-top:8px;
+}
+
+
+/* =====================================================
+   STORY
+===================================================== */
+
+.story{
+  padding:170px 8%;
+
+  max-width:1550px;
+
+  margin:auto;
+}
+
+.story-grid{
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:100px;
+
+  align-items:center;
+}
+
+.story-image{
+  height:750px;
+
+  position:relative;
+}
+
+.story-image-main{
+  height:100%;
+
+  overflow:hidden;
+}
+
+.story-image-main img{
+  transition:1s ease;
+}
+
+.story-image:hover img{
+  transform:scale(1.04);
+}
+
+.story-badge{
+  position:absolute;
+
+  width:170px;
+  height:170px;
+
+  border-radius:50%;
+
+  background:var(--gold);
+
+  right:-50px;
+  top:70px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  color:white;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:20px;
+
+  font-style:italic;
+
+  line-height:1.1;
+
+  box-shadow:
+    0 20px 50px
+    rgba(0,0,0,.12);
+}
+
+.story-content{
+  padding:40px 0;
+}
+
+.story-content h2{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(60px,7vw,110px);
+
+  line-height:.85;
+
+  font-weight:400;
+}
+
+.story-content h2 em{
+  color:var(--gold-dark);
+}
+
+.story-content p{
+  margin-top:45px;
+
+  max-width:520px;
+
+  color:#6b6359;
+
+  line-height:2;
+
+  font-size:14px;
+}
+
+.story-date{
+  margin-top:45px;
+
+  padding-top:25px;
+
+  border-top:
+    1px solid var(--cream-dark);
+
+  font-size:10px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  color:var(--gold-dark);
+}
+
+
+/* =====================================================
+   CINEMATIC
+===================================================== */
+
+.cinematic{
+  height:100vh;
+
+  min-height:700px;
+
+  position:relative;
+
+  display:flex;
+
+  align-items:flex-end;
+
+  padding:80px 8%;
+
+  color:white;
+
+  overflow:hidden;
+}
+
+.cinematic::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.65),
+      rgba(0,0,0,.05)
+    );
+
+  pointer-events:none;
+}
+
+.cinematic img{
+  position:absolute;
+
+  inset:0;
+
+  z-index:-1;
+}
+
+.cinematic-content{
+  max-width:850px;
+
+  position:relative;
+
+  z-index:2;
+}
+
+.cinematic-content span{
+  font-size:10px;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+
+  color:#e2c487;
+}
+
+.cinematic-content h2{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(55px,8vw,130px);
+
+  font-weight:400;
+
+  line-height:.85;
+
+  margin-top:25px;
+}
+
+
+/* =====================================================
+   GALLERY
+===================================================== */
+
+.gallery{
+  padding:160px 0;
+
+  background:var(--cream);
+
+  overflow:hidden;
+}
+
+.gallery-header{
+  text-align:center;
+
+  padding:0 5%;
+
+  margin-bottom:80px;
+}
+
+.gallery-header span{
+  font-size:10px;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+
+  color:var(--gold-dark);
+}
+
+.gallery-header h2{
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(60px,8vw,120px);
+
+  font-weight:400;
+
+  margin-top:18px;
+
+  line-height:.9;
+}
+
+.gallery-count{
+  margin-top:25px;
+
+  font-size:10px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  color:#81766a;
+}
+
+
+/* =====================================================
+   HORIZONTAL GALLERY WRAPPER
+===================================================== */
+
+.horizontal-gallery{
+  position:relative;
+
+  width:100%;
+
+  overflow:hidden;
+}
+
+  /* ALBUM ARROW CONTROLS */
+.album-controls{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  margin-top:25px;
+}
+
+.album-btn{
+  width:48px;
+  height:48px;
+  border:1px solid rgba(185,148,95,.55);
+  border-radius:50%;
+  background:rgba(255,255,255,.35);
+  color:var(--gold-dark);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  cursor:pointer;
+  transition:
+    transform .3s ease,
+    background .3s ease,
+    color .3s ease;
+}
+
+.album-btn:hover{
+  background:var(--gold);
+  color:white;
+  transform:scale(1.08);
+}
+
+.album-btn:active{
+  transform:scale(.94);
+}
+
+
+/* =====================================================
+   EDGE FADES
+===================================================== */
+
+.horizontal-gallery::before,
+.horizontal-gallery::after{
+
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  bottom:0;
+
+  width:100px;
+
+  z-index:5;
+
+  pointer-events:none;
+
+}
+
+.horizontal-gallery::before{
+  left:0;
+
+  background:
+    linear-gradient(
+      to right,
+      var(--cream),
+      rgba(246,240,230,0)
+    );
+}
+
+.horizontal-gallery::after{
+  right:0;
+
+  background:
+    linear-gradient(
+      to left,
+      var(--cream),
+      rgba(246,240,230,0)
+    );
+}
+
+
+/* =====================================================
+   THREE ROW PHOTO STRIP
+===================================================== */
+
+.gallery-grid{
+  touch-action: pan-x pan-y;
+
+  display:grid;
+
+  grid-auto-flow:column;
+
+  grid-template-rows:
+    repeat(3, 210px);
+
+  grid-auto-columns:
+    270px;
+
+  gap:14px;
+
+  width:max-content;
+
+  max-width:100%;
+
+  padding:
+    10px 8vw
+    30px;
+
+  overflow-x:auto;
+
+  overscroll-behavior-x:contain;
+
+  scroll-behavior:smooth;
+
+  scrollbar-width:none;
+
+  cursor:grab;
+
+  user-select:none;
+}
+
+.gallery-grid::-webkit-scrollbar{
+  display:none;
+}
+
+.gallery-grid.dragging{
+  cursor:grabbing;
+
+  scroll-behavior:auto;
+}
+
+
+/* =====================================================
+   GALLERY ITEM
+===================================================== */
+
+.gallery-item{
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:#e8dfd2;
+
+  cursor:pointer;
+
+  min-width:0;
+
+  box-shadow:
+    0 15px 35px
+    rgba(0,0,0,.06);
+
+  transform:translateZ(0);
+
+}
+
+.gallery-item img{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  pointer-events:none;
+
+  transition:
+    transform .9s
+    cubic-bezier(.2,.7,.2,1);
+}
+
+.gallery-item:hover img{
+  transform:scale(1.06);
+}
+
+.gallery-item::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.28),
+      transparent 40%
+    );
+
+  opacity:0;
+
+  transition:.4s;
+
+  pointer-events:none;
+}
+
+.gallery-item:hover::after{
+  opacity:1;
+}
+
+
+/* =====================================================
+   ALBUM HINT
+===================================================== */
+
+.album-hint{
+
+  text-align:center;
+
+  margin-top:30px;
+
+  color:#8b8175;
+
+  font-size:9px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  opacity:.75;
+
+}
+
+.album-hint span{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:12px;
+
+}
+
+.album-hint span::before,
+.album-hint span::after{
+
+  content:"";
+
+  width:30px;
+
+  height:1px;
+
+  background:
+    var(--gold-light);
+
+}
+
+
+/* =====================================================
+   VIDEOS
+===================================================== */
+
+.videos-section{
+
+  margin-top:130px;
+
+}
+
+.videos-header{
+
+  text-align:center;
+
+  margin-bottom:50px;
+
+}
+
+.videos-header span{
+
+  font-size:10px;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+
+  color:var(--gold-dark);
+
+}
+
+.videos-header h2{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(45px,6vw,85px);
+
+  font-weight:400;
+
+  margin-top:15px;
+
+}
+
+.video-count{
+
+  margin-top:18px;
+
+  font-size:10px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  color:#81766a;
+
+}
+
+
+/* =====================================================
+   VIDEO STRIP
+===================================================== */
+
+.video-grid{
+  touch-action: pan-x pan-y;
+
+  display:flex;
+
+  gap:18px;
+
+  width:max-content;
+
+  padding:
+    10px 8vw
+    35px;
+
+  overflow-x:auto;
+
+  max-width:100%;
+
+  scrollbar-width:none;
+
+  scroll-behavior:smooth;
+
+  cursor:grab;
+
+  user-select:none;
+
+}
+
+.video-grid::-webkit-scrollbar{
+  display:none;
+}
+
+.video-grid.dragging{
+
+  cursor:grabbing;
+
+  scroll-behavior:auto;
+
+}
+
+
+/* =====================================================
+   VIDEO CARD
+===================================================== */
+
+.video-card{
+
+  width:
+    clamp(280px,38vw,560px);
+
+  aspect-ratio:16 / 9;
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:#171411;
+
+  flex:none;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 20px 50px
+    rgba(0,0,0,.10);
+
+}
+
+.video-card video{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  display:block;
+
+  pointer-events:none;
+
+}
+
+.video-overlay{
+
+  position:absolute;
+
+  inset:0;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,0,0,.05),
+      rgba(0,0,0,.25)
+    );
+
+  transition:.4s;
+
+  pointer-events:none;
+
+}
+
+.video-play{
+
+  width:70px;
+  height:70px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(255,255,255,.7);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  color:white;
+
+  font-size:21px;
+
+  padding-left:4px;
+
+  backdrop-filter:blur(5px);
+
+  background:
+    rgba(0,0,0,.18);
+
+  transition:
+    transform .5s ease,
+    background .4s ease;
+}
+
+.video-card:hover .video-play{
+
+  transform:
+    scale(1.12);
+
+  background:
+    rgba(185,148,95,.75);
+
+}
+
+.video-card::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  border:
+    1px solid
+    rgba(185,148,95,.22);
+
+  pointer-events:none;
+
+}
+
+
+/* =====================================================
+   VIDEO EMPTY STATE
+===================================================== */
+
+.media-empty{
+
+  padding:
+    80px 20px;
+
+  text-align:center;
+
+  color:#81766a;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:28px;
+
+  width:100%;
+
+}
+
+
+/* =====================================================
+   LIGHTBOX
+===================================================== */
+
+.lightbox{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:9998;
+
+  background:
+    rgba(15,13,11,.97);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:40px;
+
+  opacity:0;
+
+  visibility:hidden;
+
+  transition:
+    opacity .4s ease,
+    visibility .4s ease;
+
+  overflow:hidden;
+
+}
+
+.lightbox.open{
+
+  opacity:1;
+
+  visibility:visible;
+
+}
+
+
+/* =====================================================
+   LIGHTBOX STAGE
+===================================================== */
+
+.lightbox-stage{
+
+  position:relative;
+
+  width:100%;
+
+  height:100%;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  overflow:hidden;
+
+}
+
+
+/* =====================================================
+   LIGHTBOX MEDIA
+===================================================== */
+
+.lightbox-media{
+
+  max-width:90vw;
+
+  max-height:88vh;
+
+  object-fit:contain;
+
+  will-change:
+    transform,
+    opacity;
+
+  transform:
+    translate3d(0,0,0);
+
+  opacity:1;
+
+  user-select:none;
+
+  -webkit-user-drag:none;
+
+}
+
+
+/* =====================================================
+   CINEMATIC SLIDE ANIMATION
+===================================================== */
+
+.lightbox-media.slide-next{
+
+  animation:
+    lightboxNext
+    .55s
+    cubic-bezier(.22,.7,.25,1)
+    both;
+
+}
+
+.lightbox-media.slide-prev{
+
+  animation:
+    lightboxPrev
+    .55s
+    cubic-bezier(.22,.7,.25,1)
+    both;
+
+}
+
+@keyframes lightboxNext{
+
+  0%{
+    opacity:0;
+    transform:
+      translate3d(90px,0,0)
+      scale(.985);
+  }
+
+  35%{
+    opacity:.35;
+  }
+
+  100%{
+    opacity:1;
+    transform:
+      translate3d(0,0,0)
+      scale(1);
+  }
+
+}
+
+@keyframes lightboxPrev{
+
+  0%{
+    opacity:0;
+    transform:
+      translate3d(-90px,0,0)
+      scale(.985);
+  }
+
+  35%{
+    opacity:.35;
+  }
+
+  100%{
+    opacity:1;
+    transform:
+      translate3d(0,0,0)
+      scale(1);
+  }
+
+}
+
+
+/* =====================================================
+   LIGHTBOX CLOSE
+===================================================== */
+
+.lightbox-close{
+
+  position:absolute;
+
+  top:25px;
+  right:35px;
+
+  z-index:10;
+
+  color:white;
+
+  font-size:40px;
+
+  font-weight:300;
+
+  cursor:pointer;
+
+  line-height:1;
+
+  width:45px;
+  height:45px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  transition:
+    color .3s,
+    transform .3s;
+
+}
+
+.lightbox-close:hover{
+
+  color:
+    var(--gold-light);
+
+  transform:
+    rotate(90deg);
+
+}
+
+
+/* =====================================================
+   LIGHTBOX NAVIGATION
+===================================================== */
+
+.lightbox-arrow{
+
+  position:absolute;
+
+  top:50%;
+
+  transform:
+    translateY(-50%);
+
+  z-index:10;
+
+  width:55px;
+  height:55px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(216,189,138,.5);
+
+  background:
+    rgba(0,0,0,.25);
+
+  color:white;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+
+  font-size:25px;
+
+  transition:
+    background .3s,
+    border-color .3s,
+    transform .3s;
+
+  backdrop-filter:
+    blur(8px);
+
+}
+
+.lightbox-arrow:hover{
+
+  background:
+    rgba(185,148,95,.45);
+
+  border-color:
+    var(--gold-light);
+
+}
+
+.lightbox-prev{
+
+  left:25px;
+
+}
+
+.lightbox-next{
+
+  right:25px;
+
+}
+
+
+/* =====================================================
+   LIGHTBOX COUNTER
+===================================================== */
+
+.lightbox-counter{
+
+  position:absolute;
+
+  bottom:25px;
+
+  left:50%;
+
+  transform:
+    translateX(-50%);
+
+  color:#d8bd8a;
+
+  font-size:10px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+}
+
+
+/* =====================================================
+   LIGHTBOX VIDEO
+===================================================== */
+
+.lightbox-video{
+
+  max-width:90vw;
+
+  max-height:82vh;
+
+  width:auto;
+
+  height:auto;
+
+  background:#000;
+
+}
+
+
+/* =====================================================
+   FINAL
+===================================================== */
+
+.final{
+
+  background:
+    var(--cream-dark);
+
+  padding:160px 20px;
+
+  text-align:center;
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.final::before{
+
+  content:attr(data-initials);
+
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  font-family:
+    "Italiana",
+    serif;
+
+  font-size:25vw;
+
+  color:
+    rgba(255,255,255,.28);
+
+  white-space:nowrap;
+
+}
+
+.final-content{
+
+  position:relative;
+
+  z-index:2;
+
+}
+
+.final span{
+
+  text-transform:uppercase;
+
+  letter-spacing:4px;
+
+  font-size:10px;
+
+  color:var(--gold-dark);
+
+}
+
+.final h2{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(65px,10vw,160px);
+
+  line-height:.8;
+
+  font-weight:400;
+
+  margin-top:25px;
+
+}
+
+.final h2 em{
+
+  font-style:italic;
+
+  color:var(--gold-dark);
+
+}
+
+.final p{
+
+  margin-top:35px;
+
+  font-size:11px;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+
+  color:#756b60;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+  background:var(--black);
+
+  color:white;
+
+  padding:35px 7%;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  font-size:9px;
+
+  text-transform:uppercase;
+
+  letter-spacing:2px;
+
+  color:#93887c;
+
+}
+
+.footer-love{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:18px;
+
+  color:#d5ae70;
+
+  text-transform:none;
+
+  letter-spacing:0;
+
+  font-style:italic;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:900px){
+
+  nav{
+    padding:25px 7%;
+  }
+
+  .nav-right{
+    display:none;
+  }
+
+  .intro{
+    padding:100px 7%;
+  }
+
+  .intro-top{
+    grid-template-columns:1fr;
+    gap:40px;
+  }
+
+  .editorial-image{
+    height:550px;
+    margin-top:70px;
+  }
+
+  .editorial-main{
+    width:88%;
+  }
+
+  .editorial-small{
+    width:48%;
+    height:250px;
+  }
+
+  .image-caption{
+    bottom:-120px;
+  }
+
+  .moments{
+    padding:110px 7%;
+  }
+
+  .moments-header{
+    flex-direction:column;
+    align-items:start;
+  }
+
+  .moments-grid{
+    grid-template-columns:1fr;
+  }
+
+  .moment:nth-child(1),
+  .moment:nth-child(2),
+  .moment:nth-child(3){
+
+    height:550px;
+
+    margin-top:0;
+
+  }
+
+  .story{
+    padding:110px 7%;
+  }
+
+  .story-grid{
+    grid-template-columns:1fr;
+    gap:60px;
+  }
+
+  .story-image{
+    height:550px;
+  }
+
+  .story-badge{
+    right:-20px;
+  }
+
+  .gallery{
+    padding:100px 0;
+  }
+
+  .gallery-grid{
+
+    grid-template-rows:
+      repeat(3, 170px);
+
+    grid-auto-columns:
+      220px;
+
+    gap:10px;
+
+    padding-left:7vw;
+    padding-right:7vw;
+
+  }
+
+  .horizontal-gallery::before,
+  .horizontal-gallery::after{
+
+    width:65px;
+
+  }
+
+  .video-grid{
+
+    padding-left:7vw;
+    padding-right:7vw;
+
+  }
+
+  .lightbox{
+    padding:20px;
+  }
+
+  .lightbox-arrow{
+
+    width:45px;
+    height:45px;
+
+  }
+
+  .lightbox-prev{
+    left:10px;
+  }
+
+  .lightbox-next{
+    right:10px;
+  }
+
+  footer{
+
+    flex-direction:column;
+
+    gap:15px;
+
+    text-align:center;
+
+  }
+
+}
+
+
+@media(max-width:500px){
+
+  .hero-title{
+
+    font-size:
+      clamp(52px,16vw,90px);
+
+    letter-spacing:-2px;
+
+  }
+
+  .editorial-image{
+    height:450px;
+  }
+
+  .editorial-main{
+    width:90%;
+  }
+
+  .editorial-small{
+    height:190px;
+  }
+
+  .gallery-grid{
+
+    grid-template-rows:
+      repeat(3, 125px);
+
+    grid-auto-columns:
+      165px;
+
+    gap:7px;
+
+    padding-left:6vw;
+    padding-right:6vw;
+
+  }
+
+  .gallery-header{
+    margin-bottom:55px;
+  }
+
+  .videos-section{
+    margin-top:90px;
+  }
+
+  .video-card{
+    width:82vw;
+  }
+
+  .video-play{
+
+    width:58px;
+    height:58px;
+
+    font-size:18px;
+
+  }
+
+  .horizontal-gallery::before,
+  .horizontal-gallery::after{
+
+    width:45px;
+
+  }
+
+  .lightbox-media{
+
+    max-width:96vw;
+    max-height:82vh;
+
+  }
+
+  .lightbox-video{
+
+    max-width:96vw;
+
+  }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+
+    scroll-behavior:auto !important;
+
+    animation-duration:
+      .01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      .01ms !important;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div
+  class="loading"
+  id="loading"
+>
+
+  <div
+    class="loading-initials"
+    id="loadingInitials"
+  >
+    &
+  </div>
+
+  <p>
+    Preparing your wedding story
+  </p>
+
+</div>
+
+
+<!-- =====================================================
+     NAV
+===================================================== -->
+
+<nav>
+
+  <div
+    class="nav-logo"
+    id="navInitials"
+  >
+    &
+  </div>
+
+  <div class="nav-right">
+
+    <a href="#story">
+      Our Story
+    </a>
+
+    <a href="#moments">
+      The Moments
+    </a>
+
+    <a href="#gallery">
+      Gallery
+    </a>
+
+  </div>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+  <div class="hero-bg">
+
+    <div
+      class="hero-marquee"
+      id="heroMarquee"
+    ></div>
+
+  </div>
+
+
+  <div class="hero-content">
+
+    <div class="hero-kicker">
+      The Wedding of
+    </div>
+
+    <h1 class="hero-title">
+
+      <span id="heroBride">
+        Bride
+      </span>
+
+      <span class="amp">
+        &
+      </span>
+
+      <span id="heroGroom">
+        Groom
+      </span>
+
+    </h1>
+
+    <div
+      class="hero-date"
+      id="heroDate"
+    >
+      Wedding Date
+    </div>
+
+    <div class="hero-line"></div>
+
+  </div>
+
+
+  <div class="hero-corner">
+    A celebration of a lifetime
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     INTRO EDITORIAL
+===================================================== -->
+
+<section class="intro">
+
+  <div class="intro-top">
+
+    <div>
+
+      <div class="section-label">
+        Chapter One
+      </div>
+
+    </div>
+
+
+    <div>
+
+      <h2 class="intro-title">
+
+        Two souls.<br>
+
+        One
+        <em>beautiful</em>
+
+        <br>
+
+        forever.
+
+      </h2>
+
+
+      <p class="intro-text">
+
+        Some love stories are written slowly,
+        quietly, and beautifully.
+
+        This is the beginning of ours —
+        a day filled with laughter,
+        tears, promises, and the unforgettable
+        feeling of finding home
+        in another person.
+
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="editorial-image">
+
+    <div class="editorial-number">
+      01
+    </div>
+
+
+    <div class="editorial-main">
+
+      <img
+        id="introMainImage"
+        alt="Wedding Editorial"
+      >
+
+    </div>
+
+
+    <div class="editorial-small">
+
+      <img
+        id="introSmallImage"
+        alt="Wedding Detail"
+      >
+
+    </div>
+
+
+    <div class="image-caption">
+
+      <h3>
+        Before the forever
+      </h3>
+
+      <p>
+        The quiet moments before
+        everything changed.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     QUOTE
+===================================================== -->
+
+<section class="quote-section">
+
+  <div class="quote-mark">
+    “
+  </div>
+
+  <h2 class="quote">
+
+    In a world full of temporary things,
+    you are my
+    <em>forever.</em>
+
+  </h2>
+
+  <div
+    class="quote-author"
+    id="quoteNames"
+  >
+    Bride & Groom
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     MOMENTS
+===================================================== -->
+
+<section
+  class="moments"
+  id="moments"
+>
+
+  <div class="moments-header">
+
+    <h2>
+
+      The little<br>
+
+      <em>
+        moments.
+      </em>
+
+    </h2>
+
+
+    <p>
+
+      The beauty was never only
+      in the grand celebration.
+
+      It lived in the glances,
+      the laughter, the hands
+      held tightly, and all
+      the moments nobody
+      wanted to end.
+
+    </p>
+
+  </div>
+
+
+  <div class="moments-grid">
+
+
+    <div class="moment">
+
+      <img
+        id="moment1"
+        alt="Wedding Moment"
+      >
+
+      <div class="moment-info">
+
+        <span>
+          Chapter Two
+        </span>
+
+        <h3>
+          The Details
+        </h3>
+
+      </div>
+
+    </div>
+
+
+    <div class="moment">
+
+      <img
+        id="moment2"
+        alt="Wedding Moment"
+      >
+
+      <div class="moment-info">
+
+        <span>
+          Chapter Three
+        </span>
+
+        <h3>
+          The Promise
+        </h3>
+
+      </div>
+
+    </div>
+
+
+    <div class="moment">
+
+      <img
+        id="moment3"
+        alt="Wedding Moment"
+      >
+
+      <div class="moment-info">
+
+        <span>
+          Chapter Four
+        </span>
+
+        <h3>
+          The Celebration
+        </h3>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     LOVE STORY
+===================================================== -->
+
+<section
+  class="story"
+  id="story"
+>
+
+  <div class="story-grid">
+
+
+    <div class="story-image">
+
+      <div class="story-image-main">
+
+        <img
+          id="storyImage"
+          alt="Love Story"
+        >
+
+      </div>
+
+
+      <div class="story-badge">
+
+        A lifetime<br>
+        in one<br>
+        beautiful day
+
+      </div>
+
+    </div>
+
+
+    <div class="story-content">
+
+      <div class="section-label">
+        Our Story
+      </div>
+
+
+      <h2>
+
+        This is<br>
+
+        <em>our</em>
+
+        beginning.
+
+      </h2>
+
+
+      <p>
+
+        And suddenly,
+        all the years before
+        this moment made sense.
+
+        Every road,
+        every lesson,
+        every unexpected turn
+        somehow led here —
+        to this day,
+        to this promise,
+        and to each other.
+
+      </p>
+
+
+      <div
+        class="story-date"
+        id="storyDate"
+      >
+        Written in the stars
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     CINEMATIC
+===================================================== -->
+
+<section class="cinematic">
+
+  <img
+    id="cinematicImage"
+    alt="Wedding Cinematic"
+  >
+
+  <div class="cinematic-content">
+
+    <span>
+      The ceremony
+    </span>
+
+    <h2>
+
+      A promise<br>
+      beneath the sky.
+
+    </h2>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     WEDDING GALLERY
+===================================================== -->
+
+<section
+  class="gallery"
+  id="gallery"
+>
+
+
+  <div class="gallery-header">
+
+    <span>
+      Memories captured forever
+    </span>
+
+    <h2>
+      The album
+    </h2>
+
+    <div
+      class="gallery-count"
+      id="galleryCount"
+    >
+      Loading memories
+    </div>
+
+  </div>
+
+
+  <!-- ===================================================
+       PHOTOS
+  =================================================== -->
+
+  <div
+    class="horizontal-gallery"
+    id="photoGalleryWrapper"
+  >
+
+    <div
+      class="gallery-grid"
+      id="galleryGrid"
+    ></div>
+
+  </div>
+
+  <div class="album-controls">
+
+  <button
+    class="album-btn"
+    id="photoPrev"
+    type="button"
+    aria-label="Previous photos"
+  >
+    ←
+  </button>
+
+  <button
+    class="album-btn"
+    id="photoNext"
+    type="button"
+    aria-label="Next photos"
+  >
+    →
+  </button>
+
+  </div>
+
+
+  <div class="album-hint">
+
+    <span>
+      Swipe to explore
+    </span>
+
+  </div>
+
+
+  <!-- ===================================================
+       VIDEOS
+  =================================================== -->
+
+  <div
+    class="videos-section"
+    id="videosSection"
+  >
+
+    <div class="videos-header">
+
+      <span>
+        Moving memories
+      </span>
+
+      <h2>
+        Videos
+      </h2>
+
+      <div
+        class="video-count"
+        id="videoCount"
+      >
+        Loading videos
+      </div>
+
+    </div>
+
+
+    <div
+      class="horizontal-gallery"
+      id="videoGalleryWrapper"
+    >
+
+      <div
+        class="video-grid"
+        id="videoGrid"
+      ></div>
+
+    </div>
+
+
+    <div class="album-hint">
+
+      <span>
+        Swipe to explore
+      </span>
+
+    </div>
+
+  </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     LIGHTBOX
+===================================================== -->
+
+<div
+  class="lightbox"
+  id="lightbox"
+>
+
+
+  <div class="lightbox-stage">
+
+
+    <button
+      class="lightbox-arrow lightbox-prev"
+      id="lightboxPrev"
+      aria-label="Previous"
+      type="button"
+    >
+      ‹
+    </button>
+
+
+    <div id="lightboxContent"></div>
+
+
+    <button
+      class="lightbox-arrow lightbox-next"
+      id="lightboxNext"
+      aria-label="Next"
+      type="button"
+    >
+      ›
+    </button>
+
+
+  </div>
+
+
+  <button
+    class="lightbox-close"
+    id="lightboxClose"
+    aria-label="Close"
+    type="button"
+  >
+    ×
+  </button>
+
+
+  <div
+    class="lightbox-counter"
+    id="lightboxCounter"
+  ></div>
+
+</div>
+
+
+<!-- =====================================================
+     FINAL
+===================================================== -->
+
+<section
+  class="final"
+  id="finalSection"
+  data-initials="&"
+>
+
+  <div class="final-content">
+
+    <span>
+      And they lived beautifully ever after
+    </span>
+
+    <h2>
+
+      Always
+
+      <em>
+        &
+      </em>
+
+      <br>
+
+      Forever.
+
+    </h2>
+
+    <p id="finalNames">
+      Bride & Groom
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+  <div id="footerNames">
+    Bride & Groom
+  </div>
+
+  <div class="footer-love">
+    Made with love
+  </div>
+
+  <div id="footerDate">
+    The beginning of forever
+  </div>
+
+</footer>
+
+
+<script>
+
+
+/* =====================================================
+   RENDER BACKEND
+===================================================== */
+
+const API_URL =
+  "https://ds-qr.onrender.com";
+
+
+/* =====================================================
+   EVENT ID
+===================================================== */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const eventId =
+  params.get("event");
+
+
+/* =====================================================
+   MEDIA STATE
+===================================================== */
+
+let galleryPhotos = [];
+
+let galleryVideos = [];
+
+let currentMediaIndex = 0;
+
+let currentMediaType = "photo";
+
+let touchStartX = 0;
+
+let touchStartY = 0;
+
+
+/* =====================================================
+   LOAD ALBUM
+===================================================== */
+
+async function loadWeddingAlbum(){
+
+  try{
+
+    if(!eventId){
+
+      throw new Error(
+        "No event ID found"
+      );
+
+    }
+
+
+    const response =
+      await fetch(
+        `${API_URL}/api/event/${eventId}`
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        "Wedding album not found"
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    const bride =
+      data.brideName ||
+      "Bride";
+
+
+    const groom =
+      data.groomName ||
+      "Groom";
+
+
+    const initials =
+      data.initials ||
+      "&";
+
+
+    const date =
+      data.weddingDate ||
+      "";
+
+
+    const fullNames =
+      `${bride} & ${groom}`;
+
+
+    /* =================================================
+       TITLE
+    ================================================= */
+
+    document.title =
+      `${fullNames} — Wedding Album`;
+
+
+    /* =================================================
+       INITIALS
+    ================================================= */
+
+    document.getElementById(
+      "navInitials"
+    ).textContent =
+      initials;
+
+
+    document.getElementById(
+      "loadingInitials"
+    ).textContent =
+      initials;
+
+
+    document.getElementById(
+      "finalSection"
+    ).setAttribute(
+      "data-initials",
+      initials
+    );
+
+
+    /* =================================================
+       NAMES
+    ================================================= */
+
+    document.getElementById(
+      "heroBride"
+    ).textContent =
+      bride;
+
+
+    document.getElementById(
+      "heroGroom"
+    ).textContent =
+      groom;
+
+
+    document.getElementById(
+      "quoteNames"
+    ).textContent =
+      fullNames;
+
+
+    document.getElementById(
+      "finalNames"
+    ).textContent =
+      `${fullNames} · A love story without an ending`;
+
+
+    document.getElementById(
+      "footerNames"
+    ).textContent =
+      `${fullNames} © ${new Date().getFullYear()}`;
+
+
+    /* =================================================
+       DATE
+    ================================================= */
+
+    document.getElementById(
+      "heroDate"
+    ).textContent =
+      date;
+
+
+    document.getElementById(
+      "storyDate"
+    ).textContent =
+      `Written in the stars · ${date}`;
+
+
+    document.getElementById(
+      "footerDate"
+    ).textContent =
+      `${date} · The beginning of forever`;
+
+
+    /* =================================================
+       FEATURED IMAGES
+    ================================================= */
+
+    const images =
+      data.images || {};
+
+
+    const heroImages =
+      Array.isArray(images.heroImages)
+        ? images.heroImages
+            .filter(
+              url =>
+                typeof url === "string" &&
+                url.trim()
+            )
+            .slice(0, 5)
+        : [];
+
+    buildHeroMarquee(
+      heroImages.length === 5
+        ? heroImages
+        : (
+            images.heroImage
+              ? [images.heroImage]
+              : []
+          )
+    );
+
+
+    setImage(
+      "introMainImage",
+      images.introMainImage
+    );
+
+
+    setImage(
+      "introSmallImage",
+      images.introSmallImage
+    );
+
+
+    setImage(
+      "moment1",
+      images.moment1
+    );
+
+
+    setImage(
+      "moment2",
+      images.moment2
+    );
+
+
+    setImage(
+      "moment3",
+      images.moment3
+    );
+
+
+    setImage(
+      "storyImage",
+      images.storyImage
+    );
+
+
+    setImage(
+      "cinematicImage",
+      images.cinematicImage
+    );
+
+
+    /* =================================================
+       FULL MEDIA GALLERY
+    ================================================= */
+
+    buildGallery(
+      data.media || []
+    );
+
+
+    /* =================================================
+       HIDE LOADING
+    ================================================= */
+
+    setTimeout(
+      () => {
+
+        document
+          .getElementById("loading")
+          .classList
+          .add("hide");
+
+      },
+      700
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+
+    document.getElementById(
+      "loading"
+    ).innerHTML = `
+
+      <div class="loading-initials">
+        !
+      </div>
+
+      <p>
+        Wedding album could not be loaded
+      </p>
+
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
+   BUILD CINEMATIC HERO MARQUEE
+===================================================== */
+
+function buildHeroMarquee(
+  heroImages
+){
+
+  const marquee =
+    document.getElementById(
+      "heroMarquee"
+    );
+
+  if(!marquee || !heroImages.length){
+    return;
+  }
+
+  /*
+    Five images are duplicated once so the
+    500vw animation can loop seamlessly.
+  */
+  // Use the actual five hero images.
+  // Never repeat one image to fill the strip.
+  const firstFive =
+    heroImages.slice(0, 5);
+
+  const loopImages = [
+    ...firstFive,
+    ...firstFive
+  ];
+
+  marquee.innerHTML =
+    loopImages.map(
+      (url,index) => `
+        <div class="hero-marquee-slide">
+          <img
+            src="${escapeHtml(url)}"
+            alt="Wedding hero image ${(index % firstFive.length) + 1}"
+            draggable="false"
+          >
+        </div>
+      `
+    ).join("");
+
+}
+
+
+/* =====================================================
+   SET IMAGE
+===================================================== */
+
+function setImage(
+  elementId,
+  imageUrl
+){
+
+  const image =
+    document.getElementById(
+      elementId
+    );
+
+
+  if(
+    image &&
+    imageUrl
+  ){
+
+    image.src =
+      imageUrl;
+
+  }
+
+}
+
+
+/* =====================================================
+   BUILD GALLERY
+===================================================== */
+
+function buildGallery(
+  media
+){
+
+  const galleryGrid =
+    document.getElementById(
+      "galleryGrid"
+    );
+
+
+  const videoGrid =
+    document.getElementById(
+      "videoGrid"
+    );
+
+
+  const galleryCount =
+    document.getElementById(
+      "galleryCount"
+    );
+
+
+  const videoCount =
+    document.getElementById(
+      "videoCount"
+    );
+
+
+  /* =================================================
+     SEPARATE PHOTOS AND VIDEOS
+  ================================================= */
+
+  galleryPhotos =
+    media.filter(
+      item =>
+        item &&
+        item.type === "photo" &&
+        item.file_path
+    );
+
+
+  galleryVideos =
+    media.filter(
+      item =>
+        item &&
+        item.type === "video" &&
+        item.file_path
+    );
+
+
+  /* =================================================
+     COUNTS
+  ================================================= */
+
+  galleryCount.textContent =
+    `${galleryPhotos.length} ${
+      galleryPhotos.length === 1
+        ? "memory"
+        : "memories"
+    }`;
+
+
+  videoCount.textContent =
+    `${galleryVideos.length} ${
+      galleryVideos.length === 1
+        ? "video"
+        : "videos"
+    }`;
+
+
+  /* =================================================
+     PHOTO GALLERY
+  ================================================= */
+
+  if(
+    galleryPhotos.length === 0
+  ){
+
+    galleryGrid.innerHTML = `
+
+      <div class="media-empty">
+
+        Your memories are waiting
+        to be captured.
+
+      </div>
+
+    `;
+
+  }else{
+
+    galleryGrid.innerHTML =
+      galleryPhotos
+        .map(
+          (photo,index) => `
+
+            <div
+              class="gallery-item"
+              data-index="${index}"
+              onclick="openPhotoLightbox(${index})"
+            >
+
+              <img
+                src="${escapeHtml(
+                  photo.file_path
+                )}"
+                alt="Wedding memory ${
+                  index + 1
+                }"
+                loading="lazy"
+                draggable="false"
+              >
+
+            </div>
+
+          `
+        )
+        .join("");
+
+  }
+
+
+  /* =================================================
+     VIDEO GALLERY
+  ================================================= */
+
+  if(
+    galleryVideos.length === 0
+  ){
+
+    document
+      .getElementById(
+        "videosSection"
+      )
+      .style.display =
+        "none";
+
+  }else{
+
+    document
+      .getElementById(
+        "videosSection"
+      )
+      .style.display =
+        "";
+
+
+    videoGrid.innerHTML =
+      galleryVideos
+        .map(
+          (video,index) => `
+
+            <div
+              class="video-card"
+              onclick="openVideoLightbox(${index})"
+            >
+
+              <video
+                src="${escapeHtml(
+                  video.file_path
+                )}"
+                preload="metadata"
+                muted
+                playsinline
+              ></video>
+
+
+              <div class="video-overlay">
+
+                <div class="video-play">
+                  ▶
+                </div>
+
+              </div>
+
+            </div>
+
+          `
+        )
+        .join("");
+
+  }
+
+
+  /* =================================================
+     ENABLE DRAGGING
+  ================================================= */
+
+  enableHorizontalDrag(
+    galleryGrid
+  );
+
+
+  enableHorizontalDrag(
+    videoGrid
+  );
+
+}
+
+
+/* =====================================================
+   OPEN PHOTO
+===================================================== */
+
+function openPhotoLightbox(
+  index
+){
+
+  currentMediaType =
+    "photo";
+
+  currentMediaIndex =
+    index;
+
+
+  document
+    .getElementById(
+      "lightbox"
+    )
+    .classList
+    .add("open");
+
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  renderPhoto(
+    "none"
+  );
+
+}
+
+
+/* =====================================================
+   OPEN VIDEO
+===================================================== */
+
+function openVideoLightbox(
+  index
+){
+
+  currentMediaType =
+    "video";
+
+  currentMediaIndex =
+    index;
+
+
+  document
+    .getElementById(
+      "lightbox"
+    )
+    .classList
+    .add("open");
+
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  renderVideo();
+
+}
+
+
+/* =====================================================
+   RENDER PHOTO
+===================================================== */
+
+function renderPhoto(
+ direction
+){
+
+  const photo =
+    galleryPhotos[
+      currentMediaIndex
+    ];
+
+
+  if(!photo){
+
+    return;
+
+  }
+
+
+  const content =
+    document.getElementById(
+      "lightboxContent"
+    );
+
+
+  const image =
+    document.createElement(
+      "img"
+    );
+
+
+  image.className =
+    "lightbox-media";
+
+
+  image.src =
+    photo.file_path;
+
+
+  image.alt =
+    `Wedding memory ${
+      currentMediaIndex + 1
+    }`;
+
+
+  image.draggable =
+    false;
+
+
+  if(
+    direction === "next"
+  ){
+
+    image.classList.add(
+      "slide-next"
+    );
+
+  }
+
+
+  if(
+    direction === "prev"
+  ){
+
+    image.classList.add(
+      "slide-prev"
+    );
+
+  }
+
+
+  content.innerHTML =
+    "";
+
+  content.appendChild(
+    image
+  );
+
+
+  updateCounter(
+    currentMediaIndex + 1,
+    galleryPhotos.length
+  );
+
+}
+
+
+/* =====================================================
+   RENDER VIDEO
+===================================================== */
+
+function renderVideo(){
+
+  const videoData =
+    galleryVideos[
+      currentMediaIndex
+    ];
+
+
+  if(!videoData){
+
+    return;
+
+  }
+
+
+  const content =
+    document.getElementById(
+      "lightboxContent"
+    );
+
+
+  content.innerHTML = `
+
+    <video
+      class="lightbox-video"
+      id="activeLightboxVideo"
+      src="${escapeHtml(
+        videoData.file_path
+      )}"
+      controls
+      playsinline
+      preload="metadata"
+    ></video>
+
+  `;
+
+
+  updateCounter(
+    currentMediaIndex + 1,
+    galleryVideos.length
+  );
+
+}
+
+
+/* =====================================================
+   COUNTER
+===================================================== */
+
+function updateCounter(
+  current,
+  total
+){
+
+  document.getElementById(
+    "lightboxCounter"
+  ).textContent =
+    `${current} / ${total}`;
+
+}
+
+
+/* =====================================================
+   NEXT
+===================================================== */
+
+function showNextMedia(){
+
+  if(
+    currentMediaType ===
+    "photo"
+  ){
+
+    if(
+      galleryPhotos.length === 0
+    ){
+
+      return;
+
+    }
+
+
+    currentGalleryIndex =
+      (
+        currentMediaIndex + 1
+      ) %
+      galleryPhotos.length;
+
+
+    currentMediaIndex =
+      currentGalleryIndex;
+
+
+    renderPhoto(
+      "next"
+    );
+
+  }else{
+
+    if(
+      galleryVideos.length === 0
+    ){
+
+      return;
+
+    }
+
+
+    currentMediaIndex =
+      (
+        currentMediaIndex + 1
+      ) %
+      galleryVideos.length;
+
+
+    renderVideo();
+
+  }
+
+}
+
+
+/* =====================================================
+   PREVIOUS
+===================================================== */
+
+function showPreviousMedia(){
+
+  if(
+    currentMediaType ===
+    "photo"
+  ){
+
+    if(
+      galleryPhotos.length === 0
+    ){
+
+      return;
+
+    }
+
+
+    currentGalleryIndex =
+      (
+        currentMediaIndex - 1 +
+        galleryPhotos.length
+      ) %
+      galleryPhotos.length;
+
+
+    currentMediaIndex =
+      currentGalleryIndex;
+
+
+    renderPhoto(
+      "prev"
+    );
+
+  }else{
+
+    if(
+      galleryVideos.length === 0
+    ){
+
+      return;
+
+    }
+
+
+    currentMediaIndex =
+      (
+        currentMediaIndex - 1 +
+        galleryVideos.length
+      ) %
+      galleryVideos.length;
+
+
+    renderVideo();
+
+  }
+
+}
+
+
+/* =====================================================
+   CLOSE LIGHTBOX
+===================================================== */
+
+function closeLightbox(){
+
+  const activeVideo =
+    document.getElementById(
+      "activeLightboxVideo"
+    );
+
+
+  if(activeVideo){
+
+    activeVideo.pause();
+
+  }
+
+
+  document
+    .getElementById(
+      "lightbox"
+    )
+    .classList
+    .remove("open");
+
+
+  document.body.style.overflow =
+    "";
+
+
+  document.getElementById(
+    "lightboxContent"
+  ).innerHTML =
+    "";
+
+}
+
+
+/* =====================================================
+   BUTTON EVENTS
+===================================================== */
+
+document
+  .getElementById(
+    "lightboxClose"
+  )
+  .addEventListener(
+    "click",
+    closeLightbox
+  );
+
+
+document
+  .getElementById(
+    "lightboxNext"
+  )
+  .addEventListener(
+    "click",
+    event => {
+
+      event.stopPropagation();
+
+      showNextMedia();
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "lightboxPrev"
+  )
+  .addEventListener(
+    "click",
+    event => {
+
+      event.stopPropagation();
+
+      showPreviousMedia();
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "lightbox"
+  )
+  .addEventListener(
+    "click",
+    event => {
+
+      if(
+        event.target.id ===
+        "lightbox" ||
+        event.target.classList.contains(
+          "lightbox-stage"
+        )
+      ){
+
+        closeLightbox();
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    const lightbox =
+      document.getElementById(
+        "lightbox"
+      );
+
+
+    if(
+      !lightbox.classList.contains(
+        "open"
+      )
+    ){
+
+      return;
+
+    }
+
+
+    if(
+      event.key ===
+      "Escape"
+    ){
+
+      closeLightbox();
+
+    }
+
+
+    else if(
+      event.key ===
+      "ArrowRight"
+    ){
+
+      showNextMedia();
+
+    }
+
+
+    else if(
+      event.key ===
+      "ArrowLeft"
+    ){
+
+      showPreviousMedia();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   LIGHTBOX TOUCH SWIPE
+===================================================== */
+
+const lightbox =
+  document.getElementById(
+    "lightbox"
+  );
+
+
+lightbox.addEventListener(
+  "touchstart",
+  event => {
+
+    if(
+      event.touches.length !== 1
+    ){
+
+      return;
+
+    }
+
+
+    touchStartX =
+      event.touches[0].clientX;
+
+
+    touchStartY =
+      event.touches[0].clientY;
+
+  },
+  {
+    passive:true
+  }
+);
+
+
+lightbox.addEventListener(
+  "touchend",
+  event => {
+
+    if(
+      event.changedTouches.length !== 1
+    ){
+
+      return;
+
+    }
+
+
+    const endX =
+      event.changedTouches[0].clientX;
+
+
+    const endY =
+      event.changedTouches[0].clientY;
+
+
+    const deltaX =
+      endX - touchStartX;
+
+
+    const deltaY =
+      endY - touchStartY;
+
+
+    if(
+      Math.abs(deltaX) >
+      55 &&
+      Math.abs(deltaX) >
+      Math.abs(deltaY)
+    ){
+
+      if(deltaX < 0){
+
+        showNextMedia();
+
+      }else{
+
+        showPreviousMedia();
+
+      }
+
+    }
+
+  },
+  {
+    passive:true
+  }
+);
+
+
+/* =====================================================
+   HORIZONTAL MOUSE DRAG
+===================================================== */
+
+function enableHorizontalDrag(
+  element
+){
+
+  if(!element){
+
+    return;
+
+  }
+
+
+  let isDown =
+    false;
+
+  let startX =
+    0;
+
+  let scrollLeft =
+    0;
+
+
+  element.addEventListener(
+    "mousedown",
+    event => {
+
+      isDown =
+        true;
+
+      element.classList.add(
+        "dragging"
+      );
+
+      startX =
+        event.pageX -
+        element.offsetLeft;
+
+      scrollLeft =
+        element.scrollLeft;
+
+    }
+  );
+
+
+  element.addEventListener(
+    "mouseleave",
+    () => {
+
+      isDown =
+        false;
+
+      element.classList.remove(
+        "dragging"
+      );
+
+    }
+  );
+
+
+  element.addEventListener(
+    "mouseup",
+    () => {
+
+      isDown =
+        false;
+
+      element.classList.remove(
+        "dragging"
+      );
+
+    }
+  );
+
+
+  element.addEventListener(
+    "mousemove",
+    event => {
+
+      if(!isDown){
+
+        return;
+
+      }
+
+
+      event.preventDefault();
+
+
+      const x =
+        event.pageX -
+        element.offsetLeft;
+
+
+      const walk =
+        (x - startX) * 1.5;
+
+
+      element.scrollLeft =
+        scrollLeft - walk;
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHtml(
+  value
+){
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+/* =====================================================
+   PHOTO ALBUM ARROW CONTROLS
+===================================================== */
+
+const photoGallery =
+  document.getElementById("galleryGrid");
+
+const photoPrev =
+  document.getElementById("photoPrev");
+
+const photoNext =
+  document.getElementById("photoNext");
+
+
+const albumSlideAmount = 600;
+
+
+if (photoNext && photoGallery) {
+
+  photoNext.addEventListener("click", () => {
+
+    photoGallery.scrollBy({
+      left: albumSlideAmount,
+      behavior: "smooth"
+    });
+
+  });
+
+}
+
+
+if (photoPrev && photoGallery) {
+
+  photoPrev.addEventListener("click", () => {
+
+    photoGallery.scrollBy({
+      left: -albumSlideAmount,
+      behavior: "smooth"
+    });
+
+  });
+
+}
+
+/* =====================================================
+   START
+===================================================== */
+
+loadWeddingAlbum();
+
+</script>
+
+</body>
+
+</html>
+
