@@ -12,9 +12,7 @@
 
 <title>Wedding Album</title>
 
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link
   rel="preconnect"
   href="https://fonts.gstatic.com"
@@ -26,11 +24,9 @@
   rel="stylesheet"
 >
 
-
 <style>
 
 :root{
-
   --cream:#f6f0e6;
   --cream-dark:#ebe0d1;
   --white:#fffdf9;
@@ -41,7 +37,6 @@
 
   --black:#1b1815;
   --soft-black:#302b26;
-
 }
 
 *{
@@ -55,33 +50,26 @@ html{
 }
 
 body{
-
   background:var(--cream);
-
   color:var(--black);
-
   font-family:"DM Sans",sans-serif;
-
   overflow-x:hidden;
-
 }
 
 img{
-
   width:100%;
   height:100%;
-
   object-fit:cover;
-
   display:block;
+}
 
+button{
+  font:inherit;
 }
 
 ::selection{
-
   background:var(--gold);
   color:white;
-
 }
 
 
@@ -90,56 +78,39 @@ img{
 ===================================================== */
 
 .loading{
-
   position:fixed;
-
   inset:0;
-
   z-index:9999;
 
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
-
   justify-content:center;
 
   background:var(--cream);
 
-  transition:.7s ease;
-
+  transition:
+    opacity .7s ease,
+    visibility .7s ease;
 }
 
 .loading.hide{
-
   opacity:0;
   visibility:hidden;
-
 }
 
 .loading-initials{
-
   font-family:"Italiana",serif;
-
   font-size:80px;
-
   color:var(--gold-dark);
-
 }
 
 .loading p{
-
   margin-top:20px;
-
   font-size:10px;
-
   letter-spacing:4px;
-
   text-transform:uppercase;
-
   color:#81766a;
-
 }
 
 
@@ -148,7 +119,6 @@ img{
 ===================================================== */
 
 body::before{
-
   content:"";
 
   position:fixed;
@@ -165,13 +135,10 @@ body::before{
   left:-250px;
 
   pointer-events:none;
-
   z-index:-1;
-
 }
 
 body::after{
-
   content:"";
 
   position:fixed;
@@ -188,9 +155,7 @@ body::after{
   right:-350px;
 
   pointer-events:none;
-
   z-index:-1;
-
 }
 
 
@@ -199,7 +164,6 @@ body::after{
 ===================================================== */
 
 nav{
-
   position:absolute;
 
   top:0;
@@ -212,63 +176,41 @@ nav{
   padding:32px 7%;
 
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
 
   color:white;
-
 }
 
 .nav-logo{
-
-  font-family:
-    "Cormorant Garamond",
-    serif;
-
+  font-family:"Cormorant Garamond",serif;
   font-size:27px;
-
   letter-spacing:2px;
-
   font-weight:500;
-
 }
 
 .nav-right{
-
   display:flex;
-
   gap:25px;
-
   align-items:center;
 
   font-size:10px;
-
   text-transform:uppercase;
-
   letter-spacing:2px;
-
 }
 
 .nav-right a{
-
   color:white;
-
   text-decoration:none;
 
   opacity:.8;
 
   transition:.3s;
-
 }
 
 .nav-right a:hover{
-
   color:var(--gold-light);
-
   opacity:1;
-
 }
 
 
@@ -277,27 +219,21 @@ nav{
 ===================================================== */
 
 .hero{
-
   min-height:100vh;
 
   position:relative;
 
   display:flex;
-
   align-items:center;
-
   justify-content:center;
 
   color:white;
 
   overflow:hidden;
-
 }
 
 .hero-bg{
-
   position:absolute;
-
   inset:0;
 
   background:
@@ -306,21 +242,15 @@ nav{
       rgba(0,0,0,.25),
       rgba(0,0,0,.45)
     );
-
 }
 
 .hero-bg img{
-
   position:absolute;
-
   inset:0;
-
   z-index:-1;
-
 }
 
 .hero-content{
-
   position:relative;
 
   text-align:center;
@@ -328,11 +258,9 @@ nav{
   padding:40px 20px;
 
   margin-top:50px;
-
 }
 
 .hero-kicker{
-
   text-transform:uppercase;
 
   letter-spacing:5px;
@@ -342,11 +270,9 @@ nav{
   margin-bottom:22px;
 
   color:#e9d0a2;
-
 }
 
 .hero-title{
-
   font-family:"Italiana",serif;
 
   font-weight:400;
@@ -357,11 +283,9 @@ nav{
   line-height:.8;
 
   letter-spacing:-3px;
-
 }
 
 .hero-title .amp{
-
   font-family:
     "Cormorant Garamond",
     serif;
@@ -371,11 +295,9 @@ nav{
   font-size:.65em;
 
   color:#d5ae70;
-
 }
 
 .hero-date{
-
   margin-top:35px;
 
   font-size:10px;
@@ -383,11 +305,9 @@ nav{
   letter-spacing:4px;
 
   text-transform:uppercase;
-
 }
 
 .hero-line{
-
   width:1px;
 
   height:85px;
@@ -400,15 +320,12 @@ nav{
     );
 
   margin:35px auto 0;
-
 }
 
 .hero-corner{
-
   position:absolute;
 
   bottom:35px;
-
   left:7%;
 
   font-size:9px;
@@ -418,7 +335,6 @@ nav{
   text-transform:uppercase;
 
   opacity:.75;
-
 }
 
 
@@ -427,17 +343,14 @@ nav{
 ===================================================== */
 
 .intro{
-
   padding:160px 8%;
 
   max-width:1500px;
 
   margin:auto;
-
 }
 
 .intro-top{
-
   display:grid;
 
   grid-template-columns:
@@ -446,11 +359,9 @@ nav{
   gap:100px;
 
   align-items:start;
-
 }
 
 .section-label{
-
   font-size:10px;
 
   text-transform:uppercase;
@@ -464,23 +375,18 @@ nav{
   align-items:center;
 
   gap:15px;
-
 }
 
 .section-label::before{
-
   content:"";
 
   width:35px;
-
   height:1px;
 
   background:var(--gold);
-
 }
 
 .intro-title{
-
   font-family:
     "Cormorant Garamond",
     serif;
@@ -493,19 +399,14 @@ nav{
   line-height:.92;
 
   margin-top:25px;
-
 }
 
 .intro-title em{
-
   color:var(--gold-dark);
-
   font-weight:300;
-
 }
 
 .intro-text{
-
   max-width:570px;
 
   font-size:15px;
@@ -515,7 +416,6 @@ nav{
   color:#665e55;
 
   margin-top:60px;
-
 }
 
 
@@ -524,49 +424,37 @@ nav{
 ===================================================== */
 
 .editorial-image{
-
   position:relative;
 
   margin-top:120px;
 
   height:720px;
-
 }
 
 .editorial-main{
-
   width:70%;
-
   height:100%;
 
   margin-left:auto;
 
   overflow:hidden;
-
 }
 
 .editorial-main img{
-
   transition:1s ease;
-
 }
 
 .editorial-main:hover img{
-
   transform:scale(1.04);
-
 }
 
 .editorial-small{
-
   position:absolute;
 
   width:32%;
-
   height:380px;
 
   left:0;
-
   bottom:-90px;
 
   border:
@@ -577,15 +465,12 @@ nav{
   box-shadow:
     0 30px 80px
     rgba(0,0,0,.12);
-
 }
 
 .editorial-number{
-
   position:absolute;
 
   left:6%;
-
   top:80px;
 
   font-family:
@@ -600,23 +485,18 @@ nav{
     rgba(185,148,95,.17);
 
   z-index:-1;
-
 }
 
 .image-caption{
-
   position:absolute;
 
   bottom:-135px;
-
   right:0;
 
   max-width:300px;
-
 }
 
 .image-caption h3{
-
   font-family:
     "Cormorant Garamond",
     serif;
@@ -624,11 +504,9 @@ nav{
   font-size:28px;
 
   font-weight:400;
-
 }
 
 .image-caption p{
-
   margin-top:10px;
 
   font-size:11px;
@@ -638,7 +516,6 @@ nav{
   letter-spacing:1px;
 
   color:#777066;
-
 }
 
 
@@ -647,17 +524,14 @@ nav{
 ===================================================== */
 
 .quote-section{
-
   padding:
     220px 8%
     150px;
 
   text-align:center;
-
 }
 
 .quote-mark{
-
   font-family:
     "Cormorant Garamond",
     serif;
@@ -667,11 +541,9 @@ nav{
   font-size:100px;
 
   line-height:.3;
-
 }
 
 .quote{
-
   max-width:1000px;
 
   margin:40px auto;
@@ -686,19 +558,14 @@ nav{
   line-height:1;
 
   font-weight:400;
-
 }
 
 .quote em{
-
   color:var(--gold-dark);
-
   font-style:italic;
-
 }
 
 .quote-author{
-
   text-transform:uppercase;
 
   letter-spacing:4px;
@@ -706,7 +573,6 @@ nav{
   font-size:9px;
 
   color:#8b8175;
-
 }
 
 
@@ -715,17 +581,14 @@ nav{
 ===================================================== */
 
 .moments{
-
   background:var(--black);
 
   color:white;
 
   padding:150px 8%;
-
 }
 
 .moments-header{
-
   max-width:1500px;
 
   margin:
@@ -739,11 +602,9 @@ nav{
   align-items:end;
 
   gap:30px;
-
 }
 
 .moments-header h2{
-
   font-family:
     "Cormorant Garamond",
     serif;
@@ -754,19 +615,14 @@ nav{
   line-height:.85;
 
   font-weight:400;
-
 }
 
 .moments-header h2 em{
-
   color:#d5ae70;
-
   font-style:italic;
-
 }
 
 .moments-header p{
-
   max-width:350px;
 
   font-size:12px;
@@ -774,11 +630,9 @@ nav{
   line-height:1.9;
 
   color:#c3bbb1;
-
 }
 
 .moments-grid{
-
   max-width:1500px;
 
   margin:auto;
@@ -791,58 +645,44 @@ nav{
   gap:20px;
 
   align-items:start;
-
 }
 
 .moment{
-
   overflow:hidden;
 
   position:relative;
 
   background:#111;
-
 }
 
 .moment:nth-child(1){
-
   height:720px;
-
 }
 
 .moment:nth-child(2){
-
   height:400px;
-
 }
 
 .moment:nth-child(3){
-
   height:580px;
 
   margin-top:120px;
-
 }
 
 .moment img{
-
   transition:
     1s cubic-bezier(
       .2,.7,.2,1
     );
-
 }
 
 .moment:hover img{
-
   transform:scale(1.08);
 
   opacity:.75;
-
 }
 
 .moment::after{
-
   content:"";
 
   position:absolute;
@@ -857,23 +697,18 @@ nav{
     );
 
   pointer-events:none;
-
 }
 
 .moment-info{
-
   position:absolute;
 
   bottom:25px;
-
   left:25px;
 
   z-index:2;
-
 }
 
 .moment-info span{
-
   font-size:9px;
 
   letter-spacing:3px;
@@ -881,11 +716,9 @@ nav{
   text-transform:uppercase;
 
   color:#d9b87e;
-
 }
 
 .moment-info h3{
-
   font-family:
     "Cormorant Garamond",
     serif;
@@ -895,7 +728,6 @@ nav{
   font-weight:400;
 
   margin-top:8px;
-
 }
 
 
@@ -904,17 +736,14 @@ nav{
 ===================================================== */
 
 .story{
-
   padding:170px 8%;
 
   max-width:1550px;
 
   margin:auto;
-
 }
 
 .story-grid{
-
   display:grid;
 
   grid-template-columns:
@@ -923,39 +752,29 @@ nav{
   gap:100px;
 
   align-items:center;
-
 }
 
 .story-image{
-
   height:750px;
 
   position:relative;
-
 }
 
 .story-image-main{
-
   height:100%;
 
   overflow:hidden;
-
 }
 
 .story-image-main img{
-
   transition:1s ease;
-
 }
 
 .story-image:hover img{
-
   transform:scale(1.04);
-
 }
 
 .story-badge{
-
   position:absolute;
 
   width:170px;
@@ -971,7 +790,6 @@ nav{
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   text-align:center;
@@ -991,17 +809,13 @@ nav{
   box-shadow:
     0 20px 50px
     rgba(0,0,0,.12);
-
 }
 
 .story-content{
-
   padding:40px 0;
-
 }
 
 .story-content h2{
-
   font-family:
     "Cormorant Garamond",
     serif;
@@ -1012,17 +826,13 @@ nav{
   line-height:.85;
 
   font-weight:400;
-
 }
 
 .story-content h2 em{
-
   color:var(--gold-dark);
-
 }
 
 .story-content p{
-
   margin-top:45px;
 
   max-width:520px;
@@ -1032,11 +842,9 @@ nav{
   line-height:2;
 
   font-size:14px;
-
 }
 
 .story-date{
-
   margin-top:45px;
 
   padding-top:25px;
@@ -1051,7 +859,6 @@ nav{
   text-transform:uppercase;
 
   color:var(--gold-dark);
-
 }
 
 
@@ -1060,7 +867,6 @@ nav{
 ===================================================== */
 
 .cinematic{
-
   height:100vh;
 
   min-height:700px;
@@ -1076,11 +882,9 @@ nav{
   color:white;
 
   overflow:hidden;
-
 }
 
 .cinematic::after{
-
   content:"";
 
   position:absolute;
@@ -1095,31 +899,25 @@ nav{
     );
 
   pointer-events:none;
-
 }
 
 .cinematic img{
-
   position:absolute;
 
   inset:0;
 
   z-index:-1;
-
 }
 
 .cinematic-content{
-
   max-width:850px;
 
   position:relative;
 
   z-index:2;
-
 }
 
 .cinematic-content span{
-
   font-size:10px;
 
   letter-spacing:4px;
@@ -1127,11 +925,9 @@ nav{
   text-transform:uppercase;
 
   color:#e2c487;
-
 }
 
 .cinematic-content h2{
-
   font-family:
     "Cormorant Garamond",
     serif;
@@ -1144,32 +940,30 @@ nav{
   line-height:.85;
 
   margin-top:25px;
-
 }
 
 
 /* =====================================================
-   FULL WEDDING GALLERY
+   GALLERY
 ===================================================== */
 
 .gallery{
-
-  padding:160px 5%;
+  padding:160px 0;
 
   background:var(--cream);
 
+  overflow:hidden;
 }
 
 .gallery-header{
-
   text-align:center;
 
-  margin-bottom:90px;
+  padding:0 5%;
 
+  margin-bottom:80px;
 }
 
 .gallery-header span{
-
   font-size:10px;
 
   letter-spacing:4px;
@@ -1177,11 +971,9 @@ nav{
   text-transform:uppercase;
 
   color:var(--gold-dark);
-
 }
 
 .gallery-header h2{
-
   font-family:
     "Cormorant Garamond",
     serif;
@@ -1194,11 +986,9 @@ nav{
   margin-top:18px;
 
   line-height:.9;
-
 }
 
 .gallery-count{
-
   margin-top:25px;
 
   font-size:10px;
@@ -1208,69 +998,154 @@ nav{
   text-transform:uppercase;
 
   color:#81766a;
-
 }
 
 
-/*
-   Dynamic gallery.
-   Every photo uploaded after the 8 featured
-   images is inserted here automatically.
-*/
+/* =====================================================
+   HORIZONTAL GALLERY WRAPPER
+===================================================== */
+
+.horizontal-gallery{
+  position:relative;
+
+  width:100%;
+
+  overflow:hidden;
+}
+
+
+/* =====================================================
+   EDGE FADES
+===================================================== */
+
+.horizontal-gallery::before,
+.horizontal-gallery::after{
+
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  bottom:0;
+
+  width:100px;
+
+  z-index:5;
+
+  pointer-events:none;
+
+}
+
+.horizontal-gallery::before{
+  left:0;
+
+  background:
+    linear-gradient(
+      to right,
+      var(--cream),
+      rgba(246,240,230,0)
+    );
+}
+
+.horizontal-gallery::after{
+  right:0;
+
+  background:
+    linear-gradient(
+      to left,
+      var(--cream),
+      rgba(246,240,230,0)
+    );
+}
+
+
+/* =====================================================
+   THREE ROW PHOTO STRIP
+===================================================== */
 
 .gallery-grid{
 
-  max-width:1600px;
+  display:grid;
 
-  margin:auto;
+  grid-auto-flow:column;
 
-  columns:4 260px;
+  grid-template-rows:
+    repeat(3, 210px);
 
-  column-gap:15px;
+  grid-auto-columns:
+    270px;
 
+  gap:14px;
+
+  width:max-content;
+
+  padding:
+    10px 8vw
+    30px;
+
+  overflow-x:auto;
+
+  overscroll-behavior-x:contain;
+
+  scroll-behavior:smooth;
+
+  scrollbar-width:none;
+
+  cursor:grab;
+
+  user-select:none;
+}
+
+.gallery-grid::-webkit-scrollbar{
+  display:none;
+}
+
+.gallery-grid.dragging{
+  cursor:grabbing;
+
+  scroll-behavior:auto;
 }
 
 
+/* =====================================================
+   GALLERY ITEM
+===================================================== */
+
 .gallery-item{
-
-  break-inside:avoid;
-
-  margin-bottom:15px;
 
   position:relative;
 
   overflow:hidden;
 
-  cursor:pointer;
-
   background:#e8dfd2;
 
-}
+  cursor:pointer;
 
+  min-width:0;
+
+  box-shadow:
+    0 15px 35px
+    rgba(0,0,0,.06);
+
+  transform:translateZ(0);
+
+}
 
 .gallery-item img{
 
   width:100%;
-
-  height:auto;
-
-  min-height:220px;
+  height:100%;
 
   object-fit:cover;
 
   transition:
-    transform .8s
+    transform .9s
     cubic-bezier(.2,.7,.2,1);
-
 }
-
 
 .gallery-item:hover img{
-
-  transform:scale(1.045);
-
+  transform:scale(1.06);
 }
-
 
 .gallery-item::after{
 
@@ -1283,8 +1158,8 @@ nav{
   background:
     linear-gradient(
       to top,
-      rgba(0,0,0,.2),
-      transparent 35%
+      rgba(0,0,0,.28),
+      transparent 40%
     );
 
   opacity:0;
@@ -1292,61 +1167,208 @@ nav{
   transition:.4s;
 
   pointer-events:none;
-
 }
-
 
 .gallery-item:hover::after{
-
   opacity:1;
+}
+
+
+/* =====================================================
+   ALBUM HINT
+===================================================== */
+
+.album-hint{
+
+  text-align:center;
+
+  margin-top:30px;
+
+  color:#8b8175;
+
+  font-size:9px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  opacity:.75;
 
 }
 
-.gallery-item video{
+.album-hint span{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:12px;
+
+}
+
+.album-hint span::before,
+.album-hint span::after{
+
+  content:"";
+
+  width:30px;
+
+  height:1px;
+
+  background:
+    var(--gold-light);
+
+}
+
+
+/* =====================================================
+   VIDEOS
+===================================================== */
+
+.videos-section{
+
+  margin-top:130px;
+
+}
+
+.videos-header{
+
+  text-align:center;
+
+  margin-bottom:50px;
+
+}
+
+.videos-header span{
+
+  font-size:10px;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+
+  color:var(--gold-dark);
+
+}
+
+.videos-header h2{
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(45px,6vw,85px);
+
+  font-weight:400;
+
+  margin-top:15px;
+
+}
+
+.video-count{
+
+  margin-top:18px;
+
+  font-size:10px;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  color:#81766a;
+
+}
+
+
+/* =====================================================
+   VIDEO STRIP
+===================================================== */
+
+.video-grid{
+
+  display:flex;
+
+  gap:18px;
+
+  width:max-content;
+
+  padding:
+    10px 8vw
+    35px;
+
+  overflow-x:auto;
+
+  max-width:100%;
+
+  scrollbar-width:none;
+
+  scroll-behavior:smooth;
+
+  cursor:grab;
+
+  user-select:none;
+
+}
+
+.video-grid::-webkit-scrollbar{
+  display:none;
+}
+
+.video-grid.dragging{
+
+  cursor:grabbing;
+
+  scroll-behavior:auto;
+
+}
+
+
+/* =====================================================
+   VIDEO CARD
+===================================================== */
+
+.video-card{
+
+  width:
+    clamp(280px,38vw,560px);
+
+  aspect-ratio:16 / 9;
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:#171411;
+
+  flex:none;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 20px 50px
+    rgba(0,0,0,.10);
+
+}
+
+.video-card video{
 
   width:100%;
-
-  height:auto;
-
-  min-height:220px;
-
-  display:block;
+  height:100%;
 
   object-fit:cover;
 
-  transition:
-    transform .8s
-    cubic-bezier(.2,.7,.2,1);
+  display:block;
+
+  pointer-events:none;
 
 }
 
-.gallery-item:hover video{
-
-  transform:scale(1.045);
-
-}
-
-.gallery-video::before{
-
-  content:"▶";
+.video-overlay{
 
   position:absolute;
 
-  left:18px;
-
-  bottom:18px;
-
-  z-index:3;
-
-  width:42px;
-
-  height:42px;
-
-  border-radius:50%;
-
-  background:rgba(0,0,0,.55);
-
-  backdrop-filter:blur(8px);
+  inset:0;
 
   display:flex;
 
@@ -1354,11 +1376,98 @@ nav{
 
   justify-content:center;
 
-  color:white;
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,0,0,.05),
+      rgba(0,0,0,.25)
+    );
 
-  font-size:13px;
+  transition:.4s;
 
   pointer-events:none;
+
+}
+
+.video-play{
+
+  width:70px;
+  height:70px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(255,255,255,.7);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  color:white;
+
+  font-size:21px;
+
+  padding-left:4px;
+
+  backdrop-filter:blur(5px);
+
+  background:
+    rgba(0,0,0,.18);
+
+  transition:
+    transform .5s ease,
+    background .4s ease;
+}
+
+.video-card:hover .video-play{
+
+  transform:
+    scale(1.12);
+
+  background:
+    rgba(185,148,95,.75);
+
+}
+
+.video-card::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  border:
+    1px solid
+    rgba(185,148,95,.22);
+
+  pointer-events:none;
+
+}
+
+
+/* =====================================================
+   VIDEO EMPTY STATE
+===================================================== */
+
+.media-empty{
+
+  padding:
+    80px 20px;
+
+  text-align:center;
+
+  color:#81766a;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:28px;
+
+  width:100%;
 
 }
 
@@ -1368,119 +1477,328 @@ nav{
 ===================================================== */
 
 .lightbox{
+
   position:fixed;
+
   inset:0;
+
   z-index:9998;
-  background:rgba(15,13,11,.97);
+
+  background:
+    rgba(15,13,11,.97);
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   padding:40px;
+
   opacity:0;
+
   visibility:hidden;
-  transition:.35s ease;
+
+  transition:
+    opacity .4s ease,
+    visibility .4s ease;
+
+  overflow:hidden;
+
 }
 
 .lightbox.open{
+
   opacity:1;
+
   visibility:visible;
+
 }
+
+
+/* =====================================================
+   LIGHTBOX STAGE
+===================================================== */
+
+.lightbox-stage{
+
+  position:relative;
+
+  width:100%;
+
+  height:100%;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  overflow:hidden;
+
+}
+
+
+/* =====================================================
+   LIGHTBOX MEDIA
+===================================================== */
 
 .lightbox-media{
-  width:100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
 
-.lightbox-media img,
-.lightbox-media video{
-  max-width:88vw;
+  max-width:90vw;
+
   max-height:88vh;
-  width:auto;
-  height:auto;
+
   object-fit:contain;
+
+  will-change:
+    transform,
+    opacity;
+
+  transform:
+    translate3d(0,0,0);
+
+  opacity:1;
+
   user-select:none;
+
+  -webkit-user-drag:none;
+
 }
 
-.lightbox-media video{
-  background:#000;
-  box-shadow:0 30px 100px rgba(0,0,0,.45);
+
+/* =====================================================
+   CINEMATIC SLIDE ANIMATION
+===================================================== */
+
+.lightbox-media.slide-next{
+
+  animation:
+    lightboxNext
+    .55s
+    cubic-bezier(.22,.7,.25,1)
+    both;
+
 }
+
+.lightbox-media.slide-prev{
+
+  animation:
+    lightboxPrev
+    .55s
+    cubic-bezier(.22,.7,.25,1)
+    both;
+
+}
+
+@keyframes lightboxNext{
+
+  0%{
+    opacity:0;
+    transform:
+      translate3d(90px,0,0)
+      scale(.985);
+  }
+
+  35%{
+    opacity:.35;
+  }
+
+  100%{
+    opacity:1;
+    transform:
+      translate3d(0,0,0)
+      scale(1);
+  }
+
+}
+
+@keyframes lightboxPrev{
+
+  0%{
+    opacity:0;
+    transform:
+      translate3d(-90px,0,0)
+      scale(.985);
+  }
+
+  35%{
+    opacity:.35;
+  }
+
+  100%{
+    opacity:1;
+    transform:
+      translate3d(0,0,0)
+      scale(1);
+  }
+
+}
+
+
+/* =====================================================
+   LIGHTBOX CLOSE
+===================================================== */
 
 .lightbox-close{
+
   position:absolute;
-  top:24px;
-  right:32px;
-  z-index:5;
-  width:46px;
-  height:46px;
-  border:0;
-  background:transparent;
+
+  top:25px;
+  right:35px;
+
+  z-index:10;
+
   color:white;
+
   font-size:40px;
-  font-weight:200;
-  cursor:pointer;
-  line-height:1;
-}
 
-.lightbox-prev,
-.lightbox-next{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  z-index:5;
-  width:55px;
-  height:75px;
-  border:0;
-  background:rgba(255,255,255,.08);
-  backdrop-filter:blur(10px);
-  color:white;
-  font-family:"Cormorant Garamond",serif;
-  font-size:55px;
   font-weight:300;
+
   cursor:pointer;
-  transition:.3s;
+
+  line-height:1;
+
+  width:45px;
+  height:45px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  transition:
+    color .3s,
+    transform .3s;
+
 }
 
-.lightbox-prev:hover,
-.lightbox-next:hover{
-  background:rgba(255,255,255,.18);
+.lightbox-close:hover{
+
+  color:
+    var(--gold-light);
+
+  transform:
+    rotate(90deg);
+
 }
 
-.lightbox-prev{left:25px;}
-.lightbox-next{right:25px;}
+
+/* =====================================================
+   LIGHTBOX NAVIGATION
+===================================================== */
+
+.lightbox-arrow{
+
+  position:absolute;
+
+  top:50%;
+
+  transform:
+    translateY(-50%);
+
+  z-index:10;
+
+  width:55px;
+  height:55px;
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(216,189,138,.5);
+
+  background:
+    rgba(0,0,0,.25);
+
+  color:white;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+
+  font-size:25px;
+
+  transition:
+    background .3s,
+    border-color .3s,
+    transform .3s;
+
+  backdrop-filter:
+    blur(8px);
+
+}
+
+.lightbox-arrow:hover{
+
+  background:
+    rgba(185,148,95,.45);
+
+  border-color:
+    var(--gold-light);
+
+}
+
+.lightbox-prev{
+
+  left:25px;
+
+}
+
+.lightbox-next{
+
+  right:25px;
+
+}
+
+
+/* =====================================================
+   LIGHTBOX COUNTER
+===================================================== */
 
 .lightbox-counter{
+
   position:absolute;
+
   bottom:25px;
+
   left:50%;
-  transform:translateX(-50%);
+
+  transform:
+    translateX(-50%);
+
   color:#d8bd8a;
+
   font-size:10px;
+
   letter-spacing:3px;
+
   text-transform:uppercase;
+
 }
 
-@media(max-width:700px){
-  .lightbox{padding:15px;}
-  .lightbox-media img,
-  .lightbox-media video{
-    max-width:94vw;
-    max-height:82vh;
-  }
-  .lightbox-prev,
-  .lightbox-next{
-    width:40px;
-    height:55px;
-    font-size:42px;
-    background:rgba(0,0,0,.25);
-  }
-  .lightbox-prev{left:8px;}
-  .lightbox-next{right:8px;}
-  .lightbox-close{top:12px;right:15px;}
+
+/* =====================================================
+   LIGHTBOX VIDEO
+===================================================== */
+
+.lightbox-video{
+
+  max-width:90vw;
+
+  max-height:82vh;
+
+  width:auto;
+
+  height:auto;
+
+  background:#000;
+
 }
+
 
 /* =====================================================
    FINAL
@@ -1488,7 +1806,8 @@ nav{
 
 .final{
 
-  background:var(--cream-dark);
+  background:
+    var(--cream-dark);
 
   padding:160px 20px;
 
@@ -1507,7 +1826,6 @@ nav{
   position:absolute;
 
   left:50%;
-
   top:50%;
 
   transform:
@@ -1652,19 +1970,13 @@ footer{
   }
 
   .intro-top{
-
     grid-template-columns:1fr;
-
     gap:40px;
-
   }
 
   .editorial-image{
-
     height:550px;
-
     margin-top:70px;
-
   }
 
   .editorial-main{
@@ -1672,11 +1984,8 @@ footer{
   }
 
   .editorial-small{
-
     width:48%;
-
     height:250px;
-
   }
 
   .image-caption{
@@ -1688,17 +1997,12 @@ footer{
   }
 
   .moments-header{
-
     flex-direction:column;
-
     align-items:start;
-
   }
 
   .moments-grid{
-
     grid-template-columns:1fr;
-
   }
 
   .moment:nth-child(1),
@@ -1716,11 +2020,8 @@ footer{
   }
 
   .story-grid{
-
     grid-template-columns:1fr;
-
     gap:60px;
-
   }
 
   .story-image{
@@ -1732,22 +2033,55 @@ footer{
   }
 
   .gallery{
-
-    padding:
-      100px 5%;
-
+    padding:100px 0;
   }
 
   .gallery-grid{
 
-    columns:2 150px;
+    grid-template-rows:
+      repeat(3, 170px);
+
+    grid-auto-columns:
+      220px;
+
+    gap:10px;
+
+    padding-left:7vw;
+    padding-right:7vw;
+
+  }
+
+  .horizontal-gallery::before,
+  .horizontal-gallery::after{
+
+    width:65px;
+
+  }
+
+  .video-grid{
+
+    padding-left:7vw;
+    padding-right:7vw;
 
   }
 
   .lightbox{
-
     padding:20px;
+  }
 
+  .lightbox-arrow{
+
+    width:45px;
+    height:45px;
+
+  }
+
+  .lightbox-prev{
+    left:10px;
+  }
+
+  .lightbox-next{
+    right:10px;
   }
 
   footer{
@@ -1762,19 +2096,83 @@ footer{
 
 }
 
+
 @media(max-width:500px){
 
-  .gallery-grid{
+  .hero-title{
 
-    columns:2 120px;
+    font-size:
+      clamp(52px,16vw,90px);
 
-    column-gap:8px;
+    letter-spacing:-2px;
 
   }
 
-  .gallery-item{
+  .editorial-image{
+    height:450px;
+  }
 
-    margin-bottom:8px;
+  .editorial-main{
+    width:90%;
+  }
+
+  .editorial-small{
+    height:190px;
+  }
+
+  .gallery-grid{
+
+    grid-template-rows:
+      repeat(3, 125px);
+
+    grid-auto-columns:
+      165px;
+
+    gap:7px;
+
+    padding-left:6vw;
+    padding-right:6vw;
+
+  }
+
+  .gallery-header{
+    margin-bottom:55px;
+  }
+
+  .videos-section{
+    margin-top:90px;
+  }
+
+  .video-card{
+    width:82vw;
+  }
+
+  .video-play{
+
+    width:58px;
+    height:58px;
+
+    font-size:18px;
+
+  }
+
+  .horizontal-gallery::before,
+  .horizontal-gallery::after{
+
+    width:45px;
+
+  }
+
+  .lightbox-media{
+
+    max-width:96vw;
+    max-height:82vh;
+
+  }
+
+  .lightbox-video{
+
+    max-width:96vw;
 
   }
 
@@ -1782,13 +2180,27 @@ footer{
 
 
 /* =====================================================
-   HIDDEN EMPTY IMAGE
+   REDUCED MOTION
 ===================================================== */
 
-img:not([src]),
-img[src=""]{
+@media(prefers-reduced-motion:reduce){
 
-  visibility:hidden;
+  *,
+  *::before,
+  *::after{
+
+    scroll-behavior:auto !important;
+
+    animation-duration:
+      .01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      .01ms !important;
+
+  }
 
 }
 
@@ -1823,7 +2235,6 @@ img[src=""]{
 </div>
 
 
-
 <!-- =====================================================
      NAV
 ===================================================== -->
@@ -1836,7 +2247,6 @@ img[src=""]{
   >
     &
   </div>
-
 
   <div class="nav-right">
 
@@ -1855,7 +2265,6 @@ img[src=""]{
   </div>
 
 </nav>
-
 
 
 <!-- =====================================================
@@ -1880,7 +2289,6 @@ img[src=""]{
       The Wedding of
     </div>
 
-
     <h1 class="hero-title">
 
       <span id="heroBride">
@@ -1897,14 +2305,12 @@ img[src=""]{
 
     </h1>
 
-
     <div
       class="hero-date"
       id="heroDate"
     >
       Wedding Date
     </div>
-
 
     <div class="hero-line"></div>
 
@@ -1916,7 +2322,6 @@ img[src=""]{
   </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -2015,7 +2420,6 @@ img[src=""]{
 </section>
 
 
-
 <!-- =====================================================
      QUOTE
 ===================================================== -->
@@ -2026,7 +2430,6 @@ img[src=""]{
     “
   </div>
 
-
   <h2 class="quote">
 
     In a world full of temporary things,
@@ -2034,7 +2437,6 @@ img[src=""]{
     <em>forever.</em>
 
   </h2>
-
 
   <div
     class="quote-author"
@@ -2044,7 +2446,6 @@ img[src=""]{
   </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -2095,7 +2496,6 @@ img[src=""]{
         alt="Wedding Moment"
       >
 
-
       <div class="moment-info">
 
         <span>
@@ -2111,14 +2511,12 @@ img[src=""]{
     </div>
 
 
-
     <div class="moment">
 
       <img
         id="moment2"
         alt="Wedding Moment"
       >
-
 
       <div class="moment-info">
 
@@ -2135,14 +2533,12 @@ img[src=""]{
     </div>
 
 
-
     <div class="moment">
 
       <img
         id="moment3"
         alt="Wedding Moment"
       >
-
 
       <div class="moment-info">
 
@@ -2158,10 +2554,10 @@ img[src=""]{
 
     </div>
 
+
   </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -2197,7 +2593,6 @@ img[src=""]{
       </div>
 
     </div>
-
 
 
     <div class="story-content">
@@ -2249,7 +2644,6 @@ img[src=""]{
 </section>
 
 
-
 <!-- =====================================================
      CINEMATIC
 ===================================================== -->
@@ -2261,18 +2655,15 @@ img[src=""]{
     alt="Wedding Cinematic"
   >
 
-
   <div class="cinematic-content">
 
     <span>
       The ceremony
     </span>
 
-
     <h2>
 
       A promise<br>
-
       beneath the sky.
 
     </h2>
@@ -2282,9 +2673,8 @@ img[src=""]{
 </section>
 
 
-
 <!-- =====================================================
-     FULL WEDDING GALLERY
+     WEDDING GALLERY
 ===================================================== -->
 
 <section
@@ -2292,17 +2682,16 @@ img[src=""]{
   id="gallery"
 >
 
+
   <div class="gallery-header">
 
     <span>
       Memories captured forever
     </span>
 
-
     <h2>
       The album
     </h2>
-
 
     <div
       class="gallery-count"
@@ -2314,18 +2703,86 @@ img[src=""]{
   </div>
 
 
-  <!--
-      JavaScript will automatically put
-      EVERY uploaded gallery photo here.
-  -->
+  <!-- ===================================================
+       PHOTOS
+  =================================================== -->
 
   <div
-    class="gallery-grid"
-    id="galleryGrid"
-  ></div>
+    class="horizontal-gallery"
+    id="photoGalleryWrapper"
+  >
+
+    <div
+      class="gallery-grid"
+      id="galleryGrid"
+    ></div>
+
+  </div>
+
+
+  <div class="album-hint">
+
+    <span>
+      Swipe to explore
+    </span>
+
+  </div>
+
+
+  <!-- ===================================================
+       VIDEOS
+  =================================================== -->
+
+  <div
+    class="videos-section"
+    id="videosSection"
+  >
+
+    <div class="videos-header">
+
+      <span>
+        Moving memories
+      </span>
+
+      <h2>
+        Videos
+      </h2>
+
+      <div
+        class="video-count"
+        id="videoCount"
+      >
+        Loading videos
+      </div>
+
+    </div>
+
+
+    <div
+      class="horizontal-gallery"
+      id="videoGalleryWrapper"
+    >
+
+      <div
+        class="video-grid"
+        id="videoGrid"
+      ></div>
+
+    </div>
+
+
+    <div class="album-hint">
+
+      <span>
+        Swipe to explore
+      </span>
+
+    </div>
+
+  </div>
+
 
 </section>
-
 
 
 <!-- =====================================================
@@ -2337,34 +2794,45 @@ img[src=""]{
   id="lightbox"
 >
 
+
+  <div class="lightbox-stage">
+
+
+    <button
+      class="lightbox-arrow lightbox-prev"
+      id="lightboxPrev"
+      aria-label="Previous"
+      type="button"
+    >
+      ‹
+    </button>
+
+
+    <div id="lightboxContent"></div>
+
+
+    <button
+      class="lightbox-arrow lightbox-next"
+      id="lightboxNext"
+      aria-label="Next"
+      type="button"
+    >
+      ›
+    </button>
+
+
+  </div>
+
+
   <button
     class="lightbox-close"
     id="lightboxClose"
-    aria-label="Close viewer"
+    aria-label="Close"
+    type="button"
   >
     ×
   </button>
 
-  <button
-    class="lightbox-prev"
-    id="lightboxPrev"
-    aria-label="Previous media"
-  >
-    ‹
-  </button>
-
-  <div
-    class="lightbox-media"
-    id="lightboxMedia"
-  ></div>
-
-  <button
-    class="lightbox-next"
-    id="lightboxNext"
-    aria-label="Next media"
-  >
-    ›
-  </button>
 
   <div
     class="lightbox-counter"
@@ -2372,7 +2840,6 @@ img[src=""]{
   ></div>
 
 </div>
-
 
 
 <!-- =====================================================
@@ -2391,7 +2858,6 @@ img[src=""]{
       And they lived beautifully ever after
     </span>
 
-
     <h2>
 
       Always
@@ -2406,7 +2872,6 @@ img[src=""]{
 
     </h2>
 
-
     <p id="finalNames">
       Bride & Groom
     </p>
@@ -2414,7 +2879,6 @@ img[src=""]{
   </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -2427,11 +2891,9 @@ img[src=""]{
     Bride & Groom
   </div>
 
-
   <div class="footer-love">
     Made with love
   </div>
-
 
   <div id="footerDate">
     The beginning of forever
@@ -2440,12 +2902,11 @@ img[src=""]{
 </footer>
 
 
-
 <script>
 
 
 /* =====================================================
-   YOUR RENDER BACKEND
+   RENDER BACKEND
 ===================================================== */
 
 const API_URL =
@@ -2461,29 +2922,36 @@ const params =
     window.location.search
   );
 
-
 const eventId =
   params.get("event");
 
 
 /* =====================================================
-   LIGHTBOX STATE
+   MEDIA STATE
 ===================================================== */
 
 let galleryPhotos = [];
 
-let currentGalleryIndex = 0;
+let galleryVideos = [];
+
+let currentMediaIndex = 0;
+
+let currentMediaType = "photo";
+
+let touchStartX = 0;
+
+let touchStartY = 0;
 
 
 /* =====================================================
    LOAD ALBUM
 ===================================================== */
 
-async function loadWeddingAlbum() {
+async function loadWeddingAlbum(){
 
-  try {
+  try{
 
-    if (!eventId) {
+    if(!eventId){
 
       throw new Error(
         "No event ID found"
@@ -2498,7 +2966,7 @@ async function loadWeddingAlbum() {
       );
 
 
-    if (!response.ok) {
+    if(!response.ok){
 
       throw new Error(
         "Wedding album not found"
@@ -2512,36 +2980,40 @@ async function loadWeddingAlbum() {
 
 
     const bride =
-      data.brideName || "Bride";
+      data.brideName ||
+      "Bride";
 
 
     const groom =
-      data.groomName || "Groom";
+      data.groomName ||
+      "Groom";
 
 
     const initials =
-      data.initials || "&";
+      data.initials ||
+      "&";
 
 
     const date =
-      data.weddingDate || "";
+      data.weddingDate ||
+      "";
 
 
     const fullNames =
       `${bride} & ${groom}`;
 
 
-    /* ===============================================
-       PAGE TITLE
-    =============================================== */
+    /* =================================================
+       TITLE
+    ================================================= */
 
     document.title =
       `${fullNames} — Wedding Album`;
 
 
-    /* ===============================================
+    /* =================================================
        INITIALS
-    =============================================== */
+    ================================================= */
 
     document.getElementById(
       "navInitials"
@@ -2563,9 +3035,9 @@ async function loadWeddingAlbum() {
     );
 
 
-    /* ===============================================
+    /* =================================================
        NAMES
-    =============================================== */
+    ================================================= */
 
     document.getElementById(
       "heroBride"
@@ -2597,9 +3069,9 @@ async function loadWeddingAlbum() {
       `${fullNames} © ${new Date().getFullYear()}`;
 
 
-    /* ===============================================
+    /* =================================================
        DATE
-    =============================================== */
+    ================================================= */
 
     document.getElementById(
       "heroDate"
@@ -2619,9 +3091,9 @@ async function loadWeddingAlbum() {
       `${date} · The beginning of forever`;
 
 
-    /* ===============================================
+    /* =================================================
        FEATURED IMAGES
-    =============================================== */
+    ================================================= */
 
     const images =
       data.images || {};
@@ -2675,18 +3147,18 @@ async function loadWeddingAlbum() {
     );
 
 
-    /* ===============================================
-       FULL GALLERY
-    =============================================== */
+    /* =================================================
+       FULL MEDIA GALLERY
+    ================================================= */
 
     buildGallery(
       data.media || []
     );
 
 
-    /* ===============================================
+    /* =================================================
        HIDE LOADING
-    =============================================== */
+    ================================================= */
 
     setTimeout(
       () => {
@@ -2700,10 +3172,8 @@ async function loadWeddingAlbum() {
       700
     );
 
-  }
 
-
-  catch (error) {
+  }catch(error){
 
     console.error(error);
 
@@ -2734,7 +3204,7 @@ async function loadWeddingAlbum() {
 function setImage(
   elementId,
   imageUrl
-) {
+){
 
   const image =
     document.getElementById(
@@ -2742,10 +3212,10 @@ function setImage(
     );
 
 
-  if (
+  if(
     image &&
     imageUrl
-  ) {
+  ){
 
     image.src =
       imageUrl;
@@ -2756,256 +3226,993 @@ function setImage(
 
 
 /* =====================================================
-   BUILD FULL GALLERY
+   BUILD GALLERY
 ===================================================== */
 
-function buildGallery(media) {
+function buildGallery(
+  media
+){
 
   const galleryGrid =
-    document.getElementById("galleryGrid");
+    document.getElementById(
+      "galleryGrid"
+    );
+
+
+  const videoGrid =
+    document.getElementById(
+      "videoGrid"
+    );
+
 
   const galleryCount =
-    document.getElementById("galleryCount");
+    document.getElementById(
+      "galleryCount"
+    );
 
-  galleryPhotos = media.filter(
-    item =>
-      item &&
-      (item.type === "photo" || item.type === "video") &&
-      item.file_path
-  );
+
+  const videoCount =
+    document.getElementById(
+      "videoCount"
+    );
+
+
+  /* =================================================
+     SEPARATE PHOTOS AND VIDEOS
+  ================================================= */
+
+  galleryPhotos =
+    media.filter(
+      item =>
+        item &&
+        item.type === "photo" &&
+        item.file_path
+    );
+
+
+  galleryVideos =
+    media.filter(
+      item =>
+        item &&
+        item.type === "video" &&
+        item.file_path
+    );
+
+
+  /* =================================================
+     COUNTS
+  ================================================= */
 
   galleryCount.textContent =
     `${galleryPhotos.length} ${
-      galleryPhotos.length === 1 ? "memory" : "memories"
+      galleryPhotos.length === 1
+        ? "memory"
+        : "memories"
     }`;
 
-  if (galleryPhotos.length === 0) {
+
+  videoCount.textContent =
+    `${galleryVideos.length} ${
+      galleryVideos.length === 1
+        ? "video"
+        : "videos"
+    }`;
+
+
+  /* =================================================
+     PHOTO GALLERY
+  ================================================= */
+
+  if(
+    galleryPhotos.length === 0
+  ){
 
     galleryGrid.innerHTML = `
-      <div style="
-        column-span:all;
-        text-align:center;
-        padding:80px 20px;
-        color:#81766a;
-        font-family:'Cormorant Garamond',serif;
-        font-size:28px;
-      ">
-        Your memories are waiting to be captured.
+
+      <div class="media-empty">
+
+        Your memories are waiting
+        to be captured.
+
       </div>
+
     `;
+
+  }else{
+
+    galleryGrid.innerHTML =
+      galleryPhotos
+        .map(
+          (photo,index) => `
+
+            <div
+              class="gallery-item"
+              data-index="${index}"
+              onclick="openPhotoLightbox(${index})"
+            >
+
+              <img
+                src="${escapeHtml(
+                  photo.file_path
+                )}"
+                alt="Wedding memory ${
+                  index + 1
+                }"
+                loading="lazy"
+                draggable="false"
+              >
+
+            </div>
+
+          `
+        )
+        .join("");
+
+  }
+
+
+  /* =================================================
+     VIDEO GALLERY
+  ================================================= */
+
+  if(
+    galleryVideos.length === 0
+  ){
+
+    document
+      .getElementById(
+        "videosSection"
+      )
+      .style.display =
+        "none";
+
+  }else{
+
+    document
+      .getElementById(
+        "videosSection"
+      )
+      .style.display =
+        "";
+
+
+    videoGrid.innerHTML =
+      galleryVideos
+        .map(
+          (video,index) => `
+
+            <div
+              class="video-card"
+              onclick="openVideoLightbox(${index})"
+            >
+
+              <video
+                src="${escapeHtml(
+                  video.file_path
+                )}"
+                preload="metadata"
+                muted
+                playsinline
+              ></video>
+
+
+              <div class="video-overlay">
+
+                <div class="video-play">
+                  ▶
+                </div>
+
+              </div>
+
+            </div>
+
+          `
+        )
+        .join("");
+
+  }
+
+
+  /* =================================================
+     ENABLE DRAGGING
+  ================================================= */
+
+  enableHorizontalDrag(
+    galleryGrid
+  );
+
+
+  enableHorizontalDrag(
+    videoGrid
+  );
+
+}
+
+
+/* =====================================================
+   OPEN PHOTO
+===================================================== */
+
+function openPhotoLightbox(
+  index
+){
+
+  currentMediaType =
+    "photo";
+
+  currentMediaIndex =
+    index;
+
+
+  document
+    .getElementById(
+      "lightbox"
+    )
+    .classList
+    .add("open");
+
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  renderPhoto(
+    "none"
+  );
+
+}
+
+
+/* =====================================================
+   OPEN VIDEO
+===================================================== */
+
+function openVideoLightbox(
+  index
+){
+
+  currentMediaType =
+    "video";
+
+  currentMediaIndex =
+    index;
+
+
+  document
+    .getElementById(
+      "lightbox"
+    )
+    .classList
+    .add("open");
+
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  renderVideo();
+
+}
+
+
+/* =====================================================
+   RENDER PHOTO
+===================================================== */
+
+function renderPhoto(
+ direction
+){
+
+  const photo =
+    galleryPhotos[
+      currentMediaIndex
+    ];
+
+
+  if(!photo){
 
     return;
+
   }
 
-  galleryGrid.innerHTML =
-    galleryPhotos.map((item, index) => {
 
-      if (item.type === "video") {
+  const content =
+    document.getElementById(
+      "lightboxContent"
+    );
 
-        return `
-          <div
-            class="gallery-item gallery-video"
-            onclick="openLightbox(${index})"
-          >
-            <video
-              src="${escapeHtml(item.file_path)}"
-              muted
-              preload="metadata"
-              playsinline
-            ></video>
-          </div>
-        `;
-      }
 
-      return `
-        <div
-          class="gallery-item"
-          onclick="openLightbox(${index})"
-        >
-          <img
-            src="${escapeHtml(item.file_path)}"
-            alt="Wedding memory ${index + 1}"
-            loading="lazy"
-          >
-        </div>
-      `;
+  const image =
+    document.createElement(
+      "img"
+    );
 
-    }).join("");
+
+  image.className =
+    "lightbox-media";
+
+
+  image.src =
+    photo.file_path;
+
+
+  image.alt =
+    `Wedding memory ${
+      currentMediaIndex + 1
+    }`;
+
+
+  image.draggable =
+    false;
+
+
+  if(
+    direction === "next"
+  ){
+
+    image.classList.add(
+      "slide-next"
+    );
+
+  }
+
+
+  if(
+    direction === "prev"
+  ){
+
+    image.classList.add(
+      "slide-prev"
+    );
+
+  }
+
+
+  content.innerHTML =
+    "";
+
+  content.appendChild(
+    image
+  );
+
+
+  updateCounter(
+    currentMediaIndex + 1,
+    galleryPhotos.length
+  );
+
 }
 
 
 /* =====================================================
-   LIGHTBOX
+   RENDER VIDEO
 ===================================================== */
 
-function openLightbox(index) {
+function renderVideo(){
 
-  currentGalleryIndex = index;
-
-  renderLightbox();
-
-  document
-    .getElementById("lightbox")
-    .classList.add("open");
-
-  document.body.style.overflow = "hidden";
-}
+  const videoData =
+    galleryVideos[
+      currentMediaIndex
+    ];
 
 
-function renderLightbox() {
+  if(!videoData){
 
-  const item =
-    galleryPhotos[currentGalleryIndex];
+    return;
 
-  if (!item) return;
-
-  const container =
-    document.getElementById("lightboxMedia");
-
-  if (item.type === "video") {
-
-    container.innerHTML = `
-      <video
-        src="${escapeHtml(item.file_path)}"
-        controls
-        autoplay
-        playsinline
-      ></video>
-    `;
-
-  } else {
-
-    container.innerHTML = `
-      <img
-        src="${escapeHtml(item.file_path)}"
-        alt="Wedding memory ${currentGalleryIndex + 1}"
-      >
-    `;
   }
 
-  document.getElementById("lightboxCounter").textContent =
-    `${currentGalleryIndex + 1} / ${galleryPhotos.length}`;
-}
+
+  const content =
+    document.getElementById(
+      "lightboxContent"
+    );
 
 
-function closeLightbox() {
+  content.innerHTML = `
 
-  document.getElementById("lightboxMedia").innerHTML = "";
+    <video
+      class="lightbox-video"
+      id="activeLightboxVideo"
+      src="${escapeHtml(
+        videoData.file_path
+      )}"
+      controls
+      playsinline
+      preload="metadata"
+    ></video>
 
-  document
-    .getElementById("lightbox")
-    .classList.remove("open");
-
-  document.body.style.overflow = "";
-}
-
-
-function showNextPhoto() {
-
-  if (!galleryPhotos.length) return;
-
-  currentGalleryIndex =
-    (currentGalleryIndex + 1) % galleryPhotos.length;
-
-  renderLightbox();
-}
+  `;
 
 
-function showPreviousPhoto() {
+  updateCounter(
+    currentMediaIndex + 1,
+    galleryVideos.length
+  );
 
-  if (!galleryPhotos.length) return;
-
-  currentGalleryIndex =
-    (currentGalleryIndex - 1 + galleryPhotos.length) %
-    galleryPhotos.length;
-
-  renderLightbox();
 }
 
 
 /* =====================================================
-   LIGHTBOX BUTTONS
+   COUNTER
 ===================================================== */
 
-document
-  .getElementById("lightboxClose")
-  .addEventListener("click", closeLightbox);
+function updateCounter(
+  current,
+  total
+){
 
-document
-  .getElementById("lightboxPrev")
-  .addEventListener("click", showPreviousPhoto);
+  document.getElementById(
+    "lightboxCounter"
+  ).textContent =
+    `${current} / ${total}`;
 
-document
-  .getElementById("lightboxNext")
-  .addEventListener("click", showNextPhoto);
+}
 
 
-document
-  .getElementById("lightbox")
-  .addEventListener("click", event => {
+/* =====================================================
+   NEXT
+===================================================== */
 
-    if (event.target.id === "lightbox") {
-      closeLightbox();
+function showNextMedia(){
+
+  if(
+    currentMediaType ===
+    "photo"
+  ){
+
+    if(
+      galleryPhotos.length === 0
+    ){
+
+      return;
+
     }
 
-  });
+
+    currentGalleryIndex =
+      (
+        currentMediaIndex + 1
+      ) %
+      galleryPhotos.length;
 
 
-/* =====================================================
-   KEYBOARD CONTROLS
-===================================================== */
+    currentMediaIndex =
+      currentGalleryIndex;
 
-document.addEventListener("keydown", event => {
 
-  const lightbox =
-    document.getElementById("lightbox");
+    renderPhoto(
+      "next"
+    );
 
-  if (!lightbox.classList.contains("open")) return;
+  }else{
 
-  if (event.key === "Escape") {
-    closeLightbox();
-  } else if (event.key === "ArrowRight") {
-    showNextPhoto();
-  } else if (event.key === "ArrowLeft") {
-    showPreviousPhoto();
+    if(
+      galleryVideos.length === 0
+    ){
+
+      return;
+
+    }
+
+
+    currentMediaIndex =
+      (
+        currentMediaIndex + 1
+      ) %
+      galleryVideos.length;
+
+
+    renderVideo();
+
   }
-});
+
+}
 
 
 /* =====================================================
-   MOBILE SWIPE
+   PREVIOUS
 ===================================================== */
 
-let touchStartX = 0;
-let touchEndX = 0;
+function showPreviousMedia(){
 
-const lightboxElement =
-  document.getElementById("lightbox");
+  if(
+    currentMediaType ===
+    "photo"
+  ){
 
-lightboxElement.addEventListener("touchstart", event => {
-  touchStartX = event.changedTouches[0].screenX;
-}, { passive:true });
+    if(
+      galleryPhotos.length === 0
+    ){
 
-lightboxElement.addEventListener("touchend", event => {
-  touchEndX = event.changedTouches[0].screenX;
+      return;
 
-  const difference = touchEndX - touchStartX;
+    }
 
-  if (Math.abs(difference) < 50) return;
 
-  if (difference < 0) {
-    showNextPhoto();
-  } else {
-    showPreviousPhoto();
+    currentGalleryIndex =
+      (
+        currentMediaIndex - 1 +
+        galleryPhotos.length
+      ) %
+      galleryPhotos.length;
+
+
+    currentMediaIndex =
+      currentGalleryIndex;
+
+
+    renderPhoto(
+      "prev"
+    );
+
+  }else{
+
+    if(
+      galleryVideos.length === 0
+    ){
+
+      return;
+
+    }
+
+
+    currentMediaIndex =
+      (
+        currentMediaIndex - 1 +
+        galleryVideos.length
+      ) %
+      galleryVideos.length;
+
+
+    renderVideo();
+
   }
-}, { passive:true });
+
+}
 
 
 /* =====================================================
-   BASIC HTML ESCAPE
+   CLOSE LIGHTBOX
 ===================================================== */
 
-function escapeHtml(value) {
+function closeLightbox(){
+
+  const activeVideo =
+    document.getElementById(
+      "activeLightboxVideo"
+    );
+
+
+  if(activeVideo){
+
+    activeVideo.pause();
+
+  }
+
+
+  document
+    .getElementById(
+      "lightbox"
+    )
+    .classList
+    .remove("open");
+
+
+  document.body.style.overflow =
+    "";
+
+
+  document.getElementById(
+    "lightboxContent"
+  ).innerHTML =
+    "";
+
+}
+
+
+/* =====================================================
+   BUTTON EVENTS
+===================================================== */
+
+document
+  .getElementById(
+    "lightboxClose"
+  )
+  .addEventListener(
+    "click",
+    closeLightbox
+  );
+
+
+document
+  .getElementById(
+    "lightboxNext"
+  )
+  .addEventListener(
+    "click",
+    event => {
+
+      event.stopPropagation();
+
+      showNextMedia();
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "lightboxPrev"
+  )
+  .addEventListener(
+    "click",
+    event => {
+
+      event.stopPropagation();
+
+      showPreviousMedia();
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "lightbox"
+  )
+  .addEventListener(
+    "click",
+    event => {
+
+      if(
+        event.target.id ===
+        "lightbox" ||
+        event.target.classList.contains(
+          "lightbox-stage"
+        )
+      ){
+
+        closeLightbox();
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    const lightbox =
+      document.getElementById(
+        "lightbox"
+      );
+
+
+    if(
+      !lightbox.classList.contains(
+        "open"
+      )
+    ){
+
+      return;
+
+    }
+
+
+    if(
+      event.key ===
+      "Escape"
+    ){
+
+      closeLightbox();
+
+    }
+
+
+    else if(
+      event.key ===
+      "ArrowRight"
+    ){
+
+      showNextMedia();
+
+    }
+
+
+    else if(
+      event.key ===
+      "ArrowLeft"
+    ){
+
+      showPreviousMedia();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   LIGHTBOX TOUCH SWIPE
+===================================================== */
+
+const lightbox =
+  document.getElementById(
+    "lightbox"
+  );
+
+
+lightbox.addEventListener(
+  "touchstart",
+  event => {
+
+    if(
+      event.touches.length !== 1
+    ){
+
+      return;
+
+    }
+
+
+    touchStartX =
+      event.touches[0].clientX;
+
+
+    touchStartY =
+      event.touches[0].clientY;
+
+  },
+  {
+    passive:true
+  }
+);
+
+
+lightbox.addEventListener(
+  "touchend",
+  event => {
+
+    if(
+      event.changedTouches.length !== 1
+    ){
+
+      return;
+
+    }
+
+
+    const endX =
+      event.changedTouches[0].clientX;
+
+
+    const endY =
+      event.changedTouches[0].clientY;
+
+
+    const deltaX =
+      endX - touchStartX;
+
+
+    const deltaY =
+      endY - touchStartY;
+
+
+    if(
+      Math.abs(deltaX) >
+      55 &&
+      Math.abs(deltaX) >
+      Math.abs(deltaY)
+    ){
+
+      if(deltaX < 0){
+
+        showNextMedia();
+
+      }else{
+
+        showPreviousMedia();
+
+      }
+
+    }
+
+  },
+  {
+    passive:true
+  }
+);
+
+
+/* =====================================================
+   HORIZONTAL DRAG / SWIPE
+===================================================== */
+
+function enableHorizontalDrag(
+  element
+){
+
+  if(!element){
+
+    return;
+
+  }
+
+
+  let isDown =
+    false;
+
+  let startX =
+    0;
+
+  let scrollLeft =
+    0;
+
+
+  element.addEventListener(
+    "mousedown",
+    event => {
+
+      isDown =
+        true;
+
+      element.classList.add(
+        "dragging"
+      );
+
+      startX =
+        event.pageX -
+        element.offsetLeft;
+
+      scrollLeft =
+        element.scrollLeft;
+
+    }
+  );
+
+
+  element.addEventListener(
+    "mouseleave",
+    () => {
+
+      isDown =
+        false;
+
+      element.classList.remove(
+        "dragging"
+      );
+
+    }
+  );
+
+
+  element.addEventListener(
+    "mouseup",
+    () => {
+
+      isDown =
+        false;
+
+      element.classList.remove(
+        "dragging"
+      );
+
+    }
+  );
+
+
+  element.addEventListener(
+    "mousemove",
+    event => {
+
+      if(!isDown){
+
+        return;
+
+      }
+
+
+      event.preventDefault();
+
+
+      const x =
+        event.pageX -
+        element.offsetLeft;
+
+
+      const walk =
+        (x - startX) * 1.15;
+
+
+      element.scrollLeft =
+        scrollLeft - walk;
+
+    }
+  );
+
+
+  let touchX =
+    0;
+
+
+  let touchScroll =
+    0;
+
+
+  element.addEventListener(
+    "touchstart",
+    event => {
+
+      if(
+        event.touches.length !== 1
+      ){
+
+        return;
+
+      }
+
+
+      touchX =
+        event.touches[0].clientX;
+
+
+      touchScroll =
+        element.scrollLeft;
+
+    },
+    {
+      passive:true
+    }
+  );
+
+
+  element.addEventListener(
+    "touchmove",
+    event => {
+
+      if(
+        event.touches.length !== 1
+      ){
+
+        return;
+
+      }
+
+
+      const currentX =
+        event.touches[0].clientX;
+
+
+      const distance =
+        currentX - touchX;
+
+
+      element.scrollLeft =
+        touchScroll - distance;
+
+    },
+    {
+      passive:true
+    }
+  );
+
+}
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHtml(
+  value
+){
 
   return String(value)
 
@@ -3045,8 +4252,6 @@ loadWeddingAlbum();
 
 </script>
 
-
 </body>
 
-</html>
-
+  </html>
