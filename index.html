@@ -1132,6 +1132,8 @@ nav{
   cursor:grab;
 
   user-select:none;
+
+  min-width: 100%;
 }
 
 .gallery-grid::-webkit-scrollbar{
@@ -3360,57 +3362,60 @@ function buildGallery(
     }`;
 
 
-  /* =================================================
-     PHOTO GALLERY
-  ================================================= */
+/* =================================================
+   PHOTO GALLERY
+================================================= */
 
-  if(
-    galleryPhotos.length === 0
-  ){
+if(
+  galleryPhotos.length === 0
+){
 
-    galleryGrid.innerHTML = `
+  galleryGrid.innerHTML = `
 
-      <div class="media-empty">
+    <div class="media-empty">
 
-        Your memories are waiting
-        to be captured.
+      Your memories are waiting
+      to be captured.
 
-      </div>
+    </div>
 
-    `;
+  `;
 
-  }else{
+}else{
 
-    galleryGrid.innerHTML =
-      galleryPhotos
-        .map(
-          (photo,index) => `
+  galleryGrid.innerHTML =
+    galleryPhotos
+      .map(
+        (photo,index) => `
 
-            <div
-              class="gallery-item"
-              data-index="${index}"
-              onclick="openPhotoLightbox(${index})"
+          <div
+            class="gallery-item"
+            data-index="${index}"
+            onclick="openPhotoLightbox(${index})"
+          >
+
+            <img
+              src="${escapeHtml(
+                photo.file_path
+              )}"
+              alt="Wedding memory ${
+                index + 1
+              }"
+              loading="lazy"
+              draggable="false"
             >
 
-              <img
-                src="${escapeHtml(
-                  photo.file_path
-                )}"
-                alt="Wedding memory ${
-                  index + 1
-                }"
-                loading="lazy"
-                draggable="false"
-              >
+          </div>
 
-            </div>
+        `
+      )
+      .join("");
 
-          `
-        )
-        .join("");
+  // Force the grid to be wide enough to scroll
+  const totalWidth = galleryPhotos.length * (270 + 14) + 100;
+  galleryGrid.style.minWidth = Math.max(totalWidth, '100%') + 'px';
 
-  }
-
+}
 
   /* =================================================
      VIDEO GALLERY
@@ -4096,175 +4101,73 @@ lightbox.addEventListener(
    HORIZONTAL DRAG / SWIPE
 ===================================================== */
 
-function enableHorizontalDrag(
-  element
-){
+  function enableHorizontalDrag(element) {
+  if (!element) return;
 
-  if(!element){
+  let isDown = false;
+  let startX = 0;
+  let scrollLeft = 0;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchScroll = 0;
+  let isHorizontal = false;
 
-    return;
+  // Mouse events for desktop
+  element.addEventListener("mousedown", (e) => {
+    isDown = true;
+    element.classList.add("dragging");
+    startX = e.pageX - element.offsetLeft;
+    scrollLeft = element.scrollLeft;
+  });
 
+  element.addEventListener("mouseleave", () => {
+    isDown = false;
+    element.classList.remove("dragging");
+  });
+
+  element.addEventListener("mouseup", () => {
+    isDown = false;
+    element.classList.remove("dragging");
+  });
+
+  element.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - element.offsetLeft;
+    const walk = (x - startX) * 1.15;
+    element.scrollLeft = scrollLeft - walk;
+  });
+
+  // Touch events with smart scrolling
+  element.addEventListener("touchstart", (e) => {
+    if (e.touches.length !== 1) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchScroll = element.scrollLeft;
+    isHorizontal = false;
+  }, { passive: true });
+
+  element.addEventListener("touchmove", (e) => {
+    if (e.touches.length !== 1) return;
+
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const deltaX = currentX - touchStartX;
+    const deltaY = currentY - touchStartY;
+    
+    // Only start horizontal scrolling after enough movement
+    if (Math.abs(deltaX) > 10) {
+      isHorizontal = true;
+    }
+    
+    if (isHorizontal) {
+      e.preventDefault(); // Block vertical scroll only when horizontal
+      element.scrollLeft = touchScroll - deltaX;
+    }
+    // If not horizontal, allow normal vertical scrolling
+  }, { passive: false });
   }
 
-
-  let isDown =
-    false;
-
-  let startX =
-    0;
-
-  let scrollLeft =
-    0;
-
-
-  element.addEventListener(
-    "mousedown",
-    event => {
-
-      isDown =
-        true;
-
-      element.classList.add(
-        "dragging"
-      );
-
-      startX =
-        event.pageX -
-        element.offsetLeft;
-
-      scrollLeft =
-        element.scrollLeft;
-
-    }
-  );
-
-
-  element.addEventListener(
-    "mouseleave",
-    () => {
-
-      isDown =
-        false;
-
-      element.classList.remove(
-        "dragging"
-      );
-
-    }
-  );
-
-
-  element.addEventListener(
-    "mouseup",
-    () => {
-
-      isDown =
-        false;
-
-      element.classList.remove(
-        "dragging"
-      );
-
-    }
-  );
-
-
-  element.addEventListener(
-    "mousemove",
-    event => {
-
-      if(!isDown){
-
-        return;
-
-      }
-
-
-      event.preventDefault();
-
-
-      const x =
-        event.pageX -
-        element.offsetLeft;
-
-
-      const walk =
-        (x - startX) * 1.15;
-
-
-      element.scrollLeft =
-        scrollLeft - walk;
-
-    }
-  );
-
-
-  let touchX =
-    0;
-
-
-  let touchScroll =
-    0;
-
-
-  element.addEventListener(
-    "touchstart",
-    event => {
-
-      if(
-        event.touches.length !== 1
-      ){
-
-        return;
-
-      }
-
-
-      touchX =
-        event.touches[0].clientX;
-
-
-      touchScroll =
-        element.scrollLeft;
-
-    },
-    {
-      passive:true
-    }
-  );
-
-
-  element.addEventListener(
-    "touchmove",
-    event => {
-
-      if(
-        event.touches.length !== 1
-      ){
-
-        return;
-
-      }
-
-
-      const currentX =
-        event.touches[0].clientX;
-
-
-      const distance =
-        currentX - touchX;
-
-
-      element.scrollLeft =
-        touchScroll - distance;
-
-    },
-    {
-      passive:true
-    }
-  );
-
-}
 
 
 /* =====================================================
@@ -4308,39 +4211,43 @@ function escapeHtml(
    PHOTO ALBUM ARROW CONTROLS
 ===================================================== */
 
-const photoGallery =
-  document.getElementById("galleryGrid");
+const photoGallery = document.getElementById("galleryGrid");
+const photoPrev = document.getElementById("photoPrev");
+const photoNext = document.getElementById("photoNext");
 
-const photoPrev =
-  document.getElementById("photoPrev");
-
-const photoNext =
-  document.getElementById("photoNext");
-
-
-/* How far each click moves */
-const albumSlideAmount = 850;
-
-
-/* Slide photos LEFT */
-photoNext.addEventListener("click", () => {
-
+/* Slide the gallery */
+function slideGallery(direction) {
+  if (!photoGallery) return;
+  
+  // Get the visible width of the gallery container
+  const containerWidth = photoGallery.parentElement.clientWidth;
+  
+  // Scroll by 80% of the container width
+  const scrollAmount = containerWidth * 0.8;
+  
   photoGallery.scrollBy({
-    left: albumSlideAmount,
+    left: direction === 'next' ? scrollAmount : -scrollAmount,
     behavior: "smooth"
   });
+}
 
+photoNext.addEventListener("click", (e) => {
+  e.stopPropagation();
+  slideGallery('next');
 });
 
+photoPrev.addEventListener("click", (e) => {
+  e.stopPropagation();
+  slideGallery('prev');
+});
 
-/* Slide photos RIGHT */
-photoPrev.addEventListener("click", () => {
-
-  photoGallery.scrollBy({
-    left: -albumSlideAmount,
-    behavior: "smooth"
-  });
-
+// Also add keyboard support for arrow buttons
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight") {
+    slideGallery('next');
+  } else if (e.key === "ArrowLeft") {
+    slideGallery('prev');
+  }
 });
 
 /* =====================================================
