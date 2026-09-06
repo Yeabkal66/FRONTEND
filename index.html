@@ -2034,6 +2034,51 @@ footer{
 
 }
 
+.made-by {
+  margin-top: 30px;
+  padding-top: 20px;
+  text-align: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.made-by span {
+  opacity: 0.65;
+  margin-right: 5px;
+}
+
+.made-by strong {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  letter-spacing: 3px;
+  font-weight: 600;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 14px;
+}
+
+.social-icons a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 15px;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: translateY(-3px);
+  opacity: 0.65;
+}  
+
 
 /* =====================================================
    RESPONSIVE
@@ -2289,7 +2334,11 @@ footer{
 }
 
 </style>
-
+  
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
 </head>
 
 
@@ -3004,7 +3053,32 @@ footer{
   <div id="footerDate">
     The beginning of forever
   </div>
+<div class="made-by">
+  <span>Made by</span>
+  <strong>MY ALBUM</strong>
 
+  <div class="social-icons">
+
+    <a href="https://www.instagram.com/myalbum_et?stkn=MXNsbTc5ZDNwb2xicg=="
+       target="_blank"
+       aria-label="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="https://t.me/myalbum_et"
+       target="_blank"
+       aria-label="Telegram">
+      <i class="fab fa-telegram"></i>
+    </a>
+
+    <a href="https://www.tiktok.com/@myalbum_et?_r=1&_t=ZS-99VpI5KxEw6"
+       target="_blank"
+       aria-label="TikTok">
+      <i class="fab fa-tiktok"></i>
+    </a>
+
+  </div>
+</div>
 </footer>
 
 
